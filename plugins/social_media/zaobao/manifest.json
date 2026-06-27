@@ -26,6 +26,11 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/zaobao/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       },
@@ -42,6 +47,11 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/zaobao/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       },
@@ -58,6 +68,11 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/zaobao/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       }

@@ -7,7 +7,7 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
-	"github.com/orbit-tauri-tools/plugin-sdk"
+	sdk "github.com/orbit-tauri-tools/plugin-sdk"
 	"github.com/orbit-tauri-tools/plugin-sdk/host"
 )
 
@@ -32,11 +32,25 @@ var sectionLabelMap = map[string]string{
 }
 
 func (p *ZaobaoPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
-	section := req.Params["section"]
-	if section == "" {
-		section = "china"
+	switch {
+	case req.Route == "/zaobao/realtime/:section":
+		section := req.Params["section"]
+		if section == "" {
+			section = "china"
+		}
+		return fetchRealtimeList(section)
+	case req.Route == "/zaobao/detail/:id":
+		id := strings.TrimSpace(req.Params["id"])
+		if id == "" {
+			return nil, fmt.Errorf("missing id parameter")
+		}
+		return fetchDetail(id)
+	default:
+		return nil, fmt.Errorf("unknown route: %s", req.Route)
 	}
+}
 
+func fetchRealtimeList(section string) (*sdk.FeedResult, error) {
 	sectionPath, ok := sectionMap[section]
 	if !ok {
 		return nil, fmt.Errorf("unknown section: %s", section)
@@ -59,6 +73,20 @@ func (p *ZaobaoPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
 	}, nil
 }
 
+func fetchDetail(id string) (*sdk.FeedResult, error) {
+	articleURL := normalizeArticleURL(id)
+	item, err := fetchArticleDetails(articleURL)
+	if err != nil {
+		return nil, err
+	}
+
+	return &sdk.FeedResult{
+		Title:       item.Title,
+		Description: item.Summary,
+		Items:       []sdk.FeedItem{*item},
+	}, nil
+}
+
 func fetchRealtimeNews(sectionPath string) ([]sdk.FeedItem, error) {
 	url := baseURL + sectionPath
 
@@ -78,55 +106,42 @@ func fetchRealtimeNews(sectionPath string) ([]sdk.FeedItem, error) {
 		return nil, fmt.Errorf("parse list page: %w", err)
 	}
 
+	seen := make(map[string]struct{})
 	var items []sdk.FeedItem
-	var links []string
 
-	// Extract article links from list page
-	doc.Find(".card-listing .card .content-header a").Each(func(i int, s *goquery.Selection) {
-		href, ok := s.Attr("href")
-		if ok && href != "" {
-			links = append(links, href)
+	appendItem := func(title, href string) {
+		href = strings.TrimSpace(href)
+		title = strings.TrimSpace(title)
+		if href == "" || title == "" {
+			return
 		}
-	})
 
-	// Fallback for HK version
-	if len(links) == 0 {
-		doc.Find("[data-testid=\"article-list\"] article div div a.article-link").Each(func(i int, s *goquery.Selection) {
-			href, ok := s.Attr("href")
-			if ok && href != "" {
-				links = append(links, href)
-			}
+		articleURL := normalizeArticleURL(href)
+		if _, exists := seen[articleURL]; exists {
+			return
+		}
+		seen[articleURL] = struct{}{}
+
+		items = append(items, sdk.FeedItem{
+			ID:          articleURL,
+			Title:       title,
+			URL:         articleURL,
+			PublishedAt: publishedAtFromURL(articleURL),
 		})
 	}
 
-	// Fetch details for each article (limit to 10 to avoid timeout)
-	maxItems := 10
-	if len(links) > maxItems {
-		links = links[:maxItems]
-	}
+	doc.Find(".card-listing .card").Each(func(_ int, card *goquery.Selection) {
+		link := card.Find(".content-header a").First()
+		href, _ := link.Attr("href")
+		appendItem(link.Text(), href)
+	})
 
-	for _, link := range links {
-		if link == "" {
-			continue
-		}
-
-		// Normalize URL
-		if !strings.HasPrefix(link, "http") {
-			if !strings.HasPrefix(link, "/") {
-				link = "/" + link
-			}
-			link = baseURL + link
-		}
-
-		item, err := fetchArticleDetails(link)
-		if err != nil {
-			// Log error but continue processing other articles
-			fmt.Printf("Error fetching article %s: %v\n", link, err)
-			continue
-		}
-		if item != nil {
-			items = append(items, *item)
-		}
+	if len(items) == 0 {
+		doc.Find("[data-testid=\"article-list\"] article").Each(func(_ int, article *goquery.Selection) {
+			link := article.Find("a.article-link").First()
+			href, _ := link.Attr("href")
+			appendItem(link.Text(), href)
+		})
 	}
 
 	if len(items) == 0 {
@@ -134,6 +149,31 @@ func fetchRealtimeNews(sectionPath string) ([]sdk.FeedItem, error) {
 	}
 
 	return items, nil
+}
+
+func normalizeArticleURL(raw string) string {
+	raw = strings.TrimSpace(raw)
+	if raw == "" {
+		return raw
+	}
+	if strings.HasPrefix(raw, "http") {
+		return raw
+	}
+	if !strings.HasPrefix(raw, "/") {
+		raw = "/" + raw
+	}
+	return baseURL + raw
+}
+
+func publishedAtFromURL(articleURL string) string {
+	urlPart := strings.TrimPrefix(articleURL, baseURL)
+	datePattern := regexp.MustCompile(`(\d{8})`)
+	if matches := datePattern.FindStringSubmatch(urlPart); len(matches) > 1 {
+		if t, err := time.Parse("20060102", matches[1]); err == nil {
+			return t.Format(time.RFC3339)
+		}
+	}
+	return time.Now().Format(time.RFC3339)
 }
 
 func fetchArticleDetails(articleURL string) (*sdk.FeedItem, error) {
@@ -173,7 +213,7 @@ func fetchArticleDetails(articleURL string) (*sdk.FeedItem, error) {
 	if pubDateStr == "" {
 		pubDateStr = doc.Find("meta[property=\"og:publish_time\"]").AttrOr("content", "")
 	}
-	
+
 	var publishedAt string
 	if pubDateStr != "" {
 		// Try parsing different formats
@@ -184,7 +224,7 @@ func fetchArticleDetails(articleURL string) (*sdk.FeedItem, error) {
 			"2006-01-02 15:04:05",
 			"20060102",
 		}
-		
+
 		for _, format := range formats {
 			if t, err := time.Parse(format, pubDateStr); err == nil {
 				publishedAt = t.Format(time.RFC3339)
@@ -192,23 +232,10 @@ func fetchArticleDetails(articleURL string) (*sdk.FeedItem, error) {
 			}
 		}
 	}
-	
+
 	// Fallback: try extracting date from URL (e.g., story20260608-9172851 or 20260609)
 	if publishedAt == "" {
-		urlPart := strings.TrimPrefix(articleURL, baseURL)
-		// Look for YYYYMMDD pattern in URL (e.g., story20260608- or /20260609)
-		datePattern := regexp.MustCompile(`(\d{8})`)
-		if matches := datePattern.FindStringSubmatch(urlPart); len(matches) > 1 {
-			dateStr := matches[1]
-			if t, err := time.Parse("20060102", dateStr); err == nil {
-				publishedAt = t.Format(time.RFC3339)
-			}
-		}
-	}
-	
-	// If still empty, use current time
-	if publishedAt == "" {
-		publishedAt = time.Now().Format(time.RFC3339)
+		publishedAt = publishedAtFromURL(articleURL)
 	}
 
 	// Extract cover image
