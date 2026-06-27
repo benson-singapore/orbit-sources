@@ -1,0 +1,80 @@
+{
+  "id": "zaobao",
+  "name": "联合早报",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "china",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "china",
+        "label": "中国",
+        "route": "/zaobao/realtime/:section",
+        "params": {
+          "section": "china"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "singapore",
+        "label": "新加坡",
+        "route": "/zaobao/realtime/:section",
+        "params": {
+          "section": "singapore"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "world",
+        "label": "国际",
+        "route": "/zaobao/realtime/:section",
+        "params": {
+          "section": "world"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "新加坡联合早报即时热门新闻",
+    "icon": "text",
+    "color": "bg-red-500",
+    "logoText": "早",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": true
+  }
+}

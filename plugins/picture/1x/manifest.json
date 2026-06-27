@@ -1,0 +1,607 @@
+{
+  "id": "1x",
+  "name": "1x.com",
+  "version": "1.0.0",
+  "mediaType": "image",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "latest-awarded",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "latest-awarded",
+        "label": "最新获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "latest/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "popular-awarded",
+        "label": "热门获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "popular/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "abstract-awarded",
+        "label": "抽象摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "abstract/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "action-awarded",
+        "label": "动作摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "action/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "animals-awarded",
+        "label": "动物摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "animals/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "architecture-awarded",
+        "label": "建筑摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "architecture/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "conceptual-awarded",
+        "label": "概念摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "conceptual/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "creative-edit-awarded",
+        "label": "创意编辑获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "creative-edit/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "documentary-awarded",
+        "label": "纪录摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "documentary/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "everyday-awarded",
+        "label": "日常摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "everyday/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "fine-art-nude-awarded",
+        "label": "艺术人体获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "fine-art-nude/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "humour-awarded",
+        "label": "幽默摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "humour/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "landscape-awarded",
+        "label": "风景摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "landscape/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "macro-awarded",
+        "label": "微距摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "macro/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "mood-awarded",
+        "label": "情绪摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "mood/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "night-awarded",
+        "label": "夜景摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "night/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "performance-awarded",
+        "label": "表演摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "performance/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "portrait-awarded",
+        "label": "人像摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "portrait/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "still-life-awarded",
+        "label": "静物摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "still-life/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "street-awarded",
+        "label": "街拍摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "street/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "underwater-awarded",
+        "label": "水下摄影获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "underwater/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "wildlife-awarded",
+        "label": "野生动物获奖",
+        "route": "/1x/:category",
+        "params": {
+          "category": "wildlife/awarded",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      },
+      {
+        "id": "magazine-latest",
+        "label": "杂志最新",
+        "route": "/1x/magazine/:category",
+        "params": {
+          "category": "latest",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "在追求完美的过程中，浏览 20 万+ 来自世界各地专业摄影师的精选照片。",
+    "icon": "image",
+    "color": "bg-gray-900",
+    "logoText": "1x",
+    "marketCategory": "photo",
+    "categoryTag": "PHOTO",
+    "official": false
+  }
+}

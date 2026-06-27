@@ -1,0 +1,113 @@
+{
+  "id": "yansg",
+  "name": "新加坡眼",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "singapore",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "singapore",
+        "label": "新加坡",
+        "route": "/yansg/list",
+        "params": {
+          "category": "sgnews",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/yansg/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "china",
+        "label": "中国",
+        "route": "/yansg/list",
+        "params": {
+          "category": "chinanews",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/yansg/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "southeast-asia",
+        "label": "东南亚",
+        "route": "/yansg/list",
+        "params": {
+          "category": "southeastasianews",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/yansg/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "新加坡眼即时新闻，覆盖新加坡、中国与东南亚资讯",
+    "icon": "text",
+    "color": "bg-red-600",
+    "logoText": "眼",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": true
+  }
+}

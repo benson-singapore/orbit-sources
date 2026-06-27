@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orbit.dev/schemas/playback.schema.json",
+  "title": "Orbit Playback",
+  "description": "Consumption history and resume-progress for video, audio, article (novel), and manga plugins.",
+  "$defs": {
+    "playbackMode": {
+      "enum": ["video", "audio", "article", "manga"],
+      "description": "Progress semantics. Omit to default from manifest mediaType: video→video, audio→audio, article→article, manga→manga"
+    },
+    "playbackConfig": {
+      "type": "object",
+      "description": "Plugin-level consumption policy under config.playback",
+      "properties": {
+        "history": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to record consumption history (parent work + last chapter/episode)"
+        },
+        "progress": {
+          "type": "boolean",
+          "default": false,
+          "description": "Whether to record resume position within a chapter/episode (semantics depend on mode)"
+        },
+        "mode": {
+          "$ref": "#/$defs/playbackMode",
+          "description": "Progress field semantics; defaults from mediaType when omitted"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 200,
+          "description": "Max history entries retained per plugin; oldest pruned when exceeded"
+        },
+        "managedBy": {
+          "enum": ["runtime", "plugin"],
+          "default": "runtime",
+          "description": "runtime: client persists on reader/player events; plugin: WASM handles playback_* actions"
+        }
+      },
+      "additionalProperties": false
+    },
+    "playbackFeature": {
+      "type": "object",
+      "description": "Optional per-channel override; omitted fields inherit config.playback",
+      "properties": {
+        "history": {
+          "type": "boolean",
+          "description": "Override config.playback.history for this channel"
+        },
+        "progress": {
+          "type": "boolean",
+          "description": "Override config.playback.progress for this channel"
+        },
+        "mode": {
+          "$ref": "#/$defs/playbackMode",
+          "description": "Override config.playback.mode for this channel"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Override config.playback.limit for this channel"
+        }
+      },
+      "additionalProperties": false
+    },
+    "progressTime": {
+      "type": "object",
+      "description": "video / audio: resume by playback time (seconds)",
+      "properties": {
+        "position": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Current position in seconds"
+        },
+        "duration": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Total duration in seconds when known"
+        }
+      },
+      "additionalProperties": false
+    },
+    "progressArticle": {
+      "type": "object",
+      "description": "article / novel: resume by character offset in chapter text",
+      "properties": {
+        "offset": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "0-based character index in chapter plain text"
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total characters in chapter when known"
+        },
+        "anchor": {
+          "type": "string",
+          "description": "Optional paragraph id or DOM fragment for rich-text resume"
+        }
+      },
+      "additionalProperties": false
+    },
+    "progressManga": {
+      "type": "object",
+      "description": "manga: resume by image/page index within a chapter",
+      "properties": {
+        "page": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "1-based image index in chapter (第几张图)"
+        },
+        "totalPages": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Total images in chapter when known"
+        }
+      },
+      "additionalProperties": false
+    },
+    "playbackRecord": {
+      "type": "object",
+      "required": ["parentId", "updatedAt"],
+      "properties": {
+        "parentId": {
+          "type": "string",
+          "description": "Feed item id (work / series / album)"
+        },
+        "chapterId": {
+          "type": "string",
+          "description": "Chapter / episode / 话 id for serial content"
+        },
+        "channelId": {
+          "type": "string",
+          "description": "List channel where consumption started"
+        },
+        "parentTitle": { "type": "string" },
+        "chapterTitle": { "type": "string" },
+        "cover": { "type": "string" },
+        "mode": {
+          "$ref": "#/$defs/playbackMode",
+          "description": "Progress semantics for this record; should match config.playback.mode"
+        },
+        "progress": {
+          "description": "Mode-specific resume payload; shape depends on mode",
+          "oneOf": [
+            { "$ref": "#/$defs/progressTime" },
+            { "$ref": "#/$defs/progressArticle" },
+            { "$ref": "#/$defs/progressManga" }
+          ]
+        },
+        "position": {
+          "type": "number",
+          "minimum": 0,
+          "deprecated": true,
+          "description": "Deprecated shorthand for progress.position when mode is video or audio"
+        },
+        "duration": {
+          "type": "number",
+          "minimum": 0,
+          "deprecated": true,
+          "description": "Deprecated shorthand for progress.duration when mode is video or audio"
+        },
+        "updatedAt": {
+          "type": "integer",
+          "description": "Unix timestamp of last consumption"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,622 @@
+{
+  "id": "pixabay",
+  "name": "Pixabay",
+  "version": "1.0.0",
+  "mediaType": "image",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "photo-nature",
+    "executionMode": "wasm",
+    "variables": {
+      "apiKey": {
+        "label": "Pixabay API Key",
+        "description": "在 https://pixabay.com/api/docs/ 登录后获取，免费账户每分钟最多 100 次请求",
+        "required": true,
+        "secret": true
+      },
+      "lang": {
+        "label": "搜索语言",
+        "description": "API lang 参数，如 zh、en、ja、ko",
+        "required": false,
+        "secret": false,
+        "default": "zh"
+      },
+      "safesearch": {
+        "label": "安全搜索",
+        "description": "仅返回适合全年龄的内容，true 或 false",
+        "required": false,
+        "secret": false,
+        "default": "true"
+      }
+    },
+    "channels": [
+      {
+        "id": "editors-choice-photo",
+        "label": "编辑精选 · 照片",
+        "route": "/pixabay/images",
+        "params": {
+          "image_type": "photo",
+          "editors_choice": "true",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "latest-photo",
+        "label": "最新照片",
+        "route": "/pixabay/images",
+        "params": {
+          "image_type": "photo",
+          "order": "latest",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "popular-photo",
+        "label": "热门照片",
+        "route": "/pixabay/images",
+        "params": {
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "illustration",
+        "label": "插画",
+        "route": "/pixabay/images",
+        "params": {
+          "image_type": "illustration",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "vector",
+        "label": "矢量图",
+        "route": "/pixabay/images",
+        "params": {
+          "image_type": "vector",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-nature",
+        "label": "自然",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "nature",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-animals",
+        "label": "动物",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "animals",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-travel",
+        "label": "旅行",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "travel",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-buildings",
+        "label": "建筑",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "buildings",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-places",
+        "label": "地点",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "places",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-food",
+        "label": "美食",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "food",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-sports",
+        "label": "运动",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "sports",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-people",
+        "label": "人物",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "people",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-backgrounds",
+        "label": "背景",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "backgrounds",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-fashion",
+        "label": "时尚",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "fashion",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-science",
+        "label": "科学",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "science",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-computer",
+        "label": "科技",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "computer",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-business",
+        "label": "商业",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "business",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-music",
+        "label": "音乐",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "music",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-transportation",
+        "label": "交通",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "transportation",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-health",
+        "label": "健康",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "health",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-education",
+        "label": "教育",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "education",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-feelings",
+        "label": "情感",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "feelings",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-religion",
+        "label": "宗教",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "religion",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-industry",
+        "label": "工业",
+        "route": "/pixabay/images",
+        "params": {
+          "category": "industry",
+          "image_type": "photo",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-horizontal",
+        "label": "横向照片",
+        "route": "/pixabay/images",
+        "params": {
+          "image_type": "photo",
+          "orientation": "horizontal",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "photo-vertical",
+        "label": "纵向照片",
+        "route": "/pixabay/images",
+        "params": {
+          "image_type": "photo",
+          "orientation": "vertical",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "editors-choice-video",
+        "label": "编辑精选 · 视频",
+        "route": "/pixabay/videos",
+        "params": {
+          "editors_choice": "true",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "latest-video",
+        "label": "最新视频",
+        "route": "/pixabay/videos",
+        "params": {
+          "order": "latest",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "popular-video",
+        "label": "热门视频",
+        "route": "/pixabay/videos",
+        "params": {
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "video-nature",
+        "label": "自然视频",
+        "route": "/pixabay/videos",
+        "params": {
+          "category": "nature",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "video-travel",
+        "label": "旅行视频",
+        "route": "/pixabay/videos",
+        "params": {
+          "category": "travel",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "video-animals",
+        "label": "动物视频",
+        "route": "/pixabay/videos",
+        "params": {
+          "category": "animals",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 },
+          "feed": { "persist": true, "refresh": true, "limit": 50 }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/pixabay/search/:query",
+        "params": {
+          "query": "",
+          "media": "image",
+          "image_type": "all",
+          "order": "popular",
+          "page": "1",
+          "size": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": false, "refresh": false, "limit": 50 },
+          "search": { "param": "query", "required": true },
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 50 }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "Pixabay 免版权图片与视频，支持分类浏览、编辑精选与关键词搜索。",
+    "icon": "image",
+    "color": "bg-green-600",
+    "logoText": "Pixabay",
+    "marketCategory": "photo",
+    "categoryTag": "PHOTO",
+    "official": false
+  }
+}

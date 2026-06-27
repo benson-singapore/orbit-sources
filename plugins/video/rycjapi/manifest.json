@@ -1,0 +1,1319 @@
+{
+  "id": "rycjapi",
+  "name": "TV-如意资源",
+  "version": "1.0.0",
+  "mediaType": "video",
+  "source": "wasm",
+  "capabilities": [
+    "feed",
+    "playback"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "latest",
+    "executionMode": "wasm",
+    "playback": {
+      "history": true,
+      "progress": true,
+      "mode": "video",
+      "limit": 200,
+      "managedBy": "runtime"
+    },
+    "variables": {
+      "apiURL": {
+        "label": "资源站 API URL",
+        "description": "苹果 CMS / 资源站开放接口地址，默认使用 TV-如意资源",
+        "required": false,
+        "secret": false,
+        "default": "https://cj.rycjapi.com/api.php/provide/vod"
+      },
+      "siteName": {
+        "label": "站点名称",
+        "description": "用于显示标题，默认 TV-如意资源",
+        "required": false,
+        "secret": false,
+        "default": "TV-如意资源"
+      }
+    },
+    "channels": [
+      {
+        "id": "latest",
+        "label": "最新更新",
+        "route": "/rycjapi/list",
+        "params": {
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-action",
+        "label": "电影 · 动作片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "6",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-comedy",
+        "label": "电影 · 喜剧片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "7",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-romance",
+        "label": "电影 · 爱情片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "8",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-scifi",
+        "label": "电影 · 科幻片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "9",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-horror",
+        "label": "电影 · 恐怖片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "10",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-drama",
+        "label": "电影 · 剧情片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "11",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-war",
+        "label": "电影 · 战争片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "12",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-documentary",
+        "label": "电影 · 记录片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "20",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-ethics",
+        "label": "电影 · 伦理片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "34",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-trailer",
+        "label": "电影 · 预告片",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "45",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-animation",
+        "label": "电影 · 动画电影",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "47",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-cn",
+        "label": "剧集 · 国产剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "13",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-hk",
+        "label": "剧集 · 香港剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "14",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-kr",
+        "label": "剧集 · 韩国剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "15",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-west",
+        "label": "剧集 · 欧美剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "16",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-tw",
+        "label": "剧集 · 台湾剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "21",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-jp",
+        "label": "剧集 · 日本剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "22",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-overseas",
+        "label": "剧集 · 海外剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "23",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-th",
+        "label": "剧集 · 泰国剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "24",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-short",
+        "label": "剧集 · 短剧",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "46",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "variety-cn",
+        "label": "综艺 · 大陆综艺",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "25",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "variety-hktw",
+        "label": "综艺 · 港台综艺",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "26",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "variety-jpkr",
+        "label": "综艺 · 日韩综艺",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "27",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "variety-west",
+        "label": "综艺 · 欧美综艺",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "28",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "anime-cn",
+        "label": "动漫 · 国产动漫",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "29",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "anime-jpkr",
+        "label": "动漫 · 日韩动漫",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "30",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "anime-west",
+        "label": "动漫 · 欧美动漫",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "31",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "anime-hktw",
+        "label": "动漫 · 港台动漫",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "32",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "anime-overseas",
+        "label": "动漫 · 海外动漫",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "33",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "sport-football",
+        "label": "体育 · 足球",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "37",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "sport-basketball",
+        "label": "体育 · 篮球",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "38",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "sport-tennis",
+        "label": "体育 · 网球",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "39",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "sport-snooker",
+        "label": "体育 · 斯诺克",
+        "route": "/rycjapi/list",
+        "params": {
+          "t": "40",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/rycjapi/search/:query",
+        "params": {
+          "query": "",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 20
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/rycjapi/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/rycjapi/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "TV-如意资源视频源，支持二级分类浏览、选集播放与多线路切换。",
+    "icon": "video",
+    "color": "bg-rose-600",
+    "logoText": "如意",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": false
+  }
+}

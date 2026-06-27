@@ -1,0 +1,330 @@
+{
+  "id": "voronoi",
+  "name": "Voronoi",
+  "version": "1.0.1",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "latest",
+    "executionMode": "wasm",
+    "variables": {
+      "creator": {
+        "label": "关注创作者",
+        "description": "默认关注的 Voronoi 创作者用户名（与 voronoiapp.com/creator/{username} 一致）。配置后「我的关注」频道生效；也可在频道 params 里单独指定 creator 或 uid。",
+        "required": false,
+        "secret": false
+      }
+    },
+    "channels": [
+      {
+        "id": "latest",
+        "label": "最新",
+        "route": "/voronoi/list",
+        "params": {
+          "feed": "latest",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "popular",
+        "label": "热门",
+        "route": "/voronoi/list",
+        "params": {
+          "feed": "popular",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "curated",
+        "label": "编辑精选",
+        "route": "/voronoi/list",
+        "params": {
+          "feed": "curated",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "home",
+        "label": "首页推荐",
+        "route": "/voronoi/list",
+        "params": {
+          "feed": "home",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "technology",
+        "label": "科技",
+        "route": "/voronoi/list",
+        "params": {
+          "feed": "19",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "economy",
+        "label": "经济",
+        "route": "/voronoi/list",
+        "params": {
+          "feed": "5",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "business",
+        "label": "商业",
+        "route": "/voronoi/list",
+        "params": {
+          "feed": "2",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "creator-follow",
+        "label": "我的关注",
+        "route": "/voronoi/creator",
+        "params": {
+          "creator": "",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "creator-visualcapitalist",
+        "label": "Visual Capitalist",
+        "route": "/voronoi/creator",
+        "params": {
+          "creator": "visualcapitalist",
+          "offset": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "creator-statista",
+        "label": "Statista",
+        "route": "/voronoi/creator",
+        "params": {
+          "creator": "Statista",
+          "offset": "0"
+        },
+        "status": "disabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "offset",
+            "default": "0",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/voronoi/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "Visual Capitalist 数据可视化资讯平台 Voronoi",
+    "icon": "text",
+    "color": "bg-indigo-600",
+    "logoText": "V",
+    "marketCategory": "news",
+    "categoryTag": "DATA",
+    "official": true
+  }
+}

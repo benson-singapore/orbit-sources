@@ -1,0 +1,1412 @@
+{
+  "id": "gman",
+  "name": "G社漫画",
+  "version": "1.0.0",
+  "mediaType": "manga",
+  "source": "wasm",
+  "capabilities": [
+    "feed",
+    "playback"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "gman_hots",
+    "executionMode": "wasm",
+    "playback": {
+      "history": true,
+      "progress": true,
+      "mode": "manga",
+      "limit": 200,
+      "managedBy": "runtime"
+    },
+    "channels": [
+      {
+        "id": "gman_hots",
+        "label": "热门漫画",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "hots"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_all",
+        "label": "全部",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "all"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_cn",
+        "label": "国漫",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "cn"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_kr",
+        "label": "韩漫",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "kr"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_jp",
+        "label": "日漫",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "jp"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_oumei",
+        "label": "欧美",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "ou-mei"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_qita",
+        "label": "其他",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "qita"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_fuchou",
+        "label": "复仇",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "fuchou"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_gufeng",
+        "label": "古风",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "gufeng"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_qihuan",
+        "label": "奇幻",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "qihuan"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_nixi",
+        "label": "逆袭",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "nixi"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_yineng",
+        "label": "异能",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "yineng"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_zhaixiang",
+        "label": "宅向",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "zhaixiang"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_chuanyue",
+        "label": "穿越",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "chuanyue"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_rexue",
+        "label": "热血",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "rexue"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_chunai",
+        "label": "纯爱",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "chunai"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_xitong",
+        "label": "系统",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "xitong"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_zhongsheng",
+        "label": "重生",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "zhongsheng"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_maoxian",
+        "label": "冒险",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "maoxian"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_lingyi",
+        "label": "灵异",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "lingyi"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_danvzhu",
+        "label": "大女主",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "danvzhu"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_juqing",
+        "label": "剧情",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "juqing"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_lianai",
+        "label": "恋爱",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "lianai"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_xuanhuan",
+        "label": "玄幻",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "xuanhuan"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_nvshen",
+        "label": "女神",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "nvshen"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_kehuan",
+        "label": "科幻",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "kehuan"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_mohuan",
+        "label": "魔幻",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "mohuan"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_tuili",
+        "label": "推理",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "tuili"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_lieqi",
+        "label": "猎奇",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "lieqi"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_zhiyu",
+        "label": "治愈",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "zhiyu"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_doushi",
+        "label": "都市",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "doushi"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_yixing",
+        "label": "异形",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "yixing"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_qingchun",
+        "label": "青春",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "qingchun"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_mori",
+        "label": "末日",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "mori"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_xuanyi",
+        "label": "悬疑",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "xuanyi"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_xiuxian",
+        "label": "修仙",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "xiuxian"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_zhandou",
+        "label": "战斗",
+        "route": "/gman/list",
+        "params": {
+          "page": "1",
+          "slug": "zhandou"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "gman_search",
+        "label": "搜索",
+        "route": "/gman/search/:query",
+        "params": {
+          "query": "",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 50
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/gman/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/gman/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "G社漫画（m.g-mh.org）分类浏览、搜索与章节阅读。",
+    "icon": "book-open",
+    "color": "bg-emerald-500",
+    "logoText": "G社",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": false
+  }
+}

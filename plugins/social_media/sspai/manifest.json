@@ -1,0 +1,119 @@
+{
+  "id": "sspai",
+  "name": "少数派",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "recommended",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "recommended",
+        "label": "推荐",
+        "route": "/sspai/list",
+        "params": {
+          "type": "index",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 10
+          },
+          "detail": {
+            "route": "/sspai/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "matrix",
+        "label": "矩阵",
+        "route": "/sspai/list",
+        "params": {
+          "type": "matrix",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 10
+          },
+          "detail": {
+            "route": "/sspai/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "hot",
+        "label": "热门",
+        "route": "/sspai/list",
+        "params": {
+          "type": "hot",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 10
+          },
+          "detail": {
+            "route": "/sspai/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "少数派高质量科技生活内容",
+    "icon": "text",
+    "color": "bg-red-500",
+    "logoText": "派",
+    "marketCategory": "reading",
+    "categoryTag": "TECH",
+    "official": true
+  }
+}

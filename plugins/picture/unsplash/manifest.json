@@ -1,0 +1,326 @@
+{
+  "id": "unsplash",
+  "name": "Unsplash",
+  "version": "1.0.0",
+  "mediaType": "image",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "nature",
+    "executionMode": "wasm",
+    "variables": {
+      "cookie": {
+        "label": "Unsplash Cookie",
+        "description": "浏览器登录 unsplash.com 后，从开发者工具 Network 复制请求 Cookie（含 un_sesh、uuid 等，会过期需定期更新）",
+        "required": true,
+        "secret": true
+      }
+    },
+    "channels": [
+      {
+        "id": "nature",
+        "label": "自然",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "nature",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "animals",
+        "label": "动物",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "animals",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "travel",
+        "label": "旅行",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "travel",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "wallpapers",
+        "label": "壁纸",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "wallpapers",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "architecture-interior",
+        "label": "建筑与室内",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "architecture-interior",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "people",
+        "label": "人物",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "people",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "food-drink",
+        "label": "美食",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "food-drink",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "film",
+        "label": "胶片",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "film",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "textures-patterns",
+        "label": "纹理与图案",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "textures-patterns",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "street-photography",
+        "label": "街拍",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "street-photography",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "business-work",
+        "label": "商业与工作",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "business-work",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "fashion-beauty",
+        "label": "时尚与美妆",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "fashion-beauty",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "3d-renders",
+        "label": "3D 渲染",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "3d-renders",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "experimental",
+        "label": "实验摄影",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "experimental",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "arts-culture",
+        "label": "艺术与文化",
+        "route": "/unsplash/search",
+        "params": {
+          "query": "arts culture",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "current-events",
+        "label": "时事",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "current-events",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "disabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "spring",
+        "label": "春天",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "spring",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "optimism",
+        "label": "乐观",
+        "route": "/unsplash/topics",
+        "params": {
+          "topic": "optimism",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 },
+          "feed": { "persist": true, "refresh": true, "limit": 20 }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/unsplash/search/:query",
+        "params": {
+          "query": "",
+          "page": "1",
+          "size": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": false, "refresh": false, "limit": 20 },
+          "search": { "param": "query", "required": true },
+          "pagination": { "style": "offset", "param": "page", "default": "1", "sizeParam": "size", "defaultSize": 20 }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "Unsplash 高质量免版权摄影，支持主题分类浏览与关键词搜索。",
+    "icon": "image",
+    "color": "bg-gray-800",
+    "logoText": "Unsplash",
+    "marketCategory": "photo",
+    "categoryTag": "PHOTO",
+    "official": false
+  }
+}

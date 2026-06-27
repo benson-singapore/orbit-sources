@@ -1,0 +1,84 @@
+{
+  "id": "substack",
+  "name": "Substack Notes",
+  "version": "1.0.0",
+  "mediaType": "social",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 300,
+    "userAgent": "",
+    "defaultChannel": "for-you",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "for-you",
+        "label": "For You",
+        "route": "/substack/feed",
+        "params": {
+          "cursor": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "cursor",
+            "default": ""
+          },
+          "detail": {
+            "route": "/substack/note/:id",
+            "idParam": "id",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "profile-example",
+        "label": "Annie Macmanus",
+        "route": "/substack/profile",
+        "params": {
+          "userId": "22371085",
+          "handle": "anniemacmanus",
+          "cursor": ""
+        },
+        "status": "disabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "cursor",
+            "default": ""
+          },
+          "detail": {
+            "route": "/substack/note/:id",
+            "idParam": "id",
+            "persist": false
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "Substack Notes 推文流（实时拉取，不落库）",
+    "icon": "text",
+    "color": "bg-orange-500",
+    "logoText": "S",
+    "marketCategory": "social_media",
+    "categoryTag": "SOCIAL",
+    "official": true
+  }
+}

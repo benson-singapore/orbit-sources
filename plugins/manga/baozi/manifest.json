@@ -1,0 +1,722 @@
+{
+  "id": "baozi",
+  "name": "包子漫画",
+  "version": "1.0.0",
+  "mediaType": "manga",
+  "source": "wasm",
+  "capabilities": [
+    "feed",
+    "playback"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "baozi_hot",
+    "executionMode": "wasm",
+    "playback": {
+      "history": true,
+      "progress": true,
+      "mode": "manga",
+      "limit": 200,
+      "managedBy": "runtime"
+    },
+    "channels": [
+      {
+        "id": "baozi_hot",
+        "label": "热门漫画",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "hots"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_cn",
+        "label": "国漫",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "cn"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_jp",
+        "label": "日漫",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "jp"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_kr",
+        "label": "韩漫",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "kr"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_en",
+        "label": "欧美",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "ou-mei"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_lianai",
+        "label": "恋爱",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "lianai"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_gufeng",
+        "label": "古风",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "gufeng"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_xuanhuan",
+        "label": "玄幻",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "xuanhuan"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_yineng",
+        "label": "异能",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "yineng"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_xuanyi",
+        "label": "悬疑",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "xuanyi"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_kehuan",
+        "label": "科幻",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "kehuan"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_chuanyue",
+        "label": "穿越",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "chuanyue"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_mouxian",
+        "label": "冒险",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "mouxian"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_rexie",
+        "label": "热血",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "rexie"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_gaoxiao",
+        "label": "搞笑",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "gaoxiao"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_dushi",
+        "label": "都市",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "dushi"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_hougong",
+        "label": "后宫",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "hougong"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_qita",
+        "label": "其他",
+        "route": "/baozi/list",
+        "params": {
+          "page": "1",
+          "slug": "qita"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "baozi_search",
+        "label": "搜索",
+        "route": "/baozi/search/:query",
+        "params": {
+          "query": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 50
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "chapters": {
+            "route": "/baozi/chapters/:id",
+            "idParam": "id",
+            "label": "话数",
+            "itemLabel": "话",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/baozi/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "包子漫画（baozimh.org）国漫、日漫、韩漫分类浏览与阅读。",
+    "icon": "book-open",
+    "color": "bg-amber-500",
+    "logoText": "包子",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": false
+  }
+}

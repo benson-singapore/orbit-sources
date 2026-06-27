@@ -1,0 +1,129 @@
+{
+  "id": "youtube",
+  "name": "YouTube",
+  "version": "1.0.0",
+  "mediaType": "video",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "",
+    "executionMode": "wasm",
+    "variables": {
+      "apiKey": {
+        "label": "YouTube API Key",
+        "description": "Google Cloud API Key，需启用 YouTube Data API v3",
+        "required": true,
+        "secret": true
+      }
+    },
+    "channels": [
+       {
+         "id": "channel-laogao",
+         "label": "laogao频道",
+         "params": {
+           "channelId": "UCDwDMPOZfxVV0x_dz0eQ8KQ"
+         },
+         "route": "/youtube/channel/:channelId",
+         "status": "disabled",
+         "features": {
+           "feed": {
+             "persist": true,
+             "refresh": true,
+             "limit": 100
+           },
+           "pagination": {
+             "style": "cursor",
+             "param": "page",
+             "default": "1"
+           }
+         }
+       },
+       {
+         "id": "music-4ktq",
+         "label": "4kTQ music",
+         "params": {
+           "username": "4kTQ-music"
+         },
+         "route": "/youtube/user/:username",
+         "status": "enabled",
+         "features": {
+           "feed": {
+             "persist": true,
+             "refresh": true,
+             "limit": 100
+           },
+           "pagination": {
+             "style": "cursor",
+             "param": "page",
+             "default": "1"
+           }
+         }
+       },
+       {
+         "id": "playlist-football",
+         "label": "足球列表",
+         "params": {
+           "playlistId": "PLqQ1RwlxOgeLTJ1f3fNMSwhjVgaWKo_9Z"
+         },
+         "route": "/youtube/playlist/:playlistId",
+         "status": "disabled",
+         "features": {
+           "feed": {
+             "persist": true,
+             "refresh": true,
+             "limit": 100
+           },
+           "pagination": {
+             "style": "cursor",
+             "param": "page",
+             "default": "1"
+           }
+         }
+       },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/youtube/search/:query",
+        "params": {
+          "query": "",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 100
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "YouTube channel and playlist video feeds with full details",
+    "icon": "text",
+    "color": "bg-red-500",
+    "logoText": "YT",
+    "marketCategory": "video",
+    "categoryTag": "MEDIA",
+    "official": true
+  }
+}

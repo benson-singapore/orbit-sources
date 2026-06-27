@@ -1,0 +1,243 @@
+{
+  "id": "hellogithub",
+  "name": "HelloGitHub",
+  "version": "2.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "tags",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "tags",
+        "label": "分类列表",
+        "route": "/hellogithub/tags",
+        "status": "disabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "python-featured",
+        "label": "Python",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "Z8PipJsHCX",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "java-featured",
+        "label": "Java",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "YgDkvUzLAC",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "cpp-featured",
+        "label": "C++",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "yrZkGsUC9M",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "javascript-featured",
+        "label": "JavaScript",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "x3YH09wlKN",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tutorial-featured",
+        "label": "教程",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "0LByh3tjUO",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "ai-featured",
+        "label": "AI",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "juBLV86qa5",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "algo-featured",
+        "label": "算法",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "op63PzUDMg",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "rust-featured",
+        "label": "Rust",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "D4JBAUo967",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "game-featured",
+        "label": "游戏",
+        "route": "/hellogithub/category/:tid",
+        "params": {
+          "tid": "WxuLqCrUNF",
+          "sort": "featured"
+        },
+        "status": "enabled",
+        "features": {
+          "detail": {
+            "route": "/hellogithub/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "HelloGitHub 开源项目推荐 - 支持多分类和详情查询",
+    "icon": "text",
+    "color": "bg-blue-500",
+    "logoText": "GH",
+    "marketCategory": "blog",
+    "categoryTag": "DEV",
+    "official": true
+  }
+}

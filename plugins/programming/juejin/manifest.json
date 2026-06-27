@@ -1,0 +1,125 @@
+{
+  "id": "juejin",
+  "name": "掘金",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "trending",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "trending",
+        "label": "热榜",
+        "route": "/juejin/trending",
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "category-frontend",
+        "label": "前端",
+        "route": "/juejin/category/:category",
+        "params": {
+          "category": "frontend"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "category-backend",
+        "label": "后端",
+        "route": "/juejin/category/:category",
+        "params": {
+          "category": "backend"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "category-ai",
+        "label": "人工智能",
+        "route": "/juejin/category/:category",
+        "params": {
+          "category": "ai"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "category-freebie",
+        "label": "开发工具",
+        "route": "/juejin/category/:category",
+        "params": {
+          "category": "freebie"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "category-general",
+        "label": "综合",
+        "route": "/juejin/category/:category",
+        "params": {
+          "category": "general"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "掘金开发者社区热榜与分类推荐",
+    "icon": "text",
+    "color": "bg-blue-500",
+    "logoText": "掘",
+    "marketCategory": "blog",
+    "categoryTag": "DEV",
+    "official": true
+  }
+}

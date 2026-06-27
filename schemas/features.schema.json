@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://orbit.dev/schemas/features.schema.json",
+  "title": "Orbit Channel Features",
+  "description": "Channel capability declarations. Omit features or use {} for standard subscription (persist + refresh + limit 100).",
+  "type": "object",
+  "properties": {
+    "feed": { "$ref": "#/$defs/feedFeature" },
+    "pagination": { "$ref": "#/$defs/paginationFeature" },
+    "search": { "$ref": "#/$defs/searchFeature" },
+    "detail": { "$ref": "#/$defs/detailFeature" },
+    "chapters": { "$ref": "#/$defs/chaptersFeature" },
+    "playback": { "$ref": "playback.schema.json#/$defs/playbackFeature" }
+  },
+  "additionalProperties": false,
+  "not": {
+    "properties": {
+      "detail": {},
+      "chapters": {}
+    },
+    "required": ["detail", "chapters"]
+  },
+  "$defs": {
+    "feedFeature": {
+      "type": "object",
+      "properties": {
+        "persist": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether list results are stored in the database"
+        },
+        "refresh": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether the channel is included in refreshInterval scheduling"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 100,
+          "description": "Max items retained per channel in DB; oldest records are pruned when exceeded"
+        }
+      },
+      "additionalProperties": false
+    },
+    "paginationFeature": {
+      "type": "object",
+      "required": ["style"],
+      "properties": {
+        "style": {
+          "enum": ["offset", "cursor", "lastId"],
+          "description": "offset: page numbers; cursor: opaque token; lastId: last item id"
+        },
+        "param": { "type": "string" },
+        "default": { "type": "string" },
+        "idFrom": {
+          "type": "string",
+          "default": "item.id",
+          "description": "For lastId style: field to read id from when loading more"
+        },
+        "sizeParam": { "type": "string" },
+        "defaultSize": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    },
+    "searchFeature": {
+      "type": "object",
+      "properties": {
+        "param": { "type": "string", "default": "query" },
+        "required": { "type": "boolean", "default": true }
+      },
+      "additionalProperties": false
+    },
+    "detailFeature": {
+      "type": "object",
+      "required": ["route"],
+      "properties": {
+        "route": { "type": "string" },
+        "idParam": { "type": "string", "default": "id" },
+        "idFrom": { "type": "string", "default": "item.id" },
+        "persist": {
+          "type": "boolean",
+          "default": true,
+          "description": "true: write fetched content back to DB; false: display only"
+        }
+      },
+      "additionalProperties": false
+    },
+    "chaptersFeature": {
+      "type": "object",
+      "required": ["route"],
+      "description": "Intermediate sub-list between feed and detail (manga episodes, TV episodes, novel chapters, etc.). Mutually exclusive with top-level detail.",
+      "properties": {
+        "route": {
+          "type": "string",
+          "description": "Route to fetch chapter/episode list for a parent feed item"
+        },
+        "idParam": {
+          "type": "string",
+          "default": "id",
+          "description": "Parent item id key in params (e.g. manga/series id)"
+        },
+        "idFrom": {
+          "type": "string",
+          "default": "item.id",
+          "description": "Field on feed item to read parent id"
+        },
+        "label": {
+          "type": "string",
+          "description": "UI label for the sub-list page (e.g. 话数, 集数, 章节)"
+        },
+        "itemLabel": {
+          "type": "string",
+          "description": "Single item suffix in UI (e.g. 话, 集, 章)"
+        },
+        "persist": {
+          "type": "boolean",
+          "default": true,
+          "description": "Whether chapter list is cached per parent item"
+        },
+        "limit": {
+          "type": "integer",
+          "minimum": 1,
+          "default": 500,
+          "description": "Max chapters retained per parent item when persist is true"
+        },
+        "pagination": { "$ref": "#/$defs/paginationFeature" },
+        "detail": { "$ref": "#/$defs/chapterDetailFeature" }
+      },
+      "additionalProperties": false
+    },
+    "chapterDetailFeature": {
+      "type": "object",
+      "required": ["route"],
+      "description": "Final content fetch when user opens a chapter/episode item",
+      "properties": {
+        "route": { "type": "string" },
+        "idParam": {
+          "type": "string",
+          "default": "chapterId",
+          "description": "Chapter/episode id key in params"
+        },
+        "idFrom": {
+          "type": "string",
+          "default": "item.id",
+          "description": "Field on chapter item to read chapter id"
+        },
+        "parentParam": {
+          "type": "string",
+          "default": "id",
+          "description": "Parent feed item id key passed alongside chapter id"
+        },
+        "parentFrom": {
+          "type": "string",
+          "default": "parent.id",
+          "description": "Source of parent id in chapters context"
+        },
+        "persist": {
+          "type": "boolean",
+          "default": false,
+          "description": "true: write content to chapter record; false: display only (typical for manga images)"
+        }
+      },
+      "additionalProperties": false
+    }
+  }
+}

@@ -1,0 +1,741 @@
+{
+  "id": "tmdb",
+  "name": "TMDB",
+  "version": "1.0.0",
+  "mediaType": "rating",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "movie_popular",
+    "executionMode": "wasm",
+    "variables": {
+      "apiKey": {
+        "label": "TMDB API Key / Access Token",
+        "description": "在 https://www.themoviedb.org/settings/api 获取：v3 API Key 或 Read Access Token（Bearer JWT，以 eyJ 开头）均可",
+        "required": true,
+        "secret": true
+      },
+      "language": {
+        "label": "语言",
+        "description": "API 返回语言，如 zh-CN、en-US",
+        "required": false,
+        "secret": false,
+        "default": "zh-CN"
+      },
+      "watchRegion": {
+        "label": "流媒体地区",
+        "description": "Netflix / Disney+ 等筛选使用的地区代码，如 US、CN、HK",
+        "required": false,
+        "secret": false,
+        "default": "US"
+      },
+      "recentSince": {
+        "label": "近期榜单起始日期",
+        "description": "「近期最佳」类频道只包含此日期之后上映/开播的内容，格式 YYYY-MM-DD",
+        "required": false,
+        "secret": false,
+        "default": "2023-01-01"
+      },
+      "minVoteCount": {
+        "label": "近期高分最低评分数",
+        "description": "近期高分榜单要求的最少评分人数，避免样本过少的高分作品",
+        "required": false,
+        "secret": false,
+        "default": "200"
+      }
+    },
+    "channels": [
+      {
+        "id": "movie_popular",
+        "label": "热门电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "movie/popular",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "tv_popular",
+        "label": "热门电视剧",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "tv/popular",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "movie_top_rated",
+        "label": "高分电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "movie/top_rated",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "tv_top_rated",
+        "label": "高分电视剧",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "tv/top_rated",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_tv_top",
+        "label": "近期高分剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "use_recent_since": "tv",
+          "use_min_votes": "true"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_tv_popular",
+        "label": "近期热门剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "use_recent_since": "tv"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_movie_top",
+        "label": "近期高分电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/movie",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "use_recent_since": "movie",
+          "use_min_votes": "true",
+          "vote_count.gte": "500"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_movie_popular",
+        "label": "近期热门电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/movie",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "use_recent_since": "movie"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "trending_movie_day",
+        "label": "今日热榜 · 电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "trending/movie/day",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "trending_movie_week",
+        "label": "本周热榜 · 电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "trending/movie/week",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "trending_all_day",
+        "label": "今日热榜 · 全类型",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "trending/all/day",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "trending_all_week",
+        "label": "本周热榜 · 全类型",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "trending/all/week",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "movie_upcoming",
+        "label": "即将上映",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "movie/upcoming",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "movie_now_playing",
+        "label": "正在上映",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "movie/now_playing",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "trending_tv_day",
+        "label": "今日热榜 · 剧集",
+        "route": "/tmdb/list",
+        "params": { "endpoint": "trending/tv/day", "page": "1" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "trending_tv_week",
+        "label": "本周热榜 · 剧集",
+        "route": "/tmdb/list",
+        "params": { "endpoint": "trending/tv/week", "page": "1" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "anime_tv",
+        "label": "动漫排行",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_genres": "16",
+          "with_origin_country": "JP"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "anime_movie",
+        "label": "动漫电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/movie",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_genres": "16",
+          "with_origin_country": "JP"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "top_anime",
+        "label": "高分动漫",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "with_genres": "16",
+          "with_origin_country": "JP",
+          "vote_count.gte": "500"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "cn_animation",
+        "label": "国漫排行",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_genres": "16",
+          "with_origin_country": "CN"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "cn_animation_top",
+        "label": "高分国漫",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "with_genres": "16",
+          "with_origin_country": "CN",
+          "use_min_votes": "true"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_cn_animation",
+        "label": "近期热门国漫",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_genres": "16",
+          "with_origin_country": "CN",
+          "use_recent_since": "tv"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_cn_top",
+        "label": "近期高分国漫",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "with_genres": "16",
+          "with_origin_country": "CN",
+          "use_recent_since": "tv",
+          "use_min_votes": "true"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "korean_drama",
+        "label": "韩剧排行",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_original_language": "ko"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "korean_drama_top",
+        "label": "高分韩剧",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "with_original_language": "ko",
+          "use_min_votes": "true"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_korean_drama",
+        "label": "近期热门韩剧",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_original_language": "ko",
+          "use_recent_since": "tv"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_korean_top",
+        "label": "近期高分韩剧",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "with_original_language": "ko",
+          "use_recent_since": "tv",
+          "use_min_votes": "true"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "japanese_drama",
+        "label": "日剧排行",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_original_language": "ja"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "chinese_drama",
+        "label": "华语剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_original_language": "zh"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "western_drama",
+        "label": "欧美剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_origin_country": "US"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "netflix_tv",
+        "label": "Netflix 剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_watch_providers": "8"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "netflix_tv_top",
+        "label": "Netflix 高分剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "with_watch_providers": "8",
+          "use_min_votes": "true"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_netflix_tv",
+        "label": "近期 Netflix 剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_watch_providers": "8",
+          "use_recent_since": "tv"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "recent_netflix_top",
+        "label": "近期 Netflix 高分",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "vote_average.desc",
+          "with_watch_providers": "8",
+          "use_recent_since": "tv",
+          "use_min_votes": "true"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "netflix_movie",
+        "label": "Netflix 电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/movie",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_watch_providers": "8"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "disney_tv",
+        "label": "Disney+ 剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_watch_providers": "337"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "prime_tv",
+        "label": "Prime Video 剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_watch_providers": "119"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "sci_fi_tv",
+        "label": "科幻奇幻剧集",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/tv",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_genres": "10765"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "action_movie",
+        "label": "动作电影",
+        "route": "/tmdb/list",
+        "params": {
+          "endpoint": "discover/movie",
+          "page": "1",
+          "sort_by": "popularity.desc",
+          "with_genres": "28"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 100 },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/tmdb/search/:query",
+        "params": {
+          "query": "",
+          "page": "1",
+          "type": "multi"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": false, "refresh": false, "limit": 100 },
+          "search": { "param": "query", "required": true },
+          "pagination": { "style": "offset", "param": "page", "default": "1" },
+          "detail": { "route": "/tmdb/detail/:id", "idParam": "id", "persist": true }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "TMDB 影片排行榜与详情（热门、高分、趋势、分区榜单）",
+    "icon": "text",
+    "color": "bg-sky-600",
+    "logoText": "TM",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": true
+  }
+}

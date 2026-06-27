@@ -1,0 +1,320 @@
+{
+  "id": "douban",
+  "name": "豆瓣",
+  "version": "1.0.0",
+  "mediaType": "rating",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "real_time_hotest",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "real_time_hotest",
+        "label": "实时热门书影音",
+        "route": "/douban/list",
+        "params": {
+          "type": "subject_real_time_hotest"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "movie_showing",
+        "label": "影院热映",
+        "route": "/douban/list",
+        "params": {
+          "type": "movie_showing"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "movie_real_time_hotest",
+        "label": "实时热门电影",
+        "route": "/douban/list",
+        "params": {
+          "type": "movie_real_time_hotest"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tv_real_time_hotest",
+        "label": "实时热门电视",
+        "route": "/douban/list",
+        "params": {
+          "type": "tv_real_time_hotest"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "movie_weekly_best",
+        "label": "一周口碑电影榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "movie_weekly_best"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tv_chinese_best_weekly",
+        "label": "华语口碑剧集榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "tv_chinese_best_weekly"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tv_global_best_weekly",
+        "label": "全球口碑剧集榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "tv_global_best_weekly"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "show_chinese_best_weekly",
+        "label": "国内口碑综艺榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "show_chinese_best_weekly"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "show_global_best_weekly",
+        "label": "国外口碑综艺榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "show_global_best_weekly"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tv_domestic",
+        "label": "热播新剧国产剧",
+        "route": "/douban/list",
+        "params": {
+          "type": "tv_domestic"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tv_american",
+        "label": "热播新剧欧美剧",
+        "route": "/douban/list",
+        "params": {
+          "type": "tv_american"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tv_japanese",
+        "label": "热播新剧日剧",
+        "route": "/douban/list",
+        "params": {
+          "type": "tv_japanese"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tv_korean",
+        "label": "热播新剧韩剧",
+        "route": "/douban/list",
+        "params": {
+          "type": "tv_korean"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "tv_animation",
+        "label": "热播新剧动画",
+        "route": "/douban/list",
+        "params": {
+          "type": "tv_animation"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "book_fiction_hot_weekly",
+        "label": "虚构类小说热门榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "book_fiction_hot_weekly"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "book_nonfiction_hot_weekly",
+        "label": "非虚构类小说热门榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "book_nonfiction_hot_weekly"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "music_single",
+        "label": "热门单曲榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "music_single"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      },
+      {
+        "id": "music_chinese",
+        "label": "华语新碟榜",
+        "route": "/douban/list",
+        "params": {
+          "type": "music_chinese"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "豆瓣排行榜与热门榜单",
+    "icon": "text",
+    "color": "bg-green-600",
+    "logoText": "豆",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": true
+  }
+}

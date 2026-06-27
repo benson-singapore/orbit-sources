@@ -1,0 +1,59 @@
+{
+  "id": "yilin",
+  "name": "意林",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 86400,
+    "userAgent": "",
+    "defaultChannel": "issues",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "issues",
+        "label": "杂志期数",
+        "route": "/yilin/issues",
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "chapters": {
+            "route": "/yilin/chapters/:id",
+            "idParam": "id",
+            "label": "目录",
+            "itemLabel": "篇",
+            "persist": true,
+            "limit": 200,
+            "detail": {
+              "route": "/yilin/detail/:id",
+              "idParam": "id",
+              "parentParam": "parentId",
+              "persist": true
+            }
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "意林杂志网 - 各期目录与文章在线阅读",
+    "icon": "text",
+    "color": "bg-emerald-600",
+    "logoText": "意",
+    "marketCategory": "reading",
+    "categoryTag": "MAGAZINE",
+    "official": false
+  }
+}
