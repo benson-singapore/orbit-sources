@@ -2,8 +2,6 @@
 
 Orbit Sources 是 Orbit 的官方 WASM 插件源码仓库。插件使用 Go 编写，编译为 `wasip1/wasm`，由 Orbit Runtime 加载执行。
 
-本仓库只保留适合开源发布的插件源码，已排除旧仓库中的成人内容插件。
-
 ## 快速开始
 
 ```bash
