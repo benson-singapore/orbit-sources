@@ -4,6 +4,8 @@ dist/
 *.wasm.br
 *.orbit
 
+plugins/18+
+
 # Go
 *.o
 *.a

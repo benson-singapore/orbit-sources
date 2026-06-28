@@ -1,0 +1,93 @@
+{
+  "id": "oschina",
+  "name": "开源中国",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "open_source",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "open_source",
+        "label": "开源资讯",
+        "route": "/oschina/list",
+        "params": {
+          "type": "2",
+          "pageNum": "1",
+          "pageSize": "12"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "pageNum",
+            "default": "1",
+            "sizeParam": "pageSize",
+            "defaultSize": 12
+          },
+          "detail": {
+            "route": "/oschina/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "software",
+        "label": "软件资讯",
+        "route": "/oschina/list",
+        "params": {
+          "type": "1",
+          "pageNum": "1",
+          "pageSize": "15"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "pageNum",
+            "default": "1",
+            "sizeParam": "pageSize",
+            "defaultSize": 15
+          },
+          "detail": {
+            "route": "/oschina/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "开源中国资讯（开源资讯 / 软件资讯）",
+    "icon": "text",
+    "color": "bg-green-600",
+    "logoText": "OSC",
+    "marketCategory": "community",
+    "categoryTag": "BBS",
+    "official": false
+  }
+}
+
