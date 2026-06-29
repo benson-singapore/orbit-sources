@@ -1,0 +1,221 @@
+{
+  "id": "bbc-chinese",
+  "name": "BBC News 中文",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "china",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "world",
+        "label": "国际",
+        "route": "/bbc-chinese/list",
+        "params": {
+          "section": "world",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/bbc-chinese/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "china",
+        "label": "中国",
+        "route": "/bbc-chinese/list",
+        "params": {
+          "section": "china",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/bbc-chinese/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "hong-kong",
+        "label": "香港",
+        "route": "/bbc-chinese/list",
+        "params": {
+          "section": "hong-kong",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/bbc-chinese/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "taiwan",
+        "label": "台湾",
+        "route": "/bbc-chinese/list",
+        "params": {
+          "section": "taiwan",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/bbc-chinese/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "uk",
+        "label": "英国",
+        "route": "/bbc-chinese/list",
+        "params": {
+          "section": "uk",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/bbc-chinese/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "business",
+        "label": "财经",
+        "route": "/bbc-chinese/list",
+        "params": {
+          "section": "business",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/bbc-chinese/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "video",
+        "label": "影片",
+        "route": "/bbc-chinese/list",
+        "params": {
+          "section": "video",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/bbc-chinese/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "BBC News 中文简体新闻，覆盖国际、中国、港台、英国与财经资讯",
+    "icon": "text",
+    "color": "bg-red-700",
+    "logoText": "BBC",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": false
+  }
+}

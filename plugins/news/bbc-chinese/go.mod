@@ -1,4 +1,4 @@
-module github.com/orbit-tauri-tools/plugin-toutiao
+module bbc-chinese
 
 go 1.22
 
