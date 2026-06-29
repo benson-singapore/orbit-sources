@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -13,6 +14,8 @@ import (
 var (
 	reMetaDescription = regexp.MustCompile(`name="description"\s+content="([^"]+)"`)
 	reMetaKeywords    = regexp.MustCompile(`itemprop="keywords"\s+content="([^"]+)"`)
+	reHeadline        = regexp.MustCompile(`itemprop="headline"\s+content="([^"]+)"`)
+	reArticleAuthor   = regexp.MustCompile(`itemprop="author"[\s\S]*?itemprop="name"\s+content="([^"]+)"`)
 	reArticleInfo     = regexp.MustCompile(`article_info:\{`)
 	reCoverImage      = regexp.MustCompile(`cover_image:"((?:\\.|[^"\\])*)"`)
 	reCtime           = regexp.MustCompile(`ctime:"(\d+)"`)
@@ -31,6 +34,8 @@ var pageFetchHeaders = map[string]string{
 }
 
 type articlePageDetail struct {
+	Title       string
+	Author      string
 	Content     string
 	Summary     string
 	Cover       string
@@ -38,34 +43,54 @@ type articlePageDetail struct {
 	Tags        []string
 }
 
-func enrichFeedItem(item sdk.FeedItem) sdk.FeedItem {
-	detail, err := fetchArticlePageDetail(item.ID)
+func fetchDetail(articleID string) (*sdk.FeedResult, error) {
+	detail, err := fetchArticlePageDetail(articleID)
 	if err != nil {
-		return item
+		return nil, err
 	}
-	if detail.Content != "" {
-		item.Content = detail.Content
+	if detail.Content == "" {
+		return nil, fmt.Errorf("article content not found")
 	}
-	if detail.Summary != "" {
-		item.Summary = detail.Summary
-	} else if item.Summary == "" && detail.Content != "" {
-		item.Summary = textSummaryFromHTML(detail.Content, 400)
+
+	summary := detail.Summary
+	if summary == "" {
+		summary = textSummaryFromHTML(detail.Content, 400)
 	}
-	if detail.Cover != "" {
-		item.Cover = detail.Cover
-		item.Image = detail.Cover
-	} else if detail.Content != "" {
-		if img := firstImageInHTML(detail.Content); img != "" {
-			item.Image = img
-		}
+
+	title := strings.TrimSpace(detail.Title)
+	if title == "" {
+		title = "文章"
 	}
+
+	cover := detail.Cover
+	image := cover
+	if image == "" {
+		image = firstImageInHTML(detail.Content)
+	}
+
+	publishedAt := ""
 	if detail.PublishedAt > 0 {
-		item.PublishedAt = time.Unix(detail.PublishedAt, 0).Format(time.RFC3339)
+		publishedAt = time.Unix(detail.PublishedAt, 0).Format(time.RFC3339)
 	}
-	if len(detail.Tags) > 0 {
-		item.Tags = detail.Tags
+
+	item := sdk.FeedItem{
+		ID:          articleID,
+		Title:       title,
+		URL:         "https://juejin.cn/post/" + articleID,
+		Summary:     summary,
+		Author:      detail.Author,
+		Cover:       cover,
+		Image:       image,
+		Content:     detail.Content,
+		PublishedAt: publishedAt,
+		Tags:        detail.Tags,
 	}
-	return item
+
+	return &sdk.FeedResult{
+		Title:       title,
+		Description: summary,
+		Items:       []sdk.FeedItem{item},
+	}, nil
 }
 
 func fetchArticlePageDetail(articleID string) (*articlePageDetail, error) {
@@ -86,6 +111,13 @@ func fetchArticlePageDetail(articleID string) (*articlePageDetail, error) {
 
 func parseArticlePage(html string) *articlePageDetail {
 	detail := &articlePageDetail{}
+
+	if m := reHeadline.FindStringSubmatch(html); len(m) > 1 {
+		detail.Title = strings.TrimSpace(htmlUnescapeAttr(m[1]))
+	}
+	if m := reArticleAuthor.FindStringSubmatch(html); len(m) > 1 {
+		detail.Author = strings.TrimSpace(htmlUnescapeAttr(m[1]))
+	}
 
 	if m := reMetaKeywords.FindStringSubmatch(html); len(m) > 1 {
 		for _, t := range strings.Split(m[1], ",") {

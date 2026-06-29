@@ -1,7 +1,7 @@
 {
   "id": "juejin",
   "name": "掘金",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mediaType": "article",
   "source": "wasm",
   "capabilities": [
@@ -23,6 +23,11 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/juejin/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       },
@@ -39,6 +44,11 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/juejin/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       },
@@ -55,6 +65,11 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/juejin/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       },
@@ -71,6 +86,11 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/juejin/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       },
@@ -87,6 +107,11 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/juejin/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       },
@@ -103,13 +128,18 @@
             "persist": true,
             "refresh": true,
             "limit": 100
+          },
+          "detail": {
+            "route": "/juejin/detail/:id",
+            "idParam": "id",
+            "persist": true
           }
         }
       }
     ],
     "wasm": {
       "entry": "plugin.wasm",
-      "timeoutMs": 120000,
+      "timeoutMs": 60000,
       "maxMemoryMB": 64
     }
   },

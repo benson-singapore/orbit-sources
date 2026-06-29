@@ -30,6 +30,12 @@ func (p *JuejinPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
 			return fetchGeneral()
 		}
 		return fetchByCategory(category)
+	case req.Route == "/juejin/detail/:id":
+		id := strings.TrimSpace(req.Params["id"])
+		if id == "" {
+			return nil, fmt.Errorf("missing id parameter")
+		}
+		return fetchDetail(id)
 	default:
 		return nil, fmt.Errorf("unknown route: %s", req.Route)
 	}
@@ -86,7 +92,6 @@ func fetchGeneral() (*sdk.FeedResult, error) {
 	if err != nil {
 		return nil, err
 	}
-	items = enrichFeedItems(items)
 
 	return &sdk.FeedResult{Title: "掘金 · 综合", Description: "掘金首页综合推荐", Items: items}, nil
 }
@@ -106,7 +111,6 @@ func doFetch(url, title, desc string) (*sdk.FeedResult, error) {
 	if err != nil {
 		return nil, err
 	}
-	items = enrichFeedItems(items)
 
 	return &sdk.FeedResult{Title: title, Description: desc, Items: items}, nil
 }

@@ -33,4 +33,10 @@ func TestParseArticlePage(t *testing.T) {
 	if !strings.Contains(detail.Summary, "Monorepo") {
 		t.Fatalf("summary = %q", detail.Summary)
 	}
+	if detail.Title != "单仓库下的四十模块 —— React Monorepo 工程架构拆解" {
+		t.Fatalf("title = %q", detail.Title)
+	}
+	if detail.Author != "老王以为" {
+		t.Fatalf("author = %q", detail.Author)
+	}
 }
