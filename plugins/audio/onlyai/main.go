@@ -17,9 +17,10 @@ const (
 	baseURL   = "https://onlyai.fm"
 	defaultUA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
 
-	defaultLatestSize = 120
-	defaultLiveSize   = 60
-	maxLatestSize     = 160
+	defaultLatestSize      = 120
+	defaultLiveSize        = 60
+	maxLatestSize          = 160
+	defaultGenrePageSize = 20
 )
 
 var (
@@ -59,6 +60,25 @@ type radioTrack struct {
 
 type trackSource struct {
 	SourceURL string `json:"sourceUrl"`
+}
+
+type tracksResponse struct {
+	Tracks []apiTrack `json:"tracks"`
+}
+
+type apiTrack struct {
+	ID        string    `json:"id"`
+	Title     string    `json:"title"`
+	Slug      string    `json:"slug"`
+	Genre     string    `json:"genre"`
+	AudioURL  string    `json:"audioUrl"`
+	CreatedAt string    `json:"createdAt"`
+	Artist    apiArtist `json:"artist"`
+}
+
+type apiArtist struct {
+	Name string `json:"name"`
+	Slug string `json:"slug"`
 }
 
 type ldItemList struct {
@@ -116,6 +136,7 @@ func (p *OnlyAIPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
 
 func fetchLatest(params map[string]string) (*sdk.FeedResult, error) {
 	size := latestSize(params)
+	prevSize := prevLatestSize(params)
 	apiURL := fmt.Sprintf("%s/api/radio/latest?size=%d", baseURL, size)
 
 	body, status, err := httpGet(apiURL)
@@ -135,15 +156,34 @@ func fetchLatest(params map[string]string) (*sdk.FeedResult, error) {
 	}
 
 	items := tracksToItems(resp.Queue, true)
+	if prevSize > 0 {
+		if prevSize >= len(items) {
+			items = nil
+		} else {
+			items = items[prevSize:]
+		}
+	}
+	if len(items) == 0 {
+		if prevSize > 0 {
+			return &sdk.FeedResult{
+				Title:       "OnlyAI.fm · 最新发布",
+				Description: "没有更多曲目",
+				Items:       []sdk.FeedItem{},
+			}, nil
+		}
+		return nil, fmt.Errorf("empty latest queue")
+	}
+
 	result := &sdk.FeedResult{
 		Title:       "OnlyAI.fm · 最新发布",
 		Description: fmt.Sprintf("共 %d 首 AI 音乐", len(items)),
 		Items:       items,
 	}
-	if len(items) >= size && size < maxLatestSize {
+	if len(resp.Queue) >= size && size < maxLatestSize {
 		result.HasMore = true
 		result.Next = map[string]string{
-			"size": strconv.Itoa(min(size+defaultLatestSize, maxLatestSize)),
+			"size":     strconv.Itoa(min(size+defaultLatestSize, maxLatestSize)),
+			"prevSize": strconv.Itoa(size),
 		}
 	}
 	return result, nil
@@ -183,34 +223,44 @@ func fetchGenre(params map[string]string) (*sdk.FeedResult, error) {
 		return nil, fmt.Errorf("missing genre parameter")
 	}
 
-	sessionID := strings.TrimSpace(params["sessionId"])
-	var (
-		resp radioResponse
-		err  error
-	)
-	if sessionID != "" {
-		resp, err = postRadioExtend(sessionID, genre)
-	} else {
-		resp, err = getRadioGenre(genre)
-	}
+	offset := genreOffset(params)
+	apiURL := fmt.Sprintf("%s/api/tracks?genre=%s", baseURL, url.QueryEscape(genre))
+
+	body, status, err := httpGet(apiURL)
 	if err != nil {
 		return nil, err
 	}
-	if len(resp.Queue) == 0 {
-		return nil, fmt.Errorf("empty genre queue for %s", genre)
+	if status < 200 || status >= 300 {
+		return nil, fmt.Errorf("genre tracks api status %d", status)
 	}
 
-	items := tracksToItems(resp.Queue, true)
+	var resp tracksResponse
+	if err := json.Unmarshal(body, &resp); err != nil {
+		return nil, fmt.Errorf("parse genre tracks response: %w", err)
+	}
+	if len(resp.Tracks) == 0 {
+		return nil, fmt.Errorf("empty genre tracks for %s", genre)
+	}
+	if offset >= len(resp.Tracks) {
+		return &sdk.FeedResult{
+			Title:       "OnlyAI.fm · " + genre,
+			Description: "没有更多曲目",
+			Items:       []sdk.FeedItem{},
+		}, nil
+	}
+
+	end := min(offset+defaultGenrePageSize, len(resp.Tracks))
+	items := apiTracksToItems(resp.Tracks[offset:end])
 	result := &sdk.FeedResult{
 		Title:       "OnlyAI.fm · " + genre,
 		Description: fmt.Sprintf("共 %d 首", len(items)),
 		Items:       items,
 	}
-	if resp.SessionID != "" {
+	if end < len(resp.Tracks) {
 		result.HasMore = true
 		result.Next = map[string]string{
-			"genre":     genre,
-			"sessionId": resp.SessionID,
+			"genre":  genre,
+			"offset": strconv.Itoa(end),
 		}
 	}
 	return result, nil
@@ -304,39 +354,34 @@ func fetchDetail(pageURL string) (*sdk.FeedResult, error) {
 	}, nil
 }
 
-func getRadioGenre(genre string) (radioResponse, error) {
-	apiURL := fmt.Sprintf("%s/api/radio?genre=%s", baseURL, url.QueryEscape(genre))
-	body, status, err := httpGet(apiURL)
-	if err != nil {
-		return radioResponse{}, err
+func apiTracksToItems(tracks []apiTrack) []sdk.FeedItem {
+	items := make([]sdk.FeedItem, 0, len(tracks))
+	for _, track := range tracks {
+		if strings.TrimSpace(track.ID) == "" {
+			continue
+		}
+		items = append(items, apiTrackToItem(track))
 	}
-	if status < 200 || status >= 300 {
-		return radioResponse{}, fmt.Errorf("genre api status %d", status)
-	}
-	var resp radioResponse
-	if err := json.Unmarshal(body, &resp); err != nil {
-		return radioResponse{}, fmt.Errorf("parse genre response: %w", err)
-	}
-	return resp, nil
+	return items
 }
 
-func postRadioExtend(sessionID, genre string) (radioResponse, error) {
-	payload, _ := json.Marshal(map[string]string{
-		"sessionId": sessionID,
-		"genre":     genre,
-	})
-	body, status, err := httpPost(baseURL+"/api/radio/extend", payload)
-	if err != nil {
-		return radioResponse{}, err
+func apiTrackToItem(track apiTrack) sdk.FeedItem {
+	artist := strings.TrimSpace(track.Artist.Name)
+
+	tags := []string{}
+	if track.Genre != "" {
+		tags = append(tags, track.Genre)
 	}
-	if status < 200 || status >= 300 {
-		return radioResponse{}, fmt.Errorf("extend api status %d", status)
+
+	return sdk.FeedItem{
+		ID:          track.ID,
+		Title:       strings.TrimSpace(track.Title),
+		URL:         absURL(track.AudioURL),
+		Summary:     joinNonEmpty(" · ", artist, track.Genre),
+		Author:      artist,
+		Tags:        tags,
+		PublishedAt: strings.TrimSpace(track.CreatedAt),
 	}
-	var resp radioResponse
-	if err := json.Unmarshal(body, &resp); err != nil {
-		return radioResponse{}, fmt.Errorf("parse extend response: %w", err)
-	}
-	return resp, nil
 }
 
 func tracksToItems(tracks []radioTrack, directAudio bool) []sdk.FeedItem {
@@ -710,6 +755,28 @@ func latestSize(params map[string]string) int {
 	return n
 }
 
+func prevLatestSize(params map[string]string) int {
+	if params == nil {
+		return 0
+	}
+	n, err := strconv.Atoi(strings.TrimSpace(params["prevSize"]))
+	if err != nil || n < 0 {
+		return 0
+	}
+	return n
+}
+
+func genreOffset(params map[string]string) int {
+	if params == nil {
+		return 0
+	}
+	n, err := strconv.Atoi(strings.TrimSpace(params["offset"]))
+	if err != nil || n < 0 {
+		return 0
+	}
+	return n
+}
+
 func liveSize(params map[string]string) int {
 	if params == nil {
 		return defaultLiveSize
@@ -729,14 +796,6 @@ func httpGet(rawURL string) ([]byte, int, error) {
 		"User-Agent": defaultUA,
 		"Accept":     "application/json, text/html, */*",
 	})
-}
-
-func httpPost(rawURL string, payload []byte) ([]byte, int, error) {
-	return host.HTTPPost(rawURL, map[string]string{
-		"User-Agent":   defaultUA,
-		"Accept":       "application/json",
-		"Content-Type": "application/json",
-	}, string(payload))
 }
 
 func min(a, b int) int {

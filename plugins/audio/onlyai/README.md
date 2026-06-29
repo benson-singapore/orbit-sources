@@ -9,7 +9,7 @@
 | 最新发布 | `/onlyai/latest` | `/api/radio/latest` |
 | 直播热门 | `/onlyai/live` | `/api/radio/live-now` |
 | 榜单 | `/onlyai/charts` | `/charts` JSON-LD |
-| 流派 | `/onlyai/genre` | `/api/radio?genre=...` |
+| 流派 | `/onlyai/genre` | `/api/tracks?genre=...` |
 
 ## Native test
 
@@ -23,5 +23,5 @@ echo '{"action":"fetch","data":{"channelId":"latest","route":"/onlyai/latest","p
 ## Notes
 
 - 列表项 `url` 为 MP3 直链（榜单频道为曲目页，需 detail 解析播放地址）。
-- 流派频道支持 `sessionId` 分页（`/api/radio/extend`）。
+- 流派频道支持 `offset` 分页（`/api/tracks?genre=...`，每页 20 首，最多 100 首）。
 - 无登录要求。
