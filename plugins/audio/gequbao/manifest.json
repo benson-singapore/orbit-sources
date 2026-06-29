@@ -1,0 +1,247 @@
+{
+  "id": "gequbao",
+  "name": "歌曲宝",
+  "version": "1.0.0",
+  "mediaType": "audio",
+  "source": "wasm",
+  "capabilities": [
+    "feed",
+    "playback"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "hot-music",
+    "executionMode": "wasm",
+    "variables": {
+      "cookie": {
+        "label": "gequbao Cookie",
+        "description": "可选：手动提供 Cookie 可跳过验证。留空时由 Orbit 在 Cloudflare 拦截时弹出浏览器完成验证（含 cf_clearance，会过期）",
+        "required": false,
+        "secret": true
+      },
+      "userAgent": {
+        "label": "User-Agent",
+        "description": "可选：与浏览器中复制 Cookie 时使用的 User-Agent 保持一致；留空使用默认 Chrome UA",
+        "required": false,
+        "secret": false
+      }
+    },
+    "browser": {
+      "required": false,
+      "fallbackOn": ["captcha", "http_403"]
+    },
+    "channels": [
+      {
+        "id": "hot-music",
+        "label": "热门推荐",
+        "route": "/gequbao/channel",
+        "params": {
+          "url": "https://www.gequbao.com/hot-music",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "url",
+            "idFrom": "item.url",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "week-download",
+        "label": "周排行",
+        "route": "/gequbao/channel",
+        "params": {
+          "url": "https://www.gequbao.com/top/week-download",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "url",
+            "idFrom": "item.url",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "douyin-hot",
+        "label": "抖音热歌",
+        "route": "/gequbao/channel",
+        "params": {
+          "url": "https://www.gequbao.com/s/%E6%8A%96%E9%9F%B3%E7%83%AD%E6%AD%8C",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "url",
+            "idFrom": "item.url",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "topic-chenyixun",
+        "label": "陈奕迅合集",
+        "route": "/gequbao/channel",
+        "params": {
+          "url": "https://www.gequbao.com/topic/chenyixun-lsek3v?page=1",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 300
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "url",
+            "idFrom": "item.url",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "topic-zhoujielun",
+        "label": "周杰伦合集",
+        "route": "/gequbao/channel",
+        "params": {
+          "url": "https://www.gequbao.com/topic/zhoujielun-3q7t5h?page=1",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 300
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "url",
+            "idFrom": "item.url",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "topic-xusong",
+        "label": "许嵩合集",
+        "route": "/gequbao/channel",
+        "params": {
+          "url": "https://www.gequbao.com/topic/xusong-2pifzk?page=1",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 300
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "url",
+            "idFrom": "item.url",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "topic-maobuyi",
+        "label": "毛不易合集",
+        "route": "/gequbao/channel",
+        "params": {
+          "url": "https://www.gequbao.com/topic/maobuyi-37knnq?page=1",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 300
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "url",
+            "idFrom": "item.url",
+            "persist": false
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "歌曲宝音频插件，支持热门榜单、歌手专题、歌曲详情解析与真实 MP3 播放地址获取。",
+    "icon": "music",
+    "color": "bg-emerald-600",
+    "logoText": "歌曲宝",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": false
+  }
+}
