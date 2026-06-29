@@ -98,7 +98,17 @@ make package  # 打包manifest和assets
 - 使用 `playlistItems.list` 替代 `search.list`，成本降低100倍（1 unit vs 100 units）
 - 批量获取视频统计信息（views等），每50个视频仅消耗1 unit
 - 从HTML页面提取用户名对应的频道ID（无API成本）
-- 每次返回最多15个视频
+- 每次返回最多 50 个视频
+- 分页使用 `lastId` 游标（上一页最后一条视频的 ID），无状态，适合 WASM 运行
+
+## 分页说明
+
+YouTube Data API 使用 `pageToken` 翻页，但插件对外暴露 **基于视频 ID 的 `lastId` 游标**：
+
+- 首次加载：`lastId` 为空，返回第一页
+- 加载更多：客户端传入上一页最后一条视频的 `item.id`
+- 插件从列表头遍历定位该视频，返回其后的下一批结果
+- 响应中 `hasMore: true` 时，`next.lastId` 为当前页最后一条视频 ID
 
 ## 故障排查
 

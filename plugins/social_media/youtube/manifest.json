@@ -1,7 +1,7 @@
 {
   "id": "youtube",
   "name": "YouTube",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mediaType": "video",
   "source": "wasm",
   "capabilities": [
@@ -36,9 +36,10 @@
              "limit": 100
            },
            "pagination": {
-             "style": "cursor",
-             "param": "page",
-             "default": "1"
+             "style": "lastId",
+             "param": "lastId",
+             "default": "",
+             "idFrom": "item.id"
            }
          }
        },
@@ -57,9 +58,10 @@
              "limit": 100
            },
            "pagination": {
-             "style": "cursor",
-             "param": "page",
-             "default": "1"
+             "style": "lastId",
+             "param": "lastId",
+             "default": "",
+             "idFrom": "item.id"
            }
          }
        },
@@ -78,9 +80,10 @@
              "limit": 100
            },
            "pagination": {
-             "style": "cursor",
-             "param": "page",
-             "default": "1"
+             "style": "lastId",
+             "param": "lastId",
+             "default": "",
+             "idFrom": "item.id"
            }
          }
        },
@@ -90,7 +93,7 @@
         "route": "/youtube/search/:query",
         "params": {
           "query": "",
-          "page": "1"
+          "lastId": ""
         },
         "status": "enabled",
         "features": {
@@ -104,9 +107,10 @@
             "required": true
           },
           "pagination": {
-            "style": "cursor",
-            "param": "page",
-            "default": "1"
+            "style": "lastId",
+            "param": "lastId",
+            "default": "",
+            "idFrom": "item.id"
           }
         }
       }
