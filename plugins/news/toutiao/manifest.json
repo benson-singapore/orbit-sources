@@ -1,0 +1,155 @@
+{
+  "id": "toutiao",
+  "name": "今日头条",
+  "version": "1.0.2",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "news-hot",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "hot-board",
+        "label": "热榜",
+        "route": "/toutiao/hot-board",
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 50
+          },
+          "detail": {
+            "route": "/toutiao/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "news-hot",
+        "label": "要闻",
+        "route": "/toutiao/feed",
+        "params": {
+          "category": "news_hot"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 50
+          },
+          "detail": {
+            "route": "/toutiao/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "news-tech",
+        "label": "科技",
+        "route": "/toutiao/feed",
+        "params": {
+          "category": "news_tech"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 50
+          },
+          "detail": {
+            "route": "/toutiao/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "news-finance",
+        "label": "财经",
+        "route": "/toutiao/feed",
+        "params": {
+          "category": "news_finance"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 50
+          },
+          "detail": {
+            "route": "/toutiao/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "news-sports",
+        "label": "体育",
+        "route": "/toutiao/feed",
+        "params": {
+          "category": "news_sports"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 50
+          },
+          "detail": {
+            "route": "/toutiao/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "news-entertainment",
+        "label": "娱乐",
+        "route": "/toutiao/feed",
+        "params": {
+          "category": "news_entertainment"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 50
+          },
+          "detail": {
+            "route": "/toutiao/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "今日头条热榜与分类资讯，支持图文与热榜话题详情",
+    "icon": "text",
+    "color": "bg-red-600",
+    "logoText": "头条",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": false
+  }
+}
