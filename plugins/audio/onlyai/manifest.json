@@ -1,0 +1,411 @@
+{
+  "id": "onlyai",
+  "name": "OnlyAI.fm",
+  "version": "1.0.0",
+  "mediaType": "audio",
+  "source": "wasm",
+  "capabilities": [
+    "feed",
+    "playback"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "latest",
+    "executionMode": "wasm",
+    "playback": {
+      "history": true,
+      "progress": true,
+      "mode": "audio",
+      "limit": 200,
+      "managedBy": "runtime"
+    },
+    "channels": [
+      {
+        "id": "latest",
+        "label": "最新发布",
+        "route": "/onlyai/latest",
+        "params": {
+          "size": "120"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 160
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "size",
+            "default": "120"
+          }
+        }
+      },
+      {
+        "id": "live",
+        "label": "直播热门",
+        "route": "/onlyai/live",
+        "params": {
+          "size": "60"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 60
+          }
+        }
+      },
+      {
+        "id": "charts",
+        "label": "榜单",
+        "route": "/onlyai/charts",
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 30
+          },
+          "detail": {
+            "route": "/onlyai/detail",
+            "idParam": "url",
+            "idFrom": "item.url",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "genre-pop",
+        "label": "Pop",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Pop"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-rock",
+        "label": "Rock",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Rock"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-edm",
+        "label": "EDM",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "EDM"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-hip-hop",
+        "label": "Hip Hop",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Hip Hop"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-indie",
+        "label": "Indie",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Indie"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-country",
+        "label": "Country",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Country"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-rnb",
+        "label": "R&B",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "R&B"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-electronic",
+        "label": "Electronic",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Electronic"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-heavy-metal",
+        "label": "Heavy Metal",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Heavy Metal"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-jazz",
+        "label": "Jazz",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Jazz"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-soul",
+        "label": "Soul",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Soul"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-ambient",
+        "label": "Ambient",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Ambient"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-cinematic",
+        "label": "Cinematic",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Cinematic"
+        },
+        "status": "disabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-house",
+        "label": "House",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "House"
+        },
+        "status": "disabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      },
+      {
+        "id": "genre-trap",
+        "label": "Trap",
+        "route": "/onlyai/genre",
+        "params": {
+          "genre": "Trap"
+        },
+        "status": "disabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "sessionId",
+            "default": ""
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "OnlyAI.fm — 免费 AI 生成音乐电台，支持最新、直播、榜单与流派频道。",
+    "icon": "music",
+    "color": "bg-violet-600",
+    "logoText": "AI",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": false
+  }
+}

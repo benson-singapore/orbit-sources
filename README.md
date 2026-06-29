@@ -8,6 +8,7 @@ Orbit Sources 是 Orbit 的官方 WASM 插件源码仓库。插件使用 Go 编�
 make list
 make build PLUGIN=juejin
 make package PLUGIN=juejin
+make orbit PLUGIN=juejin
 ```
 
 常用命令：
