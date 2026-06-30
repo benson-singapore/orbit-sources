@@ -1,0 +1,175 @@
+{
+  "id": "nyt-chinese",
+  "name": "纽约时报中文网",
+  "version": "1.0.2",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "home",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "home",
+        "label": "首页",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "home" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "world",
+        "label": "国际",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "world" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "china",
+        "label": "中国",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "china" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "business",
+        "label": "商业与经济",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "business" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "technology",
+        "label": "科技",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "technology" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "science",
+        "label": "科学",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "science" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "health",
+        "label": "健康",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "health" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "education",
+        "label": "教育",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "education" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "culture",
+        "label": "文化",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "culture" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "style",
+        "label": "风尚",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "style" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "travel",
+        "label": "旅游",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "travel" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "real-estate",
+        "label": "房地产",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "real-estate" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      },
+      {
+        "id": "opinion",
+        "label": "观点与评论",
+        "route": "/nyt-chinese/list",
+        "params": { "section": "opinion" },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": true, "refresh": true, "limit": 20 },
+          "detail": { "route": "/nyt-chinese/detail/:id", "idParam": "id", "persist": true }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "纽约时报中文网简体新闻，覆盖国际、中国、商业、科技、观点等频道",
+    "icon": "text",
+    "color": "bg-neutral-800",
+    "logoText": "NYT",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": false
+  }
+}

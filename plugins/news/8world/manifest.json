@@ -1,0 +1,228 @@
+{
+  "id": "8world",
+  "name": "8视界",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "singapore",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "realtime",
+        "label": "即时",
+        "route": "/8world/list",
+        "params": {
+          "section": "realtime",
+          "page": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "0"
+          },
+          "detail": {
+            "route": "/8world/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "singapore",
+        "label": "新加坡",
+        "route": "/8world/list",
+        "params": {
+          "section": "singapore",
+          "page": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "0"
+          },
+          "detail": {
+            "route": "/8world/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "southeast-asia",
+        "label": "东南亚",
+        "route": "/8world/list",
+        "params": {
+          "section": "southeast-asia",
+          "page": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "0"
+          },
+          "detail": {
+            "route": "/8world/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "greater-china",
+        "label": "中港台",
+        "route": "/8world/list",
+        "params": {
+          "section": "greater-china",
+          "page": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "0"
+          },
+          "detail": {
+            "route": "/8world/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "world",
+        "label": "国际",
+        "route": "/8world/list",
+        "params": {
+          "section": "world",
+          "page": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "0"
+          },
+          "detail": {
+            "route": "/8world/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "finance",
+        "label": "财经",
+        "route": "/8world/list",
+        "params": {
+          "section": "finance",
+          "page": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "0"
+          },
+          "detail": {
+            "route": "/8world/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sports",
+        "label": "体育",
+        "route": "/8world/list",
+        "params": {
+          "section": "sports",
+          "page": "0"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "0"
+          },
+          "detail": {
+            "route": "/8world/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "8视界中文文字新闻，覆盖新加坡、东南亚、中港台、国际、财经与体育；自动跳过视频稿",
+    "icon": "text",
+    "color": "bg-blue-700",
+    "logoText": "8",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": false
+  }
+}
