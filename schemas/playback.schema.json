@@ -2,11 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://orbit.dev/schemas/playback.schema.json",
   "title": "Orbit Playback",
-  "description": "Consumption history and resume-progress for video, audio, article (novel), and manga plugins.",
+  "description": "Consumption history and resume-progress for video, audio, article, novel, and manga plugins.",
   "$defs": {
     "playbackMode": {
-      "enum": ["video", "audio", "article", "manga"],
-      "description": "Progress semantics. Omit to default from manifest mediaType: video→video, audio→audio, article→article, manga→manga"
+      "enum": ["video", "audio", "article", "novel", "manga"],
+      "description": "Progress semantics. Omit to default from manifest mediaType: video→video, audio→audio, article→article, novel→novel, manga→manga"
     },
     "playbackConfig": {
       "type": "object",
@@ -83,7 +83,7 @@
     },
     "progressArticle": {
       "type": "object",
-      "description": "article / novel: resume by character offset in chapter text",
+      "description": "article / novel: resume by character offset in chapter text (novel mode uses the same shape)",
       "properties": {
         "offset": {
           "type": "integer",

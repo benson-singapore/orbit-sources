@@ -7,7 +7,7 @@
     "id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]{1,63}$" },
     "name": { "type": "string" },
     "version": { "type": "string" },
-    "mediaType": { "enum": ["article", "manga", "video", "audio", "rating", "image", "social"] },
+    "mediaType": { "enum": ["article", "novel", "manga", "video", "audio", "rating", "image", "social"] },
     "source": { "const": "wasm" },
     "capabilities": {
       "type": "array",

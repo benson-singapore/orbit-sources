@@ -1,0 +1,721 @@
+{
+  "id": "quanben",
+  "name": "全本小说网",
+  "version": "1.0.0",
+  "mediaType": "novel",
+  "source": "wasm",
+  "capabilities": [
+    "feed",
+    "playback"
+  ],
+  "config": {
+    "refreshInterval": 86400,
+    "userAgent": "",
+    "defaultChannel": "xuanhuan",
+    "executionMode": "wasm",
+    "playback": {
+      "history": true,
+      "progress": true,
+      "mode": "novel",
+      "limit": 200,
+      "managedBy": "runtime"
+    },
+    "channels": [
+      {
+        "id": "xuanhuan",
+        "label": "玄幻",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "xuanhuan",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "dushi",
+        "label": "都市",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "dushi",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "yanqing",
+        "label": "言情",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "yanqing",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "chuanyue",
+        "label": "穿越",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "chuanyue",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "qingchun",
+        "label": "青春",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "qingchun",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "xianxia",
+        "label": "仙侠",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "xianxia",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "lingyi",
+        "label": "灵异",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "lingyi",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "xuanyi",
+        "label": "悬疑",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "xuanyi",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "lishi",
+        "label": "历史",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "lishi",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "junshi",
+        "label": "军事",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "junshi",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "youxi",
+        "label": "游戏",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "youxi",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "jingji",
+        "label": "竞技",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "jingji",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "kehuan",
+        "label": "科幻",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "kehuan",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "zhichang",
+        "label": "职场",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "zhichang",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "guanchang",
+        "label": "官场",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "guanchang",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "xianyan",
+        "label": "现言",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "xianyan",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "danmei",
+        "label": "耽美",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "danmei",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "qita",
+        "label": "其它",
+        "route": "/quanben/list",
+        "params": {
+          "slug": "qita",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 36
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/quanben/search",
+        "params": {
+          "query": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "chapters": {
+            "route": "/quanben/chapters/:id",
+            "idParam": "id",
+            "label": "章节目录",
+            "itemLabel": "章",
+            "persist": true,
+            "limit": 5000,
+            "detail": {
+              "route": "/quanben/chapter/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": true
+            }
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 128
+    }
+  },
+  "meta": {
+    "description": "全本小说网 - 玄幻、都市、言情等分类小说在线阅读",
+    "icon": "text",
+    "color": "bg-amber-700",
+    "logoText": "全",
+    "marketCategory": "reading",
+    "categoryTag": "NOVEL",
+    "official": false
+  }
+}

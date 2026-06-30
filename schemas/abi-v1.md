@@ -276,7 +276,7 @@ See [docs/方案/manifest-features-v2.md](../docs/方案/manifest-features-v2.md
 
 ## Playback history
 
-For consumable plugins (`mediaType: video` / `audio` / `article` / `manga`), declare policy in **`config.playback`** (plugin-wide). Optional per-channel overrides live in `channels[].features.playback`.
+For consumable plugins (`mediaType: video` / `audio` / `article` / `novel` / `manga`), declare policy in **`config.playback`** (plugin-wide). Optional per-channel overrides live in `channels[].features.playback`.
 
 ```json
 {
@@ -298,11 +298,11 @@ For consumable plugins (`mediaType: video` / `audio` / `article` / `manga`), dec
 |-------|---------|-------------|
 | `history` | `false` | Record which work/chapter the user consumed |
 | `progress` | `false` | Record resume position within a chapter (semantics depend on `mode`) |
-| `mode` | from `mediaType` | `video` \| `audio` \| `article` \| `manga` |
+| `mode` | from `mediaType` | `video` \| `audio` \| `article` \| `novel` \| `manga` |
 | `limit` | `200` | Max history entries per plugin; prune oldest |
 | `managedBy` | `runtime` | `runtime`: client persists on reader/player events; `plugin`: WASM handles `playback_*` |
 
-**`mode` defaults when omitted:** `video`→`video`, `audio`→`audio`, `article`→`article`, `manga`→`manga`.
+**`mode` defaults when omitted:** `video`→`video`, `audio`→`audio`, `article`→`article`, `novel`→`novel`, `manga`→`manga`.
 
 **Do not use `feed.persist` for consumption history.** `feed` only controls list ingestion; search channels often set `feed.persist: false` but users still consume content.
 
@@ -312,7 +312,8 @@ For consumable plugins (`mediaType: video` / `audio` / `article` / `manga`), dec
 |------|----------|-------------------|
 | `video` | 影视续播 | `position`, `duration` (seconds) |
 | `audio` | 音频续播 | `position`, `duration` (seconds) |
-| `article` | 小说阅读 | `offset` (0-based char index), optional `total`, optional `anchor` |
+| `article` | 文章 / 杂志阅读 | `offset` (0-based char index), optional `total`, optional `anchor` |
+| `novel` | 长篇小说阅读 | `offset` (0-based char index), optional `total`, optional `anchor` |
 | `manga` | 漫画阅读 | `page` (1-based image index), optional `totalPages` |
 
 Top-level `position` / `duration` are **deprecated** shorthand for `video`/`audio`; prefer `progress`.
@@ -337,7 +338,7 @@ Plugin WASM **implementer** handles `playback_*` actions in the plugin entry (di
 | `parentTitle` | string | optional; display title |
 | `chapterTitle` | string | optional; chapter / episode title |
 | `cover` | string | optional; cover image URL |
-| `mode` | string | optional; `video` \| `audio` \| `article` \| `manga` |
+| `mode` | string | optional; `video` \| `audio` \| `article` \| `novel` \| `manga` |
 | `progress` | object | optional; mode-specific resume payload (see Progress modes) |
 | `position` | number | optional; **deprecated**; use `progress.position` for video/audio |
 | `duration` | number | optional; **deprecated**; use `progress.duration` for video/audio |
@@ -409,7 +410,7 @@ Missing entry: `{ "ok": true, "data": null }`.
 }
 ```
 
-**Put — novel (article)**
+**Put — novel**
 
 ```json
 {
@@ -418,7 +419,7 @@ Missing entry: `{ "ok": true, "data": null }`.
     "record": {
       "parentId": "doupo",
       "chapterId": "42",
-      "mode": "article",
+      "mode": "novel",
       "progress": { "offset": 1520, "total": 8000 },
       "updatedAt": 1719043200
     }
