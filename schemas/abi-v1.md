@@ -117,7 +117,7 @@ Used by Substack Notes and similar tweet-style plugins.
 | `description` | string | optional |
 | `items` | array | Feed items |
 | `hasMore` | boolean | optional; whether more pages exist |
-| `next` | object | optional; params fragment for the next page (e.g. `{ "lastId": "123" }`) |
+| `next` | object | optional; params fragment for the next page (e.g. `{ "lastId": "123" }` or `{ "page": "2", "seenIds": "…" }`) |
 | `tree` | array | optional; hierarchical category nodes (see TreeNode) |
 
 ### TreeNode fields
@@ -176,6 +176,23 @@ When `persist` is `false`, results are shown in the UI only (typical for search)
 | `default` | Value used on scheduled refresh (e.g. `"1"` or `""`) |
 | `idFrom` | For `lastId`: source field on list item (default `item.id`) |
 | `sizeParam` / `defaultSize` | Optional page size |
+| `carryParams` | Optional string array; extra keys from `next` merged on load-more (e.g. `["seenIds"]` for recommendation dedup) |
+
+Example with session carry:
+
+```json
+"params": { "page": "1", "seenIds": "" },
+"pagination": {
+  "style": "offset",
+  "param": "page",
+  "default": "1",
+  "carryParams": ["seenIds"]
+}
+```
+
+Fetch returns `next: { "page": "2", "seenIds": "id1,id2,..." }`; runtime merges `carryParams` on load-more.
+
+完整约定见 [docs/pagination-seenids.md](../docs/pagination-seenids.md)。
 
 ### `search` — user query
 

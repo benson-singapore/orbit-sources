@@ -1,0 +1,86 @@
+{
+  "id": "jimeng",
+  "name": "即梦 AI",
+  "version": "1.0.4",
+  "mediaType": "image",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "trending",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "trending",
+        "label": "热门趋势",
+        "route": "/jimeng/explore",
+        "params": {
+          "categoryId": "11222",
+          "workType": "video,image,canvas",
+          "page": "1",
+          "seenIds": ""
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 40,
+            "carryParams": ["seenIds"]
+          },
+          "feed": {
+            "persist": false,
+            "refresh": true,
+            "limit": 40
+          }
+        }
+      },
+      {
+        "id": "discover-image",
+        "label": "发现 · 图片",
+        "route": "/jimeng/explore",
+        "params": {
+          "categoryId": "11222",
+          "workType": "image",
+          "page": "1",
+          "seenIds": ""
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 40,
+            "carryParams": ["seenIds"]
+          },
+          "feed": {
+            "persist": false,
+            "refresh": true,
+            "limit": 40
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "即梦 AI 发现页热门 AI 图片，含生成提示词，实时拉取不落库。",
+    "icon": "image",
+    "color": "bg-violet-600",
+    "logoText": "梦",
+    "marketCategory": "photo",
+    "categoryTag": "AI",
+    "official": false
+  }
+}

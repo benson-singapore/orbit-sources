@@ -59,7 +59,12 @@
           "description": "For lastId style: field to read id from when loading more"
         },
         "sizeParam": { "type": "string" },
-        "defaultSize": { "type": "integer", "minimum": 1 }
+        "defaultSize": { "type": "integer", "minimum": 1 },
+        "carryParams": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Extra param keys taken from fetch next and merged on load-more (e.g. seenIds for deduplicated recommendation feeds)"
+        }
       },
       "additionalProperties": false
     },

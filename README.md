@@ -55,6 +55,7 @@ orbit-sources/
 
 - `docs/development.md`：从零开发插件
 - `docs/testing.md`：原生、WASM、Runtime 三层测试
+- `docs/pagination-seenids.md`：`seenIds` 分页参数规范（推荐流去重）
 - `docs/packaging.md`：构建、打包和发布产物
 - `schemas/abi-v1.md`：插件与 Runtime 的 JSON 协议
 - `schemas/manifest.wasm.schema.json`：manifest JSON Schema

@@ -163,4 +163,9 @@ apiKey := req.Var("apiKey")
 - `FeedItem.URL` 是完整 URL
 - `FeedItem.PublishedAt` 是 RFC3339 格式
 - 需要用户输入的值使用 `config.variables`
+- 推荐流分页使用 `seenIds` 时，见 `docs/pagination-seenids.md`
 - 不提交成人内容、私钥、Token 或本地构建产物
+
+## 8. 推荐流分页（`seenIds`）
+
+若数据源是推荐池、发现页、热门榜（仅靠 `page` 会重复），在 manifest 中声明 `pagination.carryParams: ["seenIds"]`，并在 `next` 中回传累计 id 列表。完整规范见 **[pagination-seenids.md](./pagination-seenids.md)**。

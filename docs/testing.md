@@ -71,6 +71,18 @@ cd plugins/social_media/youtube
 echo '{"action":"fetch","data":{"channelId":"search","route":"/youtube/search","params":{"query":"orbit"},"vars":{"apiKey":"YOUR_KEY"}}}' | go run .
 ```
 
+测试带 `seenIds` 的推荐流分页（首屏 → 加载更多）：
+
+```bash
+# 首屏
+make try PLUGIN=jimeng ROUTE=/jimeng/explore PARAMS='{"page":"1","seenIds":""}'
+
+# 将上一步响应 data.next 中的 page、seenIds 合并进 params 后再请求
+make try PLUGIN=jimeng ROUTE=/jimeng/explore PARAMS='{"page":"2","seenIds":"<粘贴 next.seenIds>"}'
+```
+
+规则说明见 `docs/pagination-seenids.md`。
+
 ## 5. 发布前验证
 
 - `make list` 能发现插件
