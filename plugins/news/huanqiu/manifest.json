@@ -1,0 +1,396 @@
+{
+  "id": "huanqiu",
+  "name": "环球网",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "world",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "home",
+        "label": "首页",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "home",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "world",
+        "label": "国际",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "world",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "china",
+        "label": "国内",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "china",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "mil",
+        "label": "军事",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "mil",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "taiwan",
+        "label": "台海",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "taiwan",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "opinion",
+        "label": "评论",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "opinion",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "finance",
+        "label": "财经",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "finance",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "tech",
+        "label": "科技",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "tech",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "society",
+        "label": "社会",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "society",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "health",
+        "label": "健康",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "health",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sports",
+        "label": "体育",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "sports",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "auto",
+        "label": "汽车",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "auto",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "ent",
+        "label": "大文娱",
+        "route": "/huanqiu/list",
+        "params": {
+          "section": "ent",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/huanqiu/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "环球网中文新闻，覆盖国内、国际、军事、财经、科技、评论等栏目",
+    "icon": "text",
+    "color": "bg-red-600",
+    "logoText": "环",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": true
+  }
+}
