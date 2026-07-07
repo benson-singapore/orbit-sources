@@ -1,0 +1,266 @@
+{
+  "id": "thepaper",
+  "name": "澎湃新闻",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "hot",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "hot",
+        "label": "澎湃热榜",
+        "route": "/thepaper/sidebar",
+        "params": {
+          "section": "hotNews"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "finance",
+        "label": "澎湃财讯",
+        "route": "/thepaper/sidebar",
+        "params": {
+          "section": "financialInformationNews"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "morning",
+        "label": "早晚报",
+        "route": "/thepaper/sidebar",
+        "params": {
+          "section": "morningEveningNews"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "china-politics",
+        "label": "中国政库",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25462",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "headline",
+        "label": "浦江头条",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25422",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "opinion",
+        "label": "澎湃评论",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "27224",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "international",
+        "label": "澎湃国际",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25429",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "onsite",
+        "label": "直击现场",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25428",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "anti-corruption",
+        "label": "打虎记",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25490",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "澎湃新闻时政思想类资讯，覆盖热榜、政库、评论、国际等栏目",
+    "icon": "text",
+    "color": "bg-blue-700",
+    "logoText": "湃",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": false
+  }
+}
