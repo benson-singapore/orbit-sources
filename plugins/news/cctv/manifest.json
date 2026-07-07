@@ -1,0 +1,256 @@
+{
+  "id": "cctv",
+  "name": "央视网",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "china",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "news",
+        "label": "新闻",
+        "route": "/cctv/list",
+        "params": {
+          "section": "news",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/cctv/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "china",
+        "label": "国内",
+        "route": "/cctv/list",
+        "params": {
+          "section": "china",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/cctv/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "world",
+        "label": "国际",
+        "route": "/cctv/list",
+        "params": {
+          "section": "world",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/cctv/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "society",
+        "label": "社会",
+        "route": "/cctv/list",
+        "params": {
+          "section": "society",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/cctv/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "law",
+        "label": "法治",
+        "route": "/cctv/list",
+        "params": {
+          "section": "law",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/cctv/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "ent",
+        "label": "文娱",
+        "route": "/cctv/list",
+        "params": {
+          "section": "ent",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/cctv/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "tech",
+        "label": "科技",
+        "route": "/cctv/list",
+        "params": {
+          "section": "tech",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/cctv/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "life",
+        "label": "生活",
+        "route": "/cctv/list",
+        "params": {
+          "section": "life",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/cctv/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "央视网新闻频道图文资讯，覆盖国内、国际、社会、法治、文娱、科技与生活；自动跳过视频稿与图集",
+    "icon": "text",
+    "color": "bg-red-600",
+    "logoText": "央",
+    "marketCategory": "news",
+    "categoryTag": "NEWS",
+    "official": false
+  }
+}
