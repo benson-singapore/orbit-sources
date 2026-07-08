@@ -1,0 +1,6 @@
+{
+  "skillsPath": ".codex/skills",
+  "version": "1.0.0",
+  "project": "orbit-sources",
+  "description": "Orbit news plugin sources with local skill support"
+}

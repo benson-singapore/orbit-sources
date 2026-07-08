@@ -1,0 +1,35 @@
+{
+  "skill_name": "orbit-plugin-builder",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "我要基于 zaobao 模板在 /Users/benson/Documents/project-rust/orbit-sources 中创建一个新的 orbit 新闻插件 'testnews'。给我完整的步骤：从复制模板、修改 main.go/manifest.json/go.mod、到构建和本地测试验证。包括如何检查插件是否成功注册。",
+      "expected_output": "Step-by-step 指导包括：目录复制、文件编辑清单、Makefile 验证、make build/try 命令、输出验证点",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "我的 huanqiu 插件列表功能已经工作了，现在要加分页。告诉我：1) manifest.json 中怎样声明 features.pagination？2) main.go 中怎样返回 hasMore 和 next？3) 怎样用 make try 测试多页？包括 offset、cursor、lastId 三种风格的选择标准。",
+      "expected_output": "分页配置示例（offset 风格）、main.go 代码片段（读 page 参数、检查 hasMore、构造 next map）、make try 分页测试命令、三种风格对比说明",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "我在调试新插件时，make try 返回空列表 (items: [])。选择器可能错了。详细说明怎样对比真实网页 HTML 和我的解析？包括浏览器 DevTools、临时日志、goquery 测试。",
+      "expected_output": "调试步骤：1) 浏览器截图对比；2) main.go 中加 log.Printf；3) goquery.Find() 测试方法；4) 对比 API 响应 vs HTML；5) 检查列表覆盖率的方法",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "插件在本地测试通过了。现在要打包成 extension.orbit 并推到仓库。具体步骤？dist/ 目录会生成什么？extension.orbit 文件是怎样的？怎样验证打包成功？",
+      "expected_output": "make package → make orbit 命令、dist/<id>/ 文件结构、extension.orbit 内部结构（Brotli 压缩 + ZIP）、验证命令和检查清单",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "我的插件需要用户提供 API 密钥。怎样在 manifest.json 中声明 config.variables？在 main.go 中怎样读这个变量？",
+      "expected_output": "manifest.json variables 配置示例、FetchRequest 中读 Vars 的代码、与已弃用的 secrets 的对比",
+      "files": []
+    }
+  ]
+}
