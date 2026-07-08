@@ -13,10 +13,10 @@ import (
 )
 
 const (
-	baseURL     = "https://www.thepaper.cn"
-	listAPI     = "https://api.thepaper.cn/contentapi/nodeCont/getByNodeIdPortal"
-	sidebarAPI  = "https://cache.thepaper.cn/contentapi/wwwIndex/rightSidebar"
-	defaultUA   = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+	baseURL    = "https://www.thepaper.cn"
+	listAPI    = "https://api.thepaper.cn/contentapi/nodeCont/getByNodeIdPortal"
+	sidebarAPI = "https://cache.thepaper.cn/contentapi/wwwIndex/rightSidebar"
+	defaultUA  = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 )
 
 var (
@@ -32,12 +32,12 @@ func main() {
 type ThepaperPlugin struct{}
 
 var nodeLabelMap = map[string]string{
-	"25462": "中国政库",
-	"25422": "浦江头条",
-	"27224": "澎湃评论",
-	"25429": "澎湃国际",
-	"25428": "直击现场",
-	"25490": "打虎记",
+	"25462": "中国政库", "25423": "人事风向", "25426": "法治中国", "25424": "一号专案",
+	"25463": "港台来信", "25491": "长三角政商", "25422": "浦江头条", "27224": "澎湃评论",
+	"25429": "全球速报", "25481": "外交学人", "25430": "澎湃防务", "25678": "唐人街",
+	"25428": "直击现场", "25464": "澎湃质量观", "25425": "绿政公署", "25427": "澎湃人物",
+	"25490": "打虎记", "25489": "舆论场", "25485": "澎湃商学院", "25482": "逝者",
+	"25483": "思想市场", "25487": "教育家",
 }
 
 var sidebarSectionMap = map[string]string{
@@ -46,12 +46,25 @@ var sidebarSectionMap = map[string]string{
 	"morningEveningNews":       "早晚报",
 }
 
+var channelNodeIDMap = map[string]string{
+	"china-politics": "25462", "personnel": "25423", "law": "25426", "case": "25424",
+	"hongkong-taiwan": "25463", "yangtze-delta": "25491", "headline": "25422", "opinion": "27224",
+	"global-express": "25429", "international": "25429", "diplomacy": "25481", "defense": "25430",
+	"chinatown": "25678", "onsite": "25428", "quality": "25464", "environment": "25425",
+	"people": "25427", "anti-corruption": "25490", "public-opinion": "25489", "business-school": "25485",
+	"obituary": "25482", "thought-market": "25483", "education": "25487",
+}
+
+var channelSectionMap = map[string]string{
+	"hot": "hotNews", "finance": "financialInformationNews", "morning": "morningEveningNews",
+}
+
 func (p *ThepaperPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
 	switch {
 	case req.Route == "/thepaper/list":
-		return fetchList(req.Params)
+		return fetchList(req.ChannelID, req.Params)
 	case req.Route == "/thepaper/sidebar":
-		return fetchSidebar(req.Params)
+		return fetchSidebar(req.ChannelID, req.Params)
 	case req.Route == "/thepaper/detail/:id":
 		id := strings.TrimSpace(req.Params["id"])
 		if id == "" {
@@ -155,8 +168,14 @@ func (s *flexString) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func fetchList(params map[string]string) (*sdk.FeedResult, error) {
+func fetchList(channelID string, params map[string]string) (*sdk.FeedResult, error) {
 	nodeID := strings.TrimSpace(params["node_id"])
+	if nodeID == "" {
+		nodeID = strings.TrimSpace(params["nodeId"])
+	}
+	if nodeID == "" {
+		nodeID = channelNodeIDMap[strings.TrimSpace(channelID)]
+	}
 	if nodeID == "" {
 		return nil, fmt.Errorf("missing node_id parameter")
 	}
@@ -164,9 +183,11 @@ func fetchList(params map[string]string) (*sdk.FeedResult, error) {
 	payload := map[string]interface{}{
 		"nodeId": nodeID,
 	}
-	if startTime := strings.TrimSpace(params["startTime"]); startTime != "" {
-		if ts, err := strconv.ParseInt(startTime, 10, 64); err == nil && ts > 0 {
+	hasCursor := false
+	if startTime := firstParam(params, "startTime", "start_time", "cursor", "pageToken", "page_token"); startTime != "" {
+		if ts, err := strconv.ParseInt(startTime, 10, 64); err == nil && ts > 1 {
 			payload["startTime"] = ts
+			hasCursor = true
 		}
 	}
 
@@ -188,16 +209,17 @@ func fetchList(params map[string]string) (*sdk.FeedResult, error) {
 
 	items := listItemsToFeed(resp.Data.List)
 	if len(items) == 0 {
+		if hasCursor {
+			return &sdk.FeedResult{
+				Title:       fmt.Sprintf("澎湃新闻 · %s", listLabel(nodeID, resp.Data.NodeInfo)),
+				Description: "澎湃新闻栏目资讯",
+				Items:       []sdk.FeedItem{},
+			}, nil
+		}
 		return nil, fmt.Errorf("no articles found")
 	}
 
-	label := nodeLabelMap[nodeID]
-	if label == "" && resp.Data.NodeInfo != nil {
-		label = strings.TrimSpace(resp.Data.NodeInfo.Name)
-	}
-	if label == "" {
-		label = nodeID
-	}
+	label := listLabel(nodeID, resp.Data.NodeInfo)
 
 	result := &sdk.FeedResult{
 		Title:       fmt.Sprintf("澎湃新闻 · %s", label),
@@ -208,16 +230,34 @@ func fetchList(params map[string]string) (*sdk.FeedResult, error) {
 	if resp.Data.HasNext && resp.Data.StartTime > 0 {
 		result.HasMore = true
 		result.Next = map[string]string{
-			"node_id":   nodeID,
-			"startTime": strconv.FormatInt(resp.Data.StartTime, 10),
+			"node_id":    nodeID,
+			"nodeId":     nodeID,
+			"startTime":  strconv.FormatInt(resp.Data.StartTime, 10),
+			"cursor":     strconv.FormatInt(resp.Data.StartTime, 10),
+			"pageToken":  strconv.FormatInt(resp.Data.StartTime, 10),
+			"page_token": strconv.FormatInt(resp.Data.StartTime, 10),
 		}
 	}
 
 	return result, nil
 }
 
-func fetchSidebar(params map[string]string) (*sdk.FeedResult, error) {
+func listLabel(nodeID string, info *nodeInfo) string {
+	label := nodeLabelMap[nodeID]
+	if label == "" && info != nil {
+		label = strings.TrimSpace(info.Name)
+	}
+	if label == "" {
+		label = nodeID
+	}
+	return label
+}
+
+func fetchSidebar(channelID string, params map[string]string) (*sdk.FeedResult, error) {
 	section := strings.TrimSpace(params["section"])
+	if section == "" {
+		section = channelSectionMap[strings.TrimSpace(channelID)]
+	}
 	if section == "" {
 		section = "hotNews"
 	}
@@ -268,6 +308,10 @@ func fetchSidebar(params map[string]string) (*sdk.FeedResult, error) {
 }
 
 func fetchDetail(rawID string) (*sdk.FeedResult, error) {
+	if externalURL := externalURL(rawID); externalURL != "" {
+		return externalDetail(externalURL), nil
+	}
+
 	contID := extractContID(rawID)
 	if contID == "" {
 		return nil, fmt.Errorf("invalid article id")
@@ -284,6 +328,9 @@ func fetchDetail(rawID string) (*sdk.FeedResult, error) {
 
 	detail, err := parseDetailFromHTML(string(body))
 	if err != nil {
+		if externalURL := extractExternalForwardURL(string(body)); externalURL != "" {
+			return externalDetail(externalURL), nil
+		}
 		return nil, err
 	}
 
@@ -349,6 +396,7 @@ func listItemsToFeed(rawList []contListItem) []sdk.FeedItem {
 func listItemToFeedItem(entry contListItem) sdk.FeedItem {
 	title := strings.TrimSpace(entry.Name)
 	link := strings.TrimSpace(entry.Link)
+	contID := strings.TrimSpace(entry.ContID)
 
 	var itemURL string
 	var itemID string
@@ -357,7 +405,6 @@ func listItemToFeedItem(entry contListItem) sdk.FeedItem {
 		itemURL = link
 		itemID = link
 	} else {
-		contID := strings.TrimSpace(entry.ContID)
 		if contID == "" {
 			return sdk.FeedItem{}
 		}
@@ -430,6 +477,35 @@ func extractContID(raw string) string {
 	return ""
 }
 
+func extractExternalForwardURL(body string) string {
+	body = strings.TrimSpace(body)
+	if strings.HasPrefix(body, "http://") || strings.HasPrefix(body, "https://") {
+		return body
+	}
+	return ""
+}
+
+func externalURL(raw string) string {
+	raw = strings.TrimSpace(raw)
+	if strings.HasPrefix(raw, "http://") || strings.HasPrefix(raw, "https://") {
+		return raw
+	}
+	return ""
+}
+
+func externalDetail(url string) *sdk.FeedResult {
+	return &sdk.FeedResult{
+		Title:       url,
+		Description: "澎湃新闻外链文章",
+		Items: []sdk.FeedItem{{
+			ID:          url,
+			Title:       url,
+			URL:         url,
+			PublishedAt: time.Now().Format(time.RFC3339),
+		}},
+	}
+}
+
 func articleURL(contID string) string {
 	return fmt.Sprintf("%s/newsDetail_forward_%s", baseURL, contID)
 }
@@ -484,6 +560,15 @@ func firstNonEmpty(values ...string) string {
 		v = strings.TrimSpace(v)
 		if v != "" {
 			return v
+		}
+	}
+	return ""
+}
+
+func firstParam(params map[string]string, keys ...string) string {
+	for _, key := range keys {
+		if value := strings.TrimSpace(params[key]); value != "" {
+			return value
 		}
 	}
 	return ""

@@ -10,13 +10,29 @@
 | `finance` | 澎湃财讯 |
 | `morning` | 早晚报 |
 | `china-politics` | 中国政库 |
+| `personnel` | 人事风向 |
+| `law` | 法治中国 |
+| `case` | 一号专案 |
+| `hongkong-taiwan` | 港台来信 |
+| `yangtze-delta` | 长三角政商 |
 | `headline` | 浦江头条 |
 | `opinion` | 澎湃评论 |
-| `international` | 澎湃国际 |
+| `global-express` | 全球速报 |
+| `diplomacy` | 外交学人 |
+| `defense` | 澎湃防务 |
+| `chinatown` | 唐人街 |
 | `onsite` | 直击现场 |
+| `quality` | 澎湃质量观 |
+| `environment` | 绿政公署 |
+| `people` | 澎湃人物 |
 | `anti-corruption` | 打虎记 |
+| `public-opinion` | 舆论场 |
+| `business-school` | 澎湃商学院 |
+| `obituary` | 逝者 |
+| `thought-market` | 思想市场 |
+| `education` | 教育家 |
 
-栏目列表使用 `startTime` 游标分页；存在下一页时返回 `hasMore` 与 `next.startTime`。
+栏目列表使用 `startTime` 游标分页；存在下一页时返回 `hasMore` 与 `next.startTime`，同时兼容宿主传入 `cursor` / `pageToken` / `page_token`。如果宿主误传 `startTime=1`，插件会按首页处理。
 
 ## 本地测试
 
@@ -26,6 +42,9 @@ make test-native CHANNEL=hot PARAMS='{"section":"hotNews"}'
 
 # 中国政库第 1 页
 make test-native CHANNEL=china-politics ROUTE=/thepaper/list PARAMS='{"node_id":"25462"}'
+
+# 使用分页游标获取下一页
+make test-native CHANNEL=china-politics ROUTE=/thepaper/list PARAMS='{"node_id":"25462","startTime":"1783430502866"}'
 
 # 文章详情（id 为 contId 或完整 URL）
 echo '{"action":"fetch","data":{"channelId":"hot","route":"/thepaper/detail/:id","params":{"id":"33530511"}}}' | go run .

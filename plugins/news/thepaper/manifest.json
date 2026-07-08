@@ -1,7 +1,7 @@
 {
   "id": "thepaper",
   "name": "澎湃新闻",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "mediaType": "article",
   "source": "wasm",
   "capabilities": [
@@ -108,6 +108,146 @@
         }
       },
       {
+        "id": "personnel",
+        "label": "人事风向",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25423",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "law",
+        "label": "法治中国",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25426",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "case",
+        "label": "一号专案",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25424",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "hongkong-taiwan",
+        "label": "港台来信",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25463",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "yangtze-delta",
+        "label": "长三角政商",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25491",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
         "id": "headline",
         "label": "浦江头条",
         "route": "/thepaper/list",
@@ -164,11 +304,95 @@
         }
       },
       {
-        "id": "international",
-        "label": "澎湃国际",
+        "id": "global-express",
+        "label": "全球速报",
         "route": "/thepaper/list",
         "params": {
           "node_id": "25429",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "diplomacy",
+        "label": "外交学人",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25481",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "defense",
+        "label": "澎湃防务",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25430",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "chinatown",
+        "label": "唐人街",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25678",
           "startTime": ""
         },
         "status": "enabled",
@@ -220,11 +444,235 @@
         }
       },
       {
+        "id": "quality",
+        "label": "澎湃质量观",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25464",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "environment",
+        "label": "绿政公署",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25425",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "people",
+        "label": "澎湃人物",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25427",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
         "id": "anti-corruption",
         "label": "打虎记",
         "route": "/thepaper/list",
         "params": {
           "node_id": "25490",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "public-opinion",
+        "label": "舆论场",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25489",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "business-school",
+        "label": "澎湃商学院",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25485",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "obituary",
+        "label": "逝者",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25482",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "thought-market",
+        "label": "思想市场",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25483",
+          "startTime": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "cursor",
+            "param": "startTime",
+            "default": ""
+          },
+          "detail": {
+            "route": "/thepaper/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "education",
+        "label": "教育家",
+        "route": "/thepaper/list",
+        "params": {
+          "node_id": "25487",
           "startTime": ""
         },
         "status": "enabled",
@@ -255,7 +703,7 @@
     }
   },
   "meta": {
-    "description": "澎湃新闻时政思想类资讯，覆盖热榜、政库、评论、国际等栏目",
+    "description": "澎湃新闻资讯，覆盖热榜、财讯、时政、国际、现场、思想等栏目",
     "icon": "text",
     "color": "bg-blue-700",
     "logoText": "湃",
