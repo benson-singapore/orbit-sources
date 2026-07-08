@@ -1,0 +1,272 @@
+{
+  "id": "cnblogs",
+  "name": "博客园",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "home",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "home",
+        "label": "首页",
+        "route": "/cnblogs/list",
+        "params": {
+          "section": "home",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/cnblogs/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "all",
+        "label": "所有随笔",
+        "route": "/cnblogs/list",
+        "params": {
+          "section": "all",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/cnblogs/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "articles",
+        "label": "所有文章",
+        "route": "/cnblogs/list",
+        "params": {
+          "section": "articles",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/cnblogs/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "backend",
+        "label": "后端开发",
+        "route": "/cnblogs/list",
+        "params": {
+          "section": "backend",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/cnblogs/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "java",
+        "label": "Java",
+        "route": "/cnblogs/list",
+        "params": {
+          "section": "java",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/cnblogs/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "dotnet",
+        "label": ".NET",
+        "route": "/cnblogs/list",
+        "params": {
+          "section": "dotnet",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/cnblogs/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "frontend",
+        "label": "前端开发",
+        "route": "/cnblogs/list",
+        "params": {
+          "section": "frontend",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/cnblogs/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "ai",
+        "label": "人工智能",
+        "route": "/cnblogs/list",
+        "params": {
+          "section": "ai",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "sizeParam": "size",
+            "defaultSize": 20
+          },
+          "detail": {
+            "route": "/cnblogs/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "博客园技术文章聚合",
+    "icon": "text",
+    "color": "bg-blue-500",
+    "logoText": "博",
+    "marketCategory": "reading",
+    "categoryTag": "TECH",
+    "official": true
+  }
+}
