@@ -1,0 +1,265 @@
+{
+  "id": "libtv",
+  "name": "LibLib TV",
+  "version": "1.0.0",
+  "mediaType": "video",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "defaultChannel": "3036",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "3036",
+        "label": "AI漫剧精卫计划",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "3036"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "3040",
+        "label": "广告导演请就位",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "3040"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "1000",
+        "label": "精选画布",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "1000"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "1200",
+        "label": "专业影视",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "1200"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "1800",
+        "label": "短剧漫剧",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "1800"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "1100",
+        "label": "商业广告",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "1100"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "1300",
+        "label": "动漫游戏",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "1300"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "1500",
+        "label": "教育生活",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "1500"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "1600",
+        "label": "TV工具箱",
+        "route": "/libtv/feed/:tagId",
+        "params": {
+          "tagId": "1600"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/libtv/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "LibLib TV 视频创作社区 - AI 漫剧、短剧、专业影视、商业广告等视频内容",
+    "icon": "text",
+    "color": "bg-purple-500",
+    "logoText": "🎬",
+    "marketCategory": "video",
+    "categoryTag": "VIDEO",
+    "official": true
+  }
+}

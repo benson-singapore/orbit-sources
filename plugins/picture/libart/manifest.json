@@ -1,0 +1,283 @@
+{
+  "id": "libart",
+  "name": "Liblib AI创意",
+  "version": "1.0.0",
+  "mediaType": "image",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "defaultChannel": "all",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "all",
+        "label": "全部",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "ecommerce-3d",
+        "label": "电商产品渲染·视频特效",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "600018"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "short-drama",
+        "label": "短剧漫剧·视频特效",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "600020"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "photography",
+        "label": "摄影写真",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "550005"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "ecommerce-marketing",
+        "label": "电商营销",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "560012"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "anime-game",
+        "label": "动漫游戏",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "560032"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "illustration",
+        "label": "风格插画",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "560045"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "graphic-design",
+        "label": "平面设计",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "560024"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "architecture-interior",
+        "label": "建筑及室内设计",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "540024"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "creative-gameplay",
+        "label": "创意玩法",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "560061"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "cultural-merchandise",
+        "label": "文创周边",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "560019"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      },
+      {
+        "id": "novel-promotion",
+        "label": "小说推文",
+        "route": "/libart/search",
+        "params": {
+          "tagV2Ids": "560035"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "Liblib AI创意素材库 - 12个分类超1000万素材",
+    "icon": "text",
+    "color": "bg-blue-500",
+    "logoText": "Art",
+    "marketCategory": "image",
+    "categoryTag": "IMAGE",
+    "official": true
+  }
+}
