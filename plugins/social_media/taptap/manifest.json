@@ -1,0 +1,56 @@
+{
+  "id": "taptap",
+  "name": "TapTap",
+  "version": "1.0.0",
+  "mediaType": "rating",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1200,
+    "userAgent": "",
+    "defaultChannel": "hot",
+    "executionMode": "wasm",
+    "channels": [
+      { "id": "hot", "label": "热门榜", "route": "/taptap/ranking", "params": { "type": "hot", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "reserve", "label": "预约榜", "route": "/taptap/ranking", "params": { "type": "reserve", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "played", "label": "热玩榜", "route": "/taptap/ranking", "params": { "type": "pop", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "new", "label": "新品榜", "route": "/taptap/ranking", "params": { "type": "new", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "sell", "label": "热卖榜", "route": "/taptap/ranking", "params": { "type": "sell", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "event-reserve", "label": "新版本榜", "route": "/taptap/ranking", "params": { "type": "in_app_event_reserve", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "exclusive", "label": "独家榜", "route": "/taptap/ranking", "params": { "type": "exclusive", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "action", "label": "动作榜", "route": "/taptap/ranking", "params": { "type": "action", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "strategy", "label": "策略榜", "route": "/taptap/ranking", "params": { "type": "strategy", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "idle", "label": "放置榜", "route": "/taptap/ranking", "params": { "type": "idle", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "single", "label": "单机榜", "route": "/taptap/ranking", "params": { "type": "single", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "casual", "label": "休闲榜", "route": "/taptap/ranking", "params": { "type": "casual", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "sandbox_survival", "label": "沙盒生存榜", "route": "/taptap/ranking", "params": { "type": "sandbox_survival", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "management", "label": "模拟经营榜", "route": "/taptap/ranking", "params": { "type": "management", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "unriddle", "label": "解谜榜", "route": "/taptap/ranking", "params": { "type": "unriddle", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "shooter", "label": "射击榜", "route": "/taptap/ranking", "params": { "type": "shooter", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "multiplayer", "label": "多人对战榜", "route": "/taptap/ranking", "params": { "type": "multiplayer", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "acgn", "label": "二次元榜", "route": "/taptap/ranking", "params": { "type": "acgn", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "music", "label": "音乐节奏榜", "route": "/taptap/ranking", "params": { "type": "music", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "scenario", "label": "剧情榜", "route": "/taptap/ranking", "params": { "type": "scenario", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "swordsman", "label": "武侠榜", "route": "/taptap/ranking", "params": { "type": "swordsman", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "otome", "label": "女性向榜", "route": "/taptap/ranking", "params": { "type": "otome", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "independent", "label": "独立游戏榜", "route": "/taptap/ranking", "params": { "type": "independent", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } },
+      { "id": "roguelike", "label": "Roguelike榜", "route": "/taptap/ranking", "params": { "type": "roguelike", "platform": "android", "page": "1" }, "status": "enabled", "features": { "feed": { "persist": true, "refresh": true, "limit": 100 }, "pagination": { "style": "offset", "param": "page", "default": "1" }, "detail": { "route": "/taptap/detail/:id", "idParam": "id", "persist": true } } }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "TapTap 游戏排行榜，包含热门、预约、热玩、新品、热卖和分类榜单",
+    "icon": "text",
+    "color": "bg-cyan-500",
+    "logoText": "Tap",
+    "marketCategory": "entertainment",
+    "categoryTag": "GAME",
+    "official": false
+  }
+}
