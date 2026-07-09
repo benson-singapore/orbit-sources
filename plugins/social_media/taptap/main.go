@@ -242,9 +242,7 @@ func parseRanking(body []byte, page int) ([]sdk.FeedItem, error) {
 
 		rank := (page-1)*pageSize + index + 1
 		cover := firstNonEmpty(app.Icon.URL, app.Icon.LargeURL, app.Icon.MediumURL, app.Icon.SmallURL)
-		banner := firstNonEmpty(app.Banner.URL, app.TopBanner.URL, cover)
 		summary := buildSummary(rank, app)
-		content := buildContent(rank, app, banner)
 		publishedAt := fallbackNow
 		if app.ReleasedTime > 0 {
 			publishedAt = time.Unix(app.ReleasedTime, 0).UTC().Format(time.RFC3339)
@@ -255,7 +253,6 @@ func parseRanking(body []byte, page int) ([]sdk.FeedItem, error) {
 			Title:       app.Title,
 			URL:         fmt.Sprintf("%s/app/%d", baseURL, app.ID),
 			Summary:     summary,
-			Content:     content,
 			Cover:       cover,
 			Image:       cover,
 			PublishedAt: publishedAt,

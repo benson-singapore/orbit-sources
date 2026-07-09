@@ -9,30 +9,9 @@
   ],
   "config": {
     "refreshInterval": 1800,
-    "defaultChannel": "all",
+    "defaultChannel": "ecommerce-3d",
     "executionMode": "wasm",
     "channels": [
-      {
-        "id": "all",
-        "label": "全部",
-        "route": "/libart/search",
-        "params": {
-          "tagV2Ids": ""
-        },
-        "status": "enabled",
-        "features": {
-          "feed": {
-            "persist": true,
-            "refresh": true,
-            "limit": 100
-          },
-          "pagination": {
-            "style": "offset",
-            "param": "page",
-            "default": "1"
-          }
-        }
-      },
       {
         "id": "ecommerce-3d",
         "label": "电商产品渲染·视频特效",

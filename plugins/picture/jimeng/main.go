@@ -53,21 +53,21 @@ type exploreResponse struct {
 	Ret    string `json:"ret"`
 	Errmsg string `json:"errmsg"`
 	Data   struct {
-		HasMore    bool           `json:"has_more"`
-		NextOffset int            `json:"next_offset"`
-		ItemList   []exploreItem  `json:"item_list"`
+		HasMore    bool          `json:"has_more"`
+		NextOffset int           `json:"next_offset"`
+		ItemList   []exploreItem `json:"item_list"`
 	} `json:"data"`
 }
 
 type exploreItem struct {
 	CommonAttr struct {
-		ID           string            `json:"id"`
-		Title        string            `json:"title"`
-		Description  string            `json:"description"`
-		CoverURL     string            `json:"cover_url"`
-		CoverURLMap  map[string]string `json:"cover_url_map"`
-		CreateTime   int64             `json:"create_time"`
-		EffectType   int               `json:"effect_type"`
+		ID          string            `json:"id"`
+		Title       string            `json:"title"`
+		Description string            `json:"description"`
+		CoverURL    string            `json:"cover_url"`
+		CoverURLMap map[string]string `json:"cover_url_map"`
+		CreateTime  int64             `json:"create_time"`
+		EffectType  int               `json:"effect_type"`
 	} `json:"common_attr"`
 	Author struct {
 		Name      string `json:"name"`
@@ -126,10 +126,6 @@ func fetchExplore(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
 		"image_info": exploreImageInfo(),
 		"feed_refer": feedRefer,
 	}
-	if len(seenIDs) > 0 {
-		body["expose_item_id_list"] = seenIDs
-	}
-
 	bodyJSON, err := json.Marshal(body)
 	if err != nil {
 		return nil, fmt.Errorf("marshal request body: %w", err)
@@ -235,14 +231,14 @@ func itemToFeed(raw exploreItem) (sdk.FeedItem, bool) {
 
 func buildExploreURL() string {
 	values := url.Values{
-		"aid":                       {appID},
-		"device_platform":           {"web"},
-		"region":                    {"cn"},
-		"da_version":                {daVersion},
-		"os":                        {"windows"},
-		"web_component_open_flag":   {"1"},
-		"web_version":               {webVersion},
-		"aigc_features":             {"app_lip_sync"},
+		"aid":                     {appID},
+		"device_platform":         {"web"},
+		"region":                  {"cn"},
+		"da_version":              {daVersion},
+		"os":                      {"windows"},
+		"web_component_open_flag": {"1"},
+		"web_version":             {webVersion},
+		"aigc_features":           {"app_lip_sync"},
 	}
 	return baseURL + explorePath + "?" + values.Encode()
 }

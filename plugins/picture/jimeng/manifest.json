@@ -1,7 +1,7 @@
 {
   "id": "jimeng",
   "name": "即梦 AI",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "mediaType": "image",
   "source": "wasm",
   "capabilities": [
