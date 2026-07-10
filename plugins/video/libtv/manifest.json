@@ -26,11 +26,6 @@
             "refresh": true,
             "limit": 100
           },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
-          },
           "pagination": {
             "style": "offset",
             "param": "page",
@@ -51,11 +46,6 @@
             "persist": true,
             "refresh": true,
             "limit": 100
-          },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
           },
           "pagination": {
             "style": "offset",
@@ -78,11 +68,6 @@
             "refresh": true,
             "limit": 100
           },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
-          },
           "pagination": {
             "style": "offset",
             "param": "page",
@@ -103,11 +88,6 @@
             "persist": true,
             "refresh": true,
             "limit": 100
-          },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
           },
           "pagination": {
             "style": "offset",
@@ -130,11 +110,6 @@
             "refresh": true,
             "limit": 100
           },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
-          },
           "pagination": {
             "style": "offset",
             "param": "page",
@@ -155,11 +130,6 @@
             "persist": true,
             "refresh": true,
             "limit": 100
-          },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
           },
           "pagination": {
             "style": "offset",
@@ -182,11 +152,6 @@
             "refresh": true,
             "limit": 100
           },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
-          },
           "pagination": {
             "style": "offset",
             "param": "page",
@@ -208,11 +173,6 @@
             "refresh": true,
             "limit": 100
           },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
-          },
           "pagination": {
             "style": "offset",
             "param": "page",
@@ -233,11 +193,6 @@
             "persist": true,
             "refresh": true,
             "limit": 100
-          },
-          "detail": {
-            "route": "/libtv/detail/:id",
-            "idParam": "id",
-            "persist": true
           },
           "pagination": {
             "style": "offset",

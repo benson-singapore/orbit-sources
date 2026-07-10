@@ -131,13 +131,18 @@ func fetchSearch(tagIDStr string, pageStr string) (*sdk.FeedResult, error) {
 		return nil, fmt.Errorf("api error: code %d", apiResp.Code)
 	}
 
-	var items []sdk.FeedItem
+	items := make([]sdk.FeedItem, 0, len(apiResp.Data.Data))
+	seen := make(map[string]struct{}, len(apiResp.Data.Data))
 	tagLabel := getTagLabel(tagIDs[0])
 
 	for _, img := range apiResp.Data.Data {
 		if img.UUID == "" || img.Title == "" {
 			continue
 		}
+		if _, exists := seen[img.UUID]; exists {
+			continue
+		}
+		seen[img.UUID] = struct{}{}
 
 		imgURL := img.ImageURL
 		if imgURL == "" {
@@ -161,17 +166,13 @@ func fetchSearch(tagIDStr string, pageStr string) (*sdk.FeedResult, error) {
 		})
 	}
 
-	if len(items) == 0 {
-		return nil, fmt.Errorf("no images found")
-	}
-
 	result := &sdk.FeedResult{
 		Title:       fmt.Sprintf("Liblib - %s", tagLabel),
 		Description: "AI创意图库",
 		Items:       items,
 	}
 
-	if len(items) >= 30 {
+	if len(apiResp.Data.Data) > 0 {
 		result.HasMore = true
 		result.Next = map[string]string{
 			"page":      strconv.Itoa(pageNum + 1),
