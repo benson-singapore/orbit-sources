@@ -1,0 +1,1918 @@
+{
+  "id": "awwrated-netflix",
+  "name": "awwrated · Netflix",
+  "version": "1.1.1",
+  "mediaType": "rating",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "",
+    "defaultChannel": "sort_new",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "type_movie",
+        "label": "电影",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "movie",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "type_series",
+        "label": "电视影集",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "series",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "type_ani",
+        "label": "动画",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "animation",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "type_ani_movie",
+        "label": "动画电影",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "metaType": "movie",
+          "genreLike": "Animation",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sort_new",
+        "label": "新上架",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sort_recent_top",
+        "label": "近期好评",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "orderby": "average_review",
+          "order": "DESC",
+          "recentDays": "365",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sort_top_rated",
+        "label": "最好评",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sort_aww_hot",
+        "label": "热门 aww 评",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "orderby": "COMMENT_COUNT",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sort_popular",
+        "label": "最热门",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "orderby": "total_votes",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sort_latest",
+        "label": "最新",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "orderby": "DATE",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sort_oldest",
+        "label": "最旧",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "orderby": "DATE",
+          "order": "ASC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "sort_worst",
+        "label": "最…!!?",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "orderby": "average_review",
+          "order": "ASC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_us",
+        "label": "美国",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "USA",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_tw",
+        "label": "台湾",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "Taiwan",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_kr",
+        "label": "韩国",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "Korea",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_jp",
+        "label": "日本",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "Japan",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_uk",
+        "label": "英国",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "United Kingdom",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_cn",
+        "label": "中国",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "China",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_hk",
+        "label": "香港",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "Hong Kong",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_in",
+        "label": "印度",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "India",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "region_th",
+        "label": "泰国",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "country": "Thailand",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_edchoice",
+        "label": "编辑推荐",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "filter": "edchoice",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_drama",
+        "label": "剧情",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Drama",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_horror",
+        "label": "恐怖",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Horror",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_thriller",
+        "label": "惊悚",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Thriller",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_mystery",
+        "label": "悬疑",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Mystery",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_comedy",
+        "label": "喜剧",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Comedy",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_crime",
+        "label": "犯罪",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Crime",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_scifi",
+        "label": "科幻",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Sci-Fi",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_romance",
+        "label": "爱情",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Romance",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_action",
+        "label": "动作",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Action",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_fantasy",
+        "label": "奇幻",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Fantasy",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_documentary",
+        "label": "纪录片",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Documentary",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_war",
+        "label": "战争",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "War",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_family",
+        "label": "合家欢",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Family",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_reality",
+        "label": "实境节目",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Reality-TV",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_short",
+        "label": "短片集",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Short",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_history",
+        "label": "历史",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "History",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_talkshow",
+        "label": "脱口秀",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Talk-Show",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_music",
+        "label": "音乐",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Music",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_biography",
+        "label": "传记",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Biography",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_sport",
+        "label": "运动",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "Sport",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_based_on_game",
+        "label": "改编自游戏",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "based-on-game",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_based_on_comic",
+        "label": "改编自漫画",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "based-on-comic",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_based_on_book",
+        "label": "改编自小说",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "based-on-book",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "genre_based_on_true",
+        "label": "改编自真实故事",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "tag": "based-on-true-story",
+          "orderby": "average_review",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_2025",
+        "label": "2025",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "1735689600",
+          "yearTo": "1767225599",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_2024",
+        "label": "2024",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "1704067200",
+          "yearTo": "1735689599",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_2023",
+        "label": "2023",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "1672531200",
+          "yearTo": "1704067199",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_2022",
+        "label": "2022",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "1640995200",
+          "yearTo": "1672531199",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_2021",
+        "label": "2021",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "1609459200",
+          "yearTo": "1640995199",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_2020",
+        "label": "2020",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "1577836800",
+          "yearTo": "1609459199",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_2010s",
+        "label": "2010-2019",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "1262304000",
+          "yearTo": "1577836799",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_2000s",
+        "label": "2000-2009",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "946684800",
+          "yearTo": "1262303999",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "year_1980_1999",
+        "label": "1980-1999",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "yearFrom": "315532800",
+          "yearTo": "946684799",
+          "orderby": "release_date",
+          "order": "DESC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "leaving_soon",
+        "label": "即将下架",
+        "route": "/awwrated-netflix/list",
+        "params": {
+          "filter": "leaving_soon",
+          "orderby": "leaving_soon_date",
+          "order": "ASC",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/awwrated-netflix/search",
+        "params": {
+          "query": "",
+          "page": "1",
+          "pageToken": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 100
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1",
+            "carryParams": [
+              "pageToken"
+            ]
+          },
+          "detail": {
+            "route": "/awwrated-netflix/detail/:id",
+            "idParam": "id",
+            "persist": true
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "awwrated Netflix：按页面筛选构建频道（形态/地区/类型/排序/年份）+ 搜索与多站评分详情",
+    "icon": "text",
+    "color": "bg-red-600",
+    "logoText": "NF",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": false
+  }
+}
