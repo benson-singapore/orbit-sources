@@ -1,0 +1,114 @@
+{
+  "id": "wallhere",
+  "name": "Wallhere",
+  "version": "1.0.1",
+  "mediaType": "image",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 3600,
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    "defaultChannel": "random",
+    "executionMode": "wasm",
+    "variables": {},
+    "channels": [
+      {
+        "id": "random",
+        "label": "随机壁纸",
+        "route": "/wallhere/list",
+        "params": {
+          "order": "random",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "defaultSize": 30 },
+          "feed": { "persist": true, "refresh": true, "limit": 30 },
+          "detail": {
+            "route": "/wallhere/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "latest",
+        "label": "最新壁纸",
+        "route": "/wallhere/list",
+        "params": {
+          "order": "latest",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "defaultSize": 30 },
+          "feed": { "persist": true, "refresh": true, "limit": 30 },
+          "detail": {
+            "route": "/wallhere/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "popular",
+        "label": "热门壁纸",
+        "route": "/wallhere/list",
+        "params": {
+          "order": "popular",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": { "style": "offset", "param": "page", "default": "1", "defaultSize": 30 },
+          "feed": { "persist": true, "refresh": true, "limit": 30 },
+          "detail": {
+            "route": "/wallhere/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/wallhere/search",
+        "params": {
+          "q": "",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": { "persist": false, "refresh": false, "limit": 30 },
+          "search": { "param": "q", "required": true },
+          "pagination": { "style": "offset", "param": "page", "default": "1", "defaultSize": 30 },
+          "detail": {
+            "route": "/wallhere/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "Wallhere 免版权高清壁纸，支持分类浏览、最新/热门排序、关键词搜索与详情获取高分辨率图片。",
+    "icon": "image",
+    "color": "bg-blue-600",
+    "logoText": "Wallhere",
+    "marketCategory": "photo",
+    "categoryTag": "PHOTO",
+    "official": false
+  }
+}
