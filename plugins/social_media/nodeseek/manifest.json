@@ -1,0 +1,167 @@
+{
+  "id": "nodeseek",
+  "name": "NodeSeek",
+  "version": "1.0.0",
+  "mediaType": "social",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 900,
+    "userAgent": "",
+    "defaultChannel": "home",
+    "executionMode": "wasm",
+    "variables": {
+      "cookie": {
+        "label": "NodeSeek Cookie",
+        "description": "可选但强烈建议填写浏览器里的 NodeSeek 会话 Cookie，用于绕过 Cloudflare 挑战并获取详情页与评论。",
+        "required": false,
+        "secret": true
+      }
+    },
+    "channels": [
+      {
+        "id": "home",
+        "label": "首页",
+        "route": "/nodeseek/home",
+        "params": {},
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/nodeseek/post/:id",
+            "idParam": "id",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "daily",
+        "label": "日常",
+        "route": "/nodeseek/category/:slug",
+        "params": {
+          "slug": "daily",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/nodeseek/post/:id",
+            "idParam": "id",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "tech",
+        "label": "技术",
+        "route": "/nodeseek/category/:slug",
+        "params": {
+          "slug": "tech",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/nodeseek/post/:id",
+            "idParam": "id",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "review",
+        "label": "测评",
+        "route": "/nodeseek/category/:slug",
+        "params": {
+          "slug": "review",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/nodeseek/post/:id",
+            "idParam": "id",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "trade",
+        "label": "交易",
+        "route": "/nodeseek/category/:slug",
+        "params": {
+          "slug": "trade",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": true,
+            "limit": 200
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/nodeseek/post/:id",
+            "idParam": "id",
+            "persist": false
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "NodeSeek 论坛帖子流，按社交媒体样式返回作者、头像、正文、媒体与首屏评论（需 Cookie 时效果更稳定）",
+    "icon": "text",
+    "color": "bg-cyan-600",
+    "logoText": "NS",
+    "marketCategory": "social_media",
+    "categoryTag": "SOCIAL",
+    "official": false
+  }
+}
