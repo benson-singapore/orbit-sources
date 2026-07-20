@@ -35,6 +35,7 @@ var (
 	reTitleTag     = regexp.MustCompile(`(?s)<title>\s*(.*?)\s*</title>`)
 	reLrc          = regexp.MustCompile(`(?s)<div class="content-lrc mt-1" id="content-lrc">(.*?)</div>`)
 	reIDFromURL    = regexp.MustCompile(`/music/(\d+)`)
+	reNumericPath  = regexp.MustCompile(`^/?(\d+)$`)
 	reTags         = regexp.MustCompile(`\s*-\s*`)
 )
 
@@ -160,7 +161,9 @@ func fetchDetail(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
 		if id == "" {
 			return nil, fmt.Errorf("missing url or id parameter")
 		}
-		pageURL = "/music/" + id
+		pageURL = normalizeDetailURL(id)
+	} else {
+		pageURL = normalizeDetailURL(pageURL)
 	}
 	pageURL = absURL(pageURL)
 
@@ -207,6 +210,29 @@ func fetchDetail(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
 		Description: "歌曲详情",
 		Items:       []sdk.FeedItem{item},
 	}, nil
+}
+
+func normalizeDetailURL(raw string) string {
+	raw = strings.TrimSpace(raw)
+	if raw == "" {
+		return raw
+	}
+
+	// Orbit sometimes passes plain ids or /<id>; convert to /music/<id>.
+	if m := reNumericPath.FindStringSubmatch(raw); len(m) > 1 {
+		return "/music/" + m[1]
+	}
+
+	u, err := url.Parse(raw)
+	if err == nil {
+		path := strings.TrimSpace(u.Path)
+		if m := reNumericPath.FindStringSubmatch(path); len(m) > 1 {
+			u.Path = "/music/" + m[1]
+			return u.String()
+		}
+	}
+
+	return raw
 }
 
 func parseRow(rowHTML, fallbackAuthor, fallbackCover string) (sdk.FeedItem, bool) {
@@ -322,7 +348,10 @@ func isCloudflareChallenge(body []byte) bool {
 	return strings.Contains(s, "cf-browser-verification") ||
 		strings.Contains(s, "challenge-platform") ||
 		strings.Contains(s, "just a moment") ||
-		strings.Contains(s, "cf-challenge")
+		strings.Contains(s, "cf-challenge") ||
+		strings.Contains(s, "cloudflare ray id") ||
+		strings.Contains(s, "checking your browser") ||
+		strings.Contains(s, "attention required")
 }
 
 func extractLyrics(page string) string {
