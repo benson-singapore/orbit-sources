@@ -1,0 +1,236 @@
+{
+  "id": "opennana",
+  "name": "OpenNana Prompts",
+  "version": "1.0.0",
+  "mediaType": "image",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "defaultChannel": "image-all",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "image-all",
+        "label": "图片 · 全部",
+        "route": "/opennana/list",
+        "params": {
+          "page": "1",
+          "media_type": "image"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 60
+          },
+          "detail": {
+            "route": "/opennana/detail/:slug",
+            "idParam": "slug",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "image-chatgpt",
+        "label": "图片 · ChatGPT",
+        "route": "/opennana/list",
+        "params": {
+          "page": "1",
+          "media_type": "image",
+          "model": "ChatGPT"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 60
+          },
+          "detail": {
+            "route": "/opennana/detail/:slug",
+            "idParam": "slug",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "image-grok",
+        "label": "图片 · Grok",
+        "route": "/opennana/list",
+        "params": {
+          "page": "1",
+          "media_type": "image",
+          "model": "Grok"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 60
+          },
+          "detail": {
+            "route": "/opennana/detail/:slug",
+            "idParam": "slug",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "image-nano-banana-pro",
+        "label": "图片 · Nano Banana Pro",
+        "route": "/opennana/list",
+        "params": {
+          "page": "1",
+          "media_type": "image",
+          "model": "Nano Banana Pro"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 60
+          },
+          "detail": {
+            "route": "/opennana/detail/:slug",
+            "idParam": "slug",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "image-nano-banana-2",
+        "label": "图片 · Nano Banana 2",
+        "route": "/opennana/list",
+        "params": {
+          "page": "1",
+          "media_type": "image",
+          "model": "Nano Banana 2"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 60
+          },
+          "detail": {
+            "route": "/opennana/detail/:slug",
+            "idParam": "slug",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "video-all",
+        "label": "视频 · 全部",
+        "route": "/opennana/list",
+        "params": {
+          "page": "1",
+          "media_type": "video"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 60
+          },
+          "detail": {
+            "route": "/opennana/detail/:slug",
+            "idParam": "slug",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/opennana/list",
+        "params": {
+          "page": "1",
+          "media_type": "image",
+          "search": ""
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 60
+          },
+          "search": {
+            "param": "search",
+            "required": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/opennana/detail/:slug",
+            "idParam": "slug",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "OpenNana AI 提示词画廊，浏览 ChatGPT / Grok / Nano Banana 等模型生成的图片与视频提示词。",
+    "icon": "image",
+    "color": "bg-pink-500",
+    "logoText": "Na",
+    "marketCategory": "photo",
+    "categoryTag": "AI",
+    "official": false
+  }
+}
