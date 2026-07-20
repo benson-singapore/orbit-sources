@@ -32,7 +32,7 @@
 | `playback_put` | Optional; when `config.playback.managedBy` is `plugin` |
 | `playback_delete` | Optional; when `config.playback.managedBy` is `plugin` |
 | `manifest` | Dev-only self-check; runtime does not call |
-| `parse` | Reserved for Phase 3 hybrid browser mode |
+| `parse` | Reserved for hybrid browser mode (`executionMode: "hybrid"`); see `schemas/browser-preview.md` |
 
 ## Response envelope
 

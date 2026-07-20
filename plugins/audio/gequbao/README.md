@@ -4,11 +4,22 @@
 
 ## 前置配置
 
-歌曲宝受 **Cloudflare** 保护。默认无需手动配置：
+歌曲宝受 **Cloudflare** 保护。抓取策略为 **Session-assisted API**（见 `schemas/browser-preview.md`）：
 
-1. 插件先走 WASM HTTP 请求
-2. 若被 CF 拦截，Orbit 会根据 `browser.fallbackOn` 弹出浏览器让你完成验证
-3. 验证通过后 Runtime 会复用会话 Cookie 继续抓取
+```json
+"executionMode": "wasm",
+"browser": {
+  "purpose": "session",
+  "fallbackOn": ["captcha", "http_403"],
+  "persist": ["cookie", "userAgent"]
+}
+```
+
+默认无需手动配置：
+
+1. 插件先走 WASM HTTP 请求（`executionMode: "wasm"`）
+2. 若被 CF 拦截，Orbit 按 `browser.purpose: "session"` 弹出浏览器完成验证
+3. 验证通过后 Runtime 把 Cookie / UA 写入插件变量（`persist`），再重试接口请求
 
 **可选：** 在插件设置手动填入 `cookie`（含 `cf_clearance`），可跳过验证弹窗。Cookie 会过期，失效后清空即可重新触发验证。
 

@@ -21,7 +21,11 @@
         "refreshInterval": { "type": "integer", "minimum": 60 },
         "userAgent": { "type": "string" },
         "defaultChannel": { "type": "string" },
-        "executionMode": { "enum": ["wasm", "browser", "hybrid"] },
+        "executionMode": {
+          "enum": ["wasm", "browser", "hybrid"],
+          "default": "wasm",
+          "description": "Primary fetch path. See schemas/browser-preview.md. wasm=host HTTP+WASM; browser=WebView extract; hybrid=WebView raw payload + WASM parse"
+        },
         "variables": {
           "type": "object",
           "additionalProperties": { "$ref": "#/$defs/variableDef" },
@@ -47,14 +51,8 @@
           }
         },
         "browser": {
-          "type": "object",
-          "properties": {
-            "required": { "type": "boolean" },
-            "fallbackOn": {
-              "type": "array",
-              "items": { "type": "string" }
-            }
-          }
+          "$ref": "#/$defs/browserConfig",
+          "description": "Optional WebView assistance. Omit when unused. See schemas/browser-preview.md"
         },
         "playback": { "$ref": "playback.schema.json#/$defs/playbackConfig" }
       }
@@ -106,6 +104,42 @@
       }
     },
     "features": { "$ref": "features.schema.json" },
+    "browserConfig": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "purpose": {
+          "enum": ["session", "fetch", "extract"],
+          "description": "session=pass CF/captcha then persist Cookie for HTTP; fetch=WebView returns raw HTML/JSON; extract=WebView returns FeedResult via bridge"
+        },
+        "required": {
+          "type": "boolean",
+          "default": false,
+          "description": "true=always use browser path (skip initial WASM HTTP); official signed plugins only"
+        },
+        "fallbackOn": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["captcha", "http_403", "http_503", "empty_items", "timeout"]
+          },
+          "description": "Error tokens that trigger browser retry after WASM/host HTTP failure"
+        },
+        "persist": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["cookie", "userAgent"]
+          },
+          "description": "Variable keys written back after successful browser session (purpose=session)"
+        },
+        "origins": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Allowed WebView navigation origins (e.g. https://www.example.com)"
+        }
+      }
+    },
     "variableDef": {
       "type": "object",
       "required": ["label"],

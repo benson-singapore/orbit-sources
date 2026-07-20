@@ -28,8 +28,11 @@
       }
     },
     "browser": {
+      "purpose": "session",
       "required": false,
-      "fallbackOn": ["captcha", "http_403"]
+      "fallbackOn": ["captcha", "http_403"],
+      "persist": ["cookie", "userAgent"],
+      "origins": ["https://www.gequbao.com"]
     },
     "channels": [
       {
