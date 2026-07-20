@@ -31,10 +31,13 @@ var (
 	reSongURL      = regexp.MustCompile(`href="(/music/\d+)"`)
 	reSongTitle    = regexp.MustCompile(`title="([^"]+)"`)
 	reSongDuration = regexp.MustCompile(`(?s)<div class="col-md-2 text-center text-muted font-smaller d-none d-md-block">\s*([^<]+)\s*</div>`)
+	reListItemLink   = regexp.MustCompile(`<a href="(/music/\d+)"[^>]*class="[^"]*stretched-link[^"]*"[^>]*title="([^"]+)"`)
+	reListItemArtist = regexp.MustCompile(`<span class="text-muted font-weight-normal small ml-2">\s*-\s*([^<]+)`)
 	reAppData      = regexp.MustCompile(`(?s)window\.appData\s*=\s*JSON\.parse\('(.+?)'\);`)
 	reTitleTag     = regexp.MustCompile(`(?s)<title>\s*(.*?)\s*</title>`)
 	reLrc          = regexp.MustCompile(`(?s)<div class="content-lrc mt-1" id="content-lrc">(.*?)</div>`)
 	reIDFromURL    = regexp.MustCompile(`/music/(\d+)`)
+	reDigits       = regexp.MustCompile(`(\d+)`)
 	reNumericPath  = regexp.MustCompile(`^/?(\d+)$`)
 	reTags         = regexp.MustCompile(`\s*-\s*`)
 )
@@ -70,6 +73,8 @@ func (p *GequbaoPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
 	switch {
 	case req.Route == "/gequbao/channel" || strings.HasPrefix(req.Route, "/gequbao/channel"):
 		return fetchChannel(req, a)
+	case req.Route == "/gequbao/search/:query" || strings.HasPrefix(req.Route, "/gequbao/search"):
+		return fetchSearch(req, a)
 	case req.Route == "/gequbao/detail" || strings.HasPrefix(req.Route, "/gequbao/detail"):
 		return fetchDetail(req, a)
 	default:
@@ -91,7 +96,25 @@ func fetchChannel(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
 	if pageURL == "" {
 		return nil, fmt.Errorf("missing url parameter")
 	}
+	return fetchListPage(pageURL, req.Params, strings.TrimSpace(req.Params["label"]), "", a)
+}
+
+func fetchSearch(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
+	query := strings.TrimSpace(req.Params["query"])
+	if query == "" {
+		return nil, fmt.Errorf("missing query parameter")
+	}
+	pageURL := searchURL(query, req.Params["page"])
+	return fetchListPage(pageURL, req.Params, "歌曲宝 · 搜索", query, a)
+}
+
+func fetchListPage(pageURL string, params map[string]string, titleFallback, query string, a auth) (*sdk.FeedResult, error) {
 	pageURL = absURL(pageURL)
+	currentPage := pageNum(params["page"])
+	pageURL = stripPageParam(pageURL)
+	if currentPage > 1 {
+		pageURL = withPage(pageURL, currentPage)
+	}
 
 	body, status, err := httpGet(pageURL, a)
 	if err != nil {
@@ -106,31 +129,42 @@ func fetchChannel(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
 	profileDesc := cleanHTMLBlock(reArtistDesc.FindStringSubmatch(page), 1)
 	avatar := cleanText(reAvatar.FindStringSubmatch(page), 1)
 
+	var items []sdk.FeedItem
+	seen := make(map[string]bool)
+
 	rows := reSongRows.FindAllStringSubmatch(page, -1)
-	if len(rows) == 0 {
-		return nil, fmt.Errorf("no songs found on page")
+	if len(rows) > 0 {
+		items = make([]sdk.FeedItem, 0, len(rows))
+		for _, row := range rows {
+			if len(row) < 2 {
+				continue
+			}
+			item, ok := parseRow(row[1], profileName, avatar)
+			if !ok || seen[item.ID] {
+				continue
+			}
+			seen[item.ID] = true
+			items = append(items, item)
+		}
 	}
 
-	items := make([]sdk.FeedItem, 0, len(rows))
-	seen := make(map[string]bool)
-	for _, row := range rows {
-		if len(row) < 2 {
-			continue
-		}
-		item, ok := parseRow(row[1], profileName, avatar)
-		if !ok || seen[item.ID] {
-			continue
-		}
-		seen[item.ID] = true
-		items = append(items, item)
-	}
 	if len(items) == 0 {
-		return nil, fmt.Errorf("no valid songs parsed")
+		items = parseListItems(page, profileName, avatar)
+	}
+
+	if len(items) == 0 {
+		return nil, fmt.Errorf("no songs found on page")
 	}
 
 	channelTitle := profileName
 	if channelTitle == "" {
-		channelTitle = strings.TrimSpace(req.Params["label"])
+		channelTitle = strings.TrimSpace(titleFallback)
+	}
+	if channelTitle == "" {
+		channelTitle = fallbackTitle(page)
+	}
+	if channelTitle == "" && query != "" {
+		channelTitle = "歌曲宝 · 搜索"
 	}
 	if channelTitle == "" {
 		channelTitle = "歌曲宝"
@@ -142,13 +176,15 @@ func fetchChannel(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
 		Items:       items,
 	}
 
-	currentPage := pageNum(req.Params["page"])
+	if query != "" {
+		result.Description = fmt.Sprintf("关键词「%s」· 第 %d 页", query, currentPage)
+	}
 	nextPage := currentPage + 1
 	if hasNextPage(page, nextPage) {
 		result.HasMore = true
-		result.Next = cloneParams(req.Params)
+		result.Next = cloneParams(params)
 		result.Next["page"] = strconv.Itoa(nextPage)
-		result.Next["url"] = withPage(pageURL, nextPage)
+		result.Next["url"] = withPage(stripPageParam(pageURL), nextPage)
 	}
 
 	return result, nil
@@ -157,7 +193,7 @@ func fetchChannel(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
 func fetchDetail(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
 	pageURL := strings.TrimSpace(req.Params["url"])
 	if pageURL == "" {
-		id := strings.TrimSpace(req.Params["id"])
+		id := normalizeSongID(req.Params["id"])
 		if id == "" {
 			return nil, fmt.Errorf("missing url or id parameter")
 		}
@@ -260,9 +296,67 @@ func parseRow(rowHTML, fallbackAuthor, fallbackCover string) (sdk.FeedItem, bool
 		Author:      author,
 		Cover:       absURL(fallbackCover),
 		Image:       absURL(fallbackCover),
+		AuthorAvatar: absURL(fallbackCover),
 		Tags:        splitTags(author),
 		PublishedAt: "",
 	}, true
+}
+
+func parseListItems(page, fallbackAuthor, fallbackCover string) []sdk.FeedItem {
+	links := reListItemLink.FindAllStringSubmatch(page, -1)
+	if len(links) == 0 {
+		return nil
+	}
+
+	artists := reListItemArtist.FindAllStringSubmatch(page, -1)
+	items := make([]sdk.FeedItem, 0, len(links))
+	seen := make(map[string]bool)
+
+	for i, link := range links {
+		if len(link) < 3 {
+			continue
+		}
+		rawURL := cleanText(link, 1)
+		titleAttr := cleanText(link, 2)
+		if rawURL == "" || titleAttr == "" {
+			continue
+		}
+
+		title, author := splitSongTitle(titleAttr)
+		if i < len(artists) && len(artists[i]) > 1 {
+			if spanArtist := cleanText(artists[i], 1); spanArtist != "" {
+				author = spanArtist
+			}
+		}
+		if title == "" {
+			continue
+		}
+		if author == "" {
+			author = fallbackAuthor
+		}
+
+		fullURL := absURL(rawURL)
+		id := songID(fullURL, 0)
+		if seen[id] {
+			continue
+		}
+		seen[id] = true
+
+		items = append(items, sdk.FeedItem{
+			ID:           id,
+			Title:        title,
+			URL:          fullURL,
+			Summary:      joinNonEmpty(" · ", author),
+			Author:       author,
+			Cover:        absURL(fallbackCover),
+			Image:        absURL(fallbackCover),
+			AuthorAvatar: absURL(fallbackCover),
+			Tags:         splitTags(author),
+			PublishedAt:  "",
+		})
+	}
+
+	return items
 }
 
 func parseAppData(page string) (*appData, error) {
@@ -413,17 +507,28 @@ func splitSongTitle(input string) (string, string) {
 
 func songID(rawURL string, fallbackID int) string {
 	if fallbackID > 0 {
-		return "gequbao:" + strconv.Itoa(fallbackID)
+		return strconv.Itoa(fallbackID)
 	}
 	if m := reIDFromURL.FindStringSubmatch(rawURL); len(m) > 1 {
-		return "gequbao:" + m[1]
+		return m[1]
 	}
 	rawURL = strings.TrimPrefix(rawURL, baseURL)
 	rawURL = strings.Trim(rawURL, "/")
 	if rawURL == "" {
-		return "gequbao:track"
+		return "track"
 	}
-	return "gequbao:" + strings.ReplaceAll(rawURL, "/", ":")
+	return strings.ReplaceAll(rawURL, "/", ":")
+}
+
+func normalizeSongID(raw string) string {
+	raw = strings.TrimSpace(raw)
+	if raw == "" {
+		return ""
+	}
+	if m := reDigits.FindStringSubmatch(raw); len(m) > 1 {
+		return m[1]
+	}
+	return raw
 }
 
 func splitTags(author string) []string {
@@ -500,7 +605,33 @@ func absURL(raw string) string {
 }
 
 func hasNextPage(pageHTML string, next int) bool {
-	return strings.Contains(pageHTML, "page="+strconv.Itoa(next))
+	pageToken := "page=" + strconv.Itoa(next)
+	return strings.Contains(pageHTML, pageToken) ||
+		strings.Contains(pageHTML, `rel="next"`)
+}
+
+func stripPageParam(rawURL string) string {
+	u, err := url.Parse(rawURL)
+	if err != nil {
+		return rawURL
+	}
+	q := u.Query()
+	q.Del("page")
+	u.RawQuery = q.Encode()
+	return u.String()
+}
+
+func searchURL(query, pageRaw string) string {
+	encoded := url.PathEscape(strings.TrimSpace(query))
+	if encoded == "" {
+		return baseURL + "/s"
+	}
+	u := baseURL + "/s/" + encoded
+	page := pageNum(pageRaw)
+	if page > 1 {
+		u = withPage(u, page)
+	}
+	return u
 }
 
 func withPage(rawURL string, page int) string {

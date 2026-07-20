@@ -57,8 +57,8 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
+            "idParam": "id",
+            "idFrom": "item.id",
             "persist": false
           }
         }
@@ -85,8 +85,8 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
+            "idParam": "id",
+            "idFrom": "item.id",
             "persist": false
           }
         }
@@ -113,8 +113,8 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
+            "idParam": "id",
+            "idFrom": "item.id",
             "persist": false
           }
         }
@@ -141,8 +141,8 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
+            "idParam": "id",
+            "idFrom": "item.id",
             "persist": false
           }
         }
@@ -169,8 +169,8 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
+            "idParam": "id",
+            "idFrom": "item.id",
             "persist": false
           }
         }
@@ -197,8 +197,8 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
+            "idParam": "id",
+            "idFrom": "item.id",
             "persist": false
           }
         }
@@ -225,8 +225,40 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": false
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/gequbao/search/:query",
+        "params": {
+          "query": "",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 100
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "id",
+            "idFrom": "item.id",
             "persist": false
           }
         }
