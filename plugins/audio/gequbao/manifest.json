@@ -59,7 +59,7 @@
             "route": "/gequbao/detail",
             "idParam": "id",
             "idFrom": "item.id",
-            "persist": false
+            "persist": true
           }
         }
       },
@@ -87,7 +87,7 @@
             "route": "/gequbao/detail",
             "idParam": "id",
             "idFrom": "item.id",
-            "persist": false
+            "persist": true
           }
         }
       },
@@ -115,7 +115,7 @@
             "route": "/gequbao/detail",
             "idParam": "id",
             "idFrom": "item.id",
-            "persist": false
+            "persist": true
           }
         }
       },
@@ -143,7 +143,7 @@
             "route": "/gequbao/detail",
             "idParam": "id",
             "idFrom": "item.id",
-            "persist": false
+            "persist": true
           }
         }
       },
@@ -171,7 +171,7 @@
             "route": "/gequbao/detail",
             "idParam": "id",
             "idFrom": "item.id",
-            "persist": false
+            "persist": true
           }
         }
       },
@@ -199,7 +199,7 @@
             "route": "/gequbao/detail",
             "idParam": "id",
             "idFrom": "item.id",
-            "persist": false
+            "persist": true
           }
         }
       },
@@ -227,7 +227,7 @@
             "route": "/gequbao/detail",
             "idParam": "id",
             "idFrom": "item.id",
-            "persist": false
+            "persist": true
           }
         }
       },
@@ -259,7 +259,7 @@
             "route": "/gequbao/detail",
             "idParam": "id",
             "idFrom": "item.id",
-            "persist": false
+            "persist": true
           }
         }
       }
