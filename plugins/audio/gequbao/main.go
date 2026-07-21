@@ -232,7 +232,7 @@ func fetchDetail(req *sdk.FetchRequest, a auth) (*sdk.FeedResult, error) {
 		ID:          songID(pageURL, data.MP3ID),
 		Title:       title,
 		URL:         playURL,
-		Summary:     joinNonEmpty(" · ", author, data.Duration),
+		Summary:     lyrics,
 		Author:      author,
 		Cover:       absURL(data.Cover),
 		Image:       absURL(data.Cover),

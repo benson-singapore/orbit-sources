@@ -35,7 +35,7 @@
 1. 列表页从 HTML 解析歌曲行（标题、歌手、时长、详情链接）。
 2. 详情页解析 `window.appData`，提取 `play_id`、封面、标题、歌手等信息。
 3. 通过 `POST /member/common-play-url` + `id=play_id` 换取真实 MP3 链接。
-4. 解析 `#content-lrc` 输出歌词文本并写入 `content`。
+4. 解析 `#content-lrc` 输出完整歌词文本并写入 `summary`（`content` 的 HTML 中也会附带歌词）。
 
 ## 本地测试
 
