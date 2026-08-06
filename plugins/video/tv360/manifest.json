@@ -1,0 +1,1607 @@
+{
+  "id": "tv360",
+  "name": "360资源",
+  "version": "1.0.0",
+  "mediaType": "video",
+  "source": "wasm",
+  "capabilities": [
+    "feed",
+    "playback"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "latest",
+    "executionMode": "wasm",
+    "playback": {
+      "history": true,
+      "progress": true,
+      "mode": "video",
+      "limit": 200,
+      "managedBy": "runtime"
+    },
+    "variables": {
+      "apiURL": {
+        "label": "资源站 API URL",
+        "description": "苹果 CMS / 资源站开放接口地址，默认使用 360资源",
+        "required": false,
+        "secret": false,
+        "default": "https://360zy.com/api.php/provide/vod"
+      },
+      "siteName": {
+        "label": "站点名称",
+        "description": "用于显示标题，默认 360资源",
+        "required": false,
+        "secret": false,
+        "default": "360资源"
+      }
+    },
+    "channels": [
+      {
+        "id": "latest",
+        "label": "最新更新",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-action",
+        "label": "电影 · 动作片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "6"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-comedy",
+        "label": "电影 · 喜剧片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "7"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-romance",
+        "label": "电影 · 爱情片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "8"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-scifi",
+        "label": "电影 · 科幻片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "9"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-horror",
+        "label": "电影 · 恐怖片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "10"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-drama",
+        "label": "电影 · 剧情片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "11"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-war",
+        "label": "电影 · 战争片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "12"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-thriller",
+        "label": "电影 · 惊悚片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "20"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-family",
+        "label": "电影 · 家庭篇",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "21"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-costume",
+        "label": "电影 · 古装片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "22"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-history",
+        "label": "电影 · 历史片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "23"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-suspense",
+        "label": "电影 · 悬疑片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "24"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-crime",
+        "label": "电影 · 犯罪片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "25"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-disaster",
+        "label": "电影 · 灾难片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "26"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-documentary",
+        "label": "电影 · 纪录片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "27"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-short",
+        "label": "电影 · 短片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "28"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-animation",
+        "label": "电影 · 动画片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "29"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-ethics",
+        "label": "电影 · 伦理片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "5"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "movie-western",
+        "label": "电影 · 西部片",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "45"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-cn",
+        "label": "剧集 · 国产剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "13"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-hk",
+        "label": "剧集 · 香港剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "14"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-kr",
+        "label": "剧集 · 韩国剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "15"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-west",
+        "label": "剧集 · 欧美剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "16"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-tw",
+        "label": "剧集 · 台湾剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "30"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-jp",
+        "label": "剧集 · 日本剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "31"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-overseas",
+        "label": "剧集 · 海外剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "32"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "series-th",
+        "label": "剧集 · 泰国剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "33"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "variety-cn",
+        "label": "综艺 · 大陆综艺",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "34"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "variety-hktw",
+        "label": "综艺 · 港台综艺",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "35"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "variety-jpkr",
+        "label": "综艺 · 日韩综艺",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "36"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "variety-west",
+        "label": "综艺 · 欧美综艺",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "37"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "anime-cn",
+        "label": "动漫 · 国产动漫",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "38"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "anime-west",
+        "label": "动漫 · 欧美动漫",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "39"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "anime-jpkr",
+        "label": "动漫 · 日韩动漫",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "40"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "short-drama",
+        "label": "短剧 · 爽文短剧",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "46"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "short-urban",
+        "label": "短剧 · 现代都市",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "47"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "short-mystery",
+        "label": "短剧 · 脑洞悬疑",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "48"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "short-time-travel",
+        "label": "短剧 · 年代穿越",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "49"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "short-fantasy",
+        "label": "短剧 · 古装仙侠",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "50"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "sport-football",
+        "label": "体育 · 足球",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "41"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "sport-nba",
+        "label": "体育 · NBA",
+        "route": "/tv360/list",
+        "params": {
+          "page": "1",
+          "t": "18"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 20
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/tv360/search/:query",
+        "params": {
+          "query": "",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 20
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/tv360/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/tv360/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "360资源视频源，支持二级分类浏览、选集播放与多线路切换。",
+    "icon": "video",
+    "color": "bg-orange-600",
+    "logoText": "360",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": false
+  }
+}

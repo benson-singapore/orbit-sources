@@ -10,6 +10,8 @@ plugins/18+
 *.o
 *.a
 *.so
+.gocache/
+.gomodcache/
 
 # IDE
 .idea/

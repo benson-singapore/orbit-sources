@@ -1,0 +1,305 @@
+{
+  "id": "hongguoguo",
+  "name": "红果果短剧",
+  "version": "1.0.0",
+  "mediaType": "video",
+  "source": "wasm",
+  "capabilities": [
+    "feed",
+    "playback"
+  ],
+  "config": {
+    "refreshInterval": 1800,
+    "userAgent": "",
+    "defaultChannel": "jingxuan",
+    "executionMode": "wasm",
+    "playback": {
+      "history": true,
+      "progress": true,
+      "mode": "video",
+      "limit": 200,
+      "managedBy": "runtime"
+    },
+    "variables": {
+      "baseURL": {
+        "label": "站点地址",
+        "description": "红果果短剧网根地址",
+        "required": false,
+        "secret": false,
+        "default": "https://www.hongguoguo.tv"
+      }
+    },
+    "channels": [
+      {
+        "id": "jingxuan",
+        "label": "精选短剧",
+        "route": "/hongguoguo/list/:type",
+        "params": {
+          "type": "jingxuanduanju",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 48
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/hongguoguo/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/hongguoguo/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "chuanyue",
+        "label": "穿越短剧",
+        "route": "/hongguoguo/list/:type",
+        "params": {
+          "type": "chuanyueduanju",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 48
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/hongguoguo/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/hongguoguo/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "guzhuang",
+        "label": "古装短剧",
+        "route": "/hongguoguo/list/:type",
+        "params": {
+          "type": "guzhuangduanju",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 48
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/hongguoguo/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/hongguoguo/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "nixi",
+        "label": "逆袭短剧",
+        "route": "/hongguoguo/list/:type",
+        "params": {
+          "type": "nixiduanju",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 48
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/hongguoguo/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/hongguoguo/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "dushi",
+        "label": "都市短剧",
+        "route": "/hongguoguo/list/:type",
+        "params": {
+          "type": "dushiduanju",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 48
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/hongguoguo/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/hongguoguo/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "fuli",
+        "label": "福利短剧",
+        "route": "/hongguoguo/list/:type",
+        "params": {
+          "type": "fuliduanju",
+          "page": "1"
+        },
+        "status": "disabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 48
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/hongguoguo/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/hongguoguo/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/hongguoguo/search/:query",
+        "params": {
+          "query": "",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 48
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "chapters": {
+            "route": "/hongguoguo/chapters/:id",
+            "idParam": "id",
+            "label": "选集",
+            "itemLabel": "集",
+            "persist": true,
+            "limit": 500,
+            "detail": {
+              "route": "/hongguoguo/episode/:chapterId",
+              "idParam": "chapterId",
+              "parentParam": "id",
+              "persist": false
+            }
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "红果果短剧网：精选/穿越/古装/逆袭/都市短剧，支持搜索、选集与在线播放；含默认隐藏的福利频道。",
+    "icon": "video",
+    "color": "bg-rose-600",
+    "logoText": "红果",
+    "marketCategory": "entertainment",
+    "categoryTag": "ENTERTAINMENT",
+    "official": false
+  }
+}

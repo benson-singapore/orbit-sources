@@ -13,10 +13,10 @@ import (
 
 const (
 	napiBase       = "https://unsplash.com/napi"
-	clientVersion  = "2ef6d0991477e5347da4d4827dc47b8422cf8a3b"
+	clientVersion  = "03e5cd8bd8b353ee8fd3ba7f33657dba7b9d0d4a"
 	defaultPerPage = 20
 	maxPerPage     = 30
-	userAgent      = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/149.0.0.0 Safari/537.36"
+	userAgent      = "Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Mobile Safari/537.36"
 )
 
 func main() {
@@ -26,25 +26,25 @@ func main() {
 type UnsplashPlugin struct{}
 
 var channelLabels = map[string]string{
-	"nature":              "自然",
-	"animals":             "动物",
-	"travel":              "旅行",
-	"wallpapers":          "壁纸",
+	"nature":                "自然",
+	"animals":               "动物",
+	"travel":                "旅行",
+	"wallpapers":            "壁纸",
 	"architecture-interior": "建筑与室内",
-	"people":              "人物",
-	"food-drink":          "美食",
-	"film":                "胶片",
-	"textures-patterns":   "纹理与图案",
-	"street-photography":  "街拍",
-	"business-work":       "商业与工作",
-	"fashion-beauty":      "时尚与美妆",
-	"3d-renders":          "3D 渲染",
-	"experimental":        "实验摄影",
-	"arts-culture":        "艺术与文化",
-	"current-events":      "时事",
-	"spring":              "春天",
-	"optimism":            "乐观",
-	"search":              "搜索",
+	"people":                "人物",
+	"food-drink":            "美食",
+	"film":                  "胶片",
+	"textures-patterns":     "纹理与图案",
+	"street-photography":    "街拍",
+	"business-work":         "商业与工作",
+	"fashion-beauty":        "时尚与美妆",
+	"3d-renders":            "3D 渲染",
+	"experimental":          "实验摄影",
+	"arts-culture":          "艺术与文化",
+	"current-events":        "时事",
+	"spring":                "春天",
+	"optimism":              "乐观",
+	"search":                "搜索",
 }
 
 var reservedParams = map[string]bool{
@@ -216,31 +216,34 @@ func fetchSearch(queryText string, params map[string]string, cookie, channelID s
 }
 
 func napiTopicHeaders(topic, cookie string) map[string]string {
-	return map[string]string{
-		"Accept":            "*/*",
-		"Accept-Language":   "en-US",
-		"Cache-Control":     "no-cache",
-		"Client-Geo-Region": "global",
-		"Cookie":            cookie,
-		"Pragma":            "no-cache",
-		"Referer":           "https://unsplash.com/t/" + topic,
-		"User-Agent":        userAgent,
-		"X-Client-Version":  clientVersion,
-	}
+	return napiHeaders(cookie, "https://unsplash.com/t/"+topic)
 }
 
 func napiSearchHeaders(queryText, cookie string) map[string]string {
 	refererQuery := strings.ReplaceAll(queryText, " ", "-")
+	return napiHeaders(cookie, "https://unsplash.com/s/photos/"+url.PathEscape(refererQuery))
+}
+
+// These headers mirror the browser request currently accepted by Unsplash's
+// NAPI endpoint, including the mobile client fingerprint used by the cookie.
+func napiHeaders(cookie, referer string) map[string]string {
 	return map[string]string{
-		"Accept":            "*/*",
-		"Accept-Language":   "en-US",
-		"Cache-Control":     "no-cache",
-		"Client-Geo-Region": "global",
-		"Cookie":            cookie,
-		"Pragma":            "no-cache",
-		"Referer":           "https://unsplash.com/s/photos/" + url.PathEscape(refererQuery),
-		"User-Agent":        userAgent,
-		"X-Client-Version":  clientVersion,
+		"Accept":             "*/*",
+		"Accept-Language":    "en-US",
+		"Cache-Control":      "no-cache",
+		"Client-Geo-Region":  "global",
+		"Cookie":             cookie,
+		"Priority":           "u=1, i",
+		"Pragma":             "no-cache",
+		"Referer":            referer,
+		"Sec-CH-UA":          `"Not=A?Brand";v="99", "Google Chrome";v="151", "Chromium";v="151"`,
+		"Sec-CH-UA-Mobile":   "?1",
+		"Sec-CH-UA-Platform": `"Android"`,
+		"Sec-Fetch-Dest":     "empty",
+		"Sec-Fetch-Mode":     "cors",
+		"Sec-Fetch-Site":     "same-origin",
+		"User-Agent":         userAgent,
+		"X-Client-Version":   clientVersion,
 	}
 }
 

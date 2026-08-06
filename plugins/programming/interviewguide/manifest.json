@@ -1,0 +1,362 @@
+{
+  "id": "interviewguide",
+  "name": "大厂面试指北",
+  "version": "1.0.0",
+  "mediaType": "article",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 86400,
+    "userAgent": "",
+    "defaultChannel": "java",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "home",
+        "label": "首页",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "home"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "java",
+        "label": "Java",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "java"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "redis",
+        "label": "Redis",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "redis"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "mysql",
+        "label": "MySQL",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "mysql"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "jvm",
+        "label": "JVM",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "jvm"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "kafka",
+        "label": "Kafka",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "kafka"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "zookeeper",
+        "label": "ZooKeeper",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "zookeeper"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "http",
+        "label": "HTTP",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "http"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "spring",
+        "label": "Spring",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "spring"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "nginx",
+        "label": "Nginx",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "nginx"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "system-design",
+        "label": "系统设计",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "system-design"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "algorithm",
+        "label": "算法",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "algorithm"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "bat",
+        "label": "大厂面试公众号文章系列",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "bat"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "notes",
+        "label": "读书笔记",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "notes"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "books",
+        "label": "好书推荐",
+        "route": "/interviewguide/list",
+        "params": {
+          "section": "books"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 200
+          },
+          "detail": {
+            "route": "/interviewguide/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.url",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "《大厂面试指北》Java 后端面试题：Java / Redis / MySQL / JVM / 系统设计 / 算法等（已过滤推广内容）",
+    "icon": "text",
+    "color": "bg-teal-500",
+    "logoText": "面",
+    "marketCategory": "blog",
+    "categoryTag": "INTERVIEW",
+    "official": false
+  }
+}

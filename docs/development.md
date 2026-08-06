@@ -123,6 +123,8 @@ func (p *Plugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
 }
 ```
 
+抓取方式（纯接口 / 过 CF 存 Cookie 再请求 / 纯浏览器）由 `config.executionMode` + `config.browser` 声明，完整规范见 **[schemas/browser-preview.md](../schemas/browser-preview.md)**。
+
 ## 5. HTTP 请求
 
 插件内 HTTP 请求统一使用 SDK host 包：

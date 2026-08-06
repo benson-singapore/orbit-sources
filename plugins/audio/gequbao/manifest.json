@@ -28,8 +28,11 @@
       }
     },
     "browser": {
+      "purpose": "session",
       "required": false,
-      "fallbackOn": ["captcha", "http_403"]
+      "fallbackOn": ["captcha", "http_403"],
+      "persist": ["cookie", "userAgent"],
+      "origins": ["https://www.gequbao.com"]
     },
     "channels": [
       {
@@ -43,7 +46,7 @@
         "status": "enabled",
         "features": {
           "feed": {
-            "persist": true,
+            "persist": false,
             "refresh": true,
             "limit": 200
           },
@@ -54,9 +57,9 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
-            "persist": false
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
           }
         }
       },
@@ -71,7 +74,7 @@
         "status": "enabled",
         "features": {
           "feed": {
-            "persist": true,
+            "persist": false,
             "refresh": true,
             "limit": 200
           },
@@ -82,9 +85,9 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
-            "persist": false
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
           }
         }
       },
@@ -99,7 +102,7 @@
         "status": "enabled",
         "features": {
           "feed": {
-            "persist": true,
+            "persist": false,
             "refresh": true,
             "limit": 200
           },
@@ -110,9 +113,9 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
-            "persist": false
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
           }
         }
       },
@@ -127,7 +130,7 @@
         "status": "enabled",
         "features": {
           "feed": {
-            "persist": true,
+            "persist": false,
             "refresh": true,
             "limit": 300
           },
@@ -138,9 +141,9 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
-            "persist": false
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
           }
         }
       },
@@ -155,7 +158,7 @@
         "status": "enabled",
         "features": {
           "feed": {
-            "persist": true,
+            "persist": false,
             "refresh": true,
             "limit": 300
           },
@@ -166,9 +169,9 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
-            "persist": false
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
           }
         }
       },
@@ -183,7 +186,7 @@
         "status": "enabled",
         "features": {
           "feed": {
-            "persist": true,
+            "persist": false,
             "refresh": true,
             "limit": 300
           },
@@ -194,9 +197,9 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
-            "persist": false
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
           }
         }
       },
@@ -211,7 +214,7 @@
         "status": "enabled",
         "features": {
           "feed": {
-            "persist": true,
+            "persist": false,
             "refresh": true,
             "limit": 300
           },
@@ -222,9 +225,41 @@
           },
           "detail": {
             "route": "/gequbao/detail",
-            "idParam": "url",
-            "idFrom": "item.url",
-            "persist": false
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "search",
+        "label": "搜索",
+        "route": "/gequbao/search/:query",
+        "params": {
+          "query": "",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "feed": {
+            "persist": false,
+            "refresh": false,
+            "limit": 100
+          },
+          "search": {
+            "param": "query",
+            "required": true
+          },
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "detail": {
+            "route": "/gequbao/detail",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
           }
         }
       }

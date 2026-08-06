@@ -1,0 +1,267 @@
+{
+  "id": "bing",
+  "name": "Bing Wallpaper",
+  "version": "2.0.0",
+  "mediaType": "image",
+  "source": "wasm",
+  "capabilities": [
+    "feed"
+  ],
+  "config": {
+    "refreshInterval": 86400,
+    "defaultChannel": "new-desc-classic",
+    "executionMode": "wasm",
+    "channels": [
+      {
+        "id": "new-desc-classic",
+        "label": "最新壁纸",
+        "route": "/bing/list",
+        "params": {
+          "category": "new",
+          "sort": "desc",
+          "layout": "classic",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/bing/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "new-asc-classic",
+        "label": "最新壁纸（升序）",
+        "route": "/bing/list",
+        "params": {
+          "category": "new",
+          "sort": "asc",
+          "layout": "classic",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/bing/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "new-desc-slide",
+        "label": "最新壁纸（幻灯片）",
+        "route": "/bing/list",
+        "params": {
+          "category": "new",
+          "sort": "desc",
+          "layout": "slide",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/bing/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "hot-desc-classic",
+        "label": "热门壁纸",
+        "route": "/bing/list",
+        "params": {
+          "category": "hot",
+          "sort": "desc",
+          "layout": "classic",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/bing/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "hot-asc-classic",
+        "label": "热门壁纸（升序）",
+        "route": "/bing/list",
+        "params": {
+          "category": "hot",
+          "sort": "asc",
+          "layout": "classic",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/bing/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "hot-desc-slide",
+        "label": "热门壁纸（幻灯片）",
+        "route": "/bing/list",
+        "params": {
+          "category": "hot",
+          "sort": "desc",
+          "layout": "slide",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/bing/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "phone-new",
+        "label": "手机壁纸（最新）",
+        "route": "/bing/phone",
+        "params": {
+          "order": "new",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/bing/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      },
+      {
+        "id": "phone-hot",
+        "label": "手机壁纸（热门）",
+        "route": "/bing/phone",
+        "params": {
+          "order": "hot",
+          "page": "1"
+        },
+        "status": "enabled",
+        "features": {
+          "pagination": {
+            "style": "offset",
+            "param": "page",
+            "default": "1"
+          },
+          "feed": {
+            "persist": true,
+            "refresh": true,
+            "limit": 100
+          },
+          "detail": {
+            "route": "/bing/detail/:id",
+            "idParam": "id",
+            "idFrom": "item.id",
+            "persist": true
+          }
+        }
+      }
+    ],
+    "wasm": {
+      "entry": "plugin.wasm",
+      "timeoutMs": 120000,
+      "maxMemoryMB": 64
+    }
+  },
+  "meta": {
+    "description": "Bing 每日精选高清壁纸，按最新/热门/归档/手机壁纸分类浏览，数据来源 bing.gifposter.com。",
+    "icon": "image",
+    "color": "bg-blue-500",
+    "logoText": "Bing",
+    "marketCategory": "wallpaper",
+    "categoryTag": "WALLPAPER",
+    "official": true
+  }
+}
