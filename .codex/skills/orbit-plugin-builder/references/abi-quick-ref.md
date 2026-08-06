@@ -1,193 +1,95 @@
 # ABI v1 Quick Reference
 
-## Request-Response Flow
+The normative document is `schemas/abi-v1.md`. The transport is one JSON request line on stdin and one JSON response line on stdout. Manifest metadata is read from `manifest.json`, not returned by the WASM program.
 
-**Request (stdin):**
+## Request And Response
+
 ```json
 {
   "action": "fetch",
   "data": {
     "channelId": "home",
-    "route": "/plugin/list/:section",
-    "params": { "section": "home", "page": "1" },
-    "vars": { "api_key": "..." }
+    "route": "/my-plugin/feed",
+    "params": {},
+    "vars": {}
   }
 }
 ```
 
-**Success response (stdout):**
+The request data has `channelId`, `route`, string-to-string `params`, `vars`, and deprecated `secrets` compatibility input. `fetch` is required. Playback actions are optional and only relevant when playback is plugin-managed. `manifest` is dev-only; `parse` is reserved for Phase 3 hybrid mode.
+
+Success:
+
 ```json
-{
-  "ok": true,
-  "data": {
-    "title": "Feed Title",
-    "description": "...",
-    "items": [
-      {
-        "id": "item-id-1",
-        "title": "Article Title",
-        "url": "https://...",
-        "cover": "https://...",
-        "published_at": "2025-01-08T12:00:00Z",
-        "summary": "...",
-        "author": "...",
-        "tags": ["news"]
-      }
-    ],
-    "hasMore": true,
-    "next": { "page": "2" }
-  }
-}
+{ "ok": true, "data": { "title": "Feed", "items": [] } }
 ```
 
-**Error response (stdout):**
+Failure:
+
 ```json
-{
-  "ok": false,
-  "error": "human readable error message"
-}
+{ "ok": false, "error": "human readable message" }
 ```
 
-## FeedItem Fields
+The SDK exposes `FetchRequest` as `ChannelID`, `Route`, `Params`, `Vars`, and `Secrets`. Use `req.Var("key")` for configured values. The basic `sdk.Run` dispatcher invokes `Fetch` and does not implement plugin-managed playback routing.
 
-| Field | Required | Type | Normalized name in DB |
-|-------|----------|------|----------------------|
-| `id` | yes | string | (prefixed as `{pluginId}:{channelId}:{id}`) |
-| `title` | yes | string | — |
-| `url` | yes | string | `sourceUrl` |
-| `published_at` | yes | RFC3339 | (converted to unix timestamp) |
-| `cover` or `image` | no | string | `image` |
-| `summary` | no | string | — |
-| `content` | no | string | — |
-| `author` | no | string | — |
-| `tags` | no | []string | — |
-| `kind` | no | string | (social: "short" or "long") |
-| `author_avatar` | no | string | — |
-| `author_handle` | no | string | — |
-| `stats` | no | object | (social: likes, replies, restacks) |
-| `media` | no | []object | (social: images, videos, links) |
-| `quote` | no | object | (social: embedded quote/repost) |
+## Feed Result And Items
+
+`FeedResult` contains `title`, optional `description`, `items`, optional `tree`, `hasMore`, and `next`. The SDK does not enforce item validation, so validate before appending.
+
+Return stable, channel-unique `id`, non-empty `title`, an absolute `url`, and RFC3339 `published_at` for ordinary persisted feed items. Optional fields are `summary`, `content`, `author`, `cover`/`image`, `tags`, `kind`, `author_avatar`, `author_handle`, `stats`, `media`, and `quote`.
+
+`TreeNode` has `id`, `title`, optional `url`, `site`, and recursive `children`.
+
+Storage prefixes are:
+
+- Feed item: `{pluginId}:{channelId}:{item.id}`
+- Chapter item: `{pluginId}:{channelId}:{parentId}:{chapterItem.id}`
+
+The `channelId` remains the list channel while fetching chapter routes.
 
 ## Social Fields
 
-**`stats` example:**
-```json
-{
-  "likes": 123,
-  "replies": 45,
-  "restacks": 12
-}
-```
+For social notes, `kind` is `short` or `long`. `stats` contains integer `likes`, `replies`, and `restacks`. Each `media` entry has `type` (`image`, `video`, or `link`) and optional `url`, `thumbnail`, `title`, `playback_id`, `width`, and `height`. `quote` contains `id`, `author`, `body`, and optional author/url fields.
 
-**`media[]` example:**
-```json
-[
-  {
-    "type": "image",
-    "url": "https://...",
-    "thumbnail": "https://..."
-  },
-  {
-    "type": "video",
-    "url": "https://...",
-    "playback_id": "mux-id"
-  }
-]
-```
-
-**`quote` example:**
-```json
-{
-  "id": "original-post-id",
-  "author": "John Doe",
-  "author_avatar": "https://...",
-  "author_handle": "johndoe",
-  "body": "Original post text",
-  "url": "https://..."
-}
-```
+Rich social text may use a ProseMirror `body_json` JSON string in `content`; retain plain `body` text in `summary` as a fallback.
 
 ## Pagination
 
-### offset style
+Manifest and result keys must agree:
+
 ```json
-{
-  "hasMore": true,
-  "next": { "page": "2" }
-}
+"pagination": { "style": "offset", "param": "page", "default": "1" }
 ```
-Load-more request: `params: { "page": "2" }`
 
-### cursor style
 ```json
-{
-  "hasMore": true,
-  "next": { "pageToken": "abc123def456..." }
-}
+{ "hasMore": true, "next": { "page": "2" } }
 ```
-Load-more request: `params: { "pageToken": "abc123def456..." }`
 
-### lastId style
-```json
-{
-  "hasMore": true,
-  "next": { "lastId": "14590200" }
-}
-```
-Load-more request: `params: { "lastId": "14590200" }`
+Styles are:
 
-### With carryParams (dedup)
-```json
-{
-  "hasMore": true,
-  "next": {
-    "page": "2",
-    "seenIds": "id1,id2,id3,..."
-  }
-}
-```
-Manifest declares: `"carryParams": ["seenIds"]`
-Runtime merges seenIds on load-more.
+- `offset`: increment a page/offset value.
+- `cursor`: return the upstream opaque token under the configured `param`.
+- `lastId`: return the last item ID under the configured `param`; `idFrom` defaults to `item.id`.
 
-## Code Example: Implement Fetch
+`sizeParam`/`defaultSize` control optional page sizing. `carryParams` names extra keys that the runtime copies from `next` into the next load-more request. Use it for accumulated `seenIds` or equivalent source state.
 
-```go
-func (p *MyPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
-  // 1. Extract params
-  section := req.Params["section"]
-  page := req.Params["page"]
-  apiKey := req.Var("api_key")  // from config.variables
+Do not return `hasMore: true` with an empty or non-advancing `next` object.
 
-  // 2. Validate
-  if section == "" {
-    return nil, fmt.Errorf("missing section")
-  }
+## Navigation Features
 
-  // 3. Fetch data (HTTP, parse HTML, etc.)
-  items, hasMore, err := fetchList(section, page, apiKey)
-  if err != nil {
-    return nil, err
-  }
+`detail` is a two-level resolver called when a feed item opens. `chapters` inserts a sub-list before the final detail/content fetch. The features schema forbids declaring both on the same channel. Preserve parent IDs in chapter detail requests using `parentParam`/`parentFrom` when needed.
 
-  // 4. Normalize items
-  // Ensure: id, title, url, published_at present
+## Playback Actions
 
-  // 5. Build result
-  result := &sdk.FeedResult{
-    Title:       "My Feed",
-    Description: "...",
-    Items:       items,
-  }
+When `config.playback.managedBy` is `runtime`, the client handles history and progress; the plugin only needs feed/content routes. When it is `plugin`, implement these actions in a custom entry dispatcher:
 
-  // 6. Pagination
-  if hasMore {
-    pageNum, _ := strconv.Atoi(page)
-    result.HasMore = true
-    result.Next = map[string]string{
-      "page": strconv.Itoa(pageNum + 1),
-    }
-  }
+- `playback_list`: input may include `limit` and `offset`.
+- `playback_get`: input includes `parentId`.
+- `playback_put`: input includes a playback `record`.
+- `playback_delete`: input includes `parentId`.
 
-  return result, nil
-}
-```
+Playback records require `parentId` and `updatedAt`. Prefer `progress` with time fields for video/audio, character offset for article/novel, or 1-based page for manga. See `schemas/playback.schema.json` for the complete shapes and defaults.
+
+## Host HTTP
+
+Use `host.HTTPGet` for plugin requests. The WASM host exposes HTTP, storage, logging, and time imports. HTTP text responses have `status` and `body`; binary responses may use `body_base64`. The runtime applies the manifest user agent and enforces per-invocation timeout, memory cap, and an 8 MiB HTTP response body limit.
