@@ -1,139 +1,96 @@
 ---
 name: orbit-plugin-builder
-description: Build, scaffold, and test Orbit news/social feed plugins with complete manifest, pagination, and ABI compliance. Use when creating plugins from templates, implementing pagination with HasMore/Next, normalizing feed items, configuring channels and features, adding search/chapters/detail routes, managing variables/secrets, testing via make try/try-wasm/dev, debugging selectors, or packaging extension.orbit bundles. Covers full lifecycle: scaffolding, Go WASM build, manifest schema validation, route handling, feed normalization, pagination (offset/cursor/lastId), testing modes, and dist/ packaging.
+description: Build, update, test, and package Orbit Go/WASM feed plugins. Use for scaffolding plugins, implementing SDK Fetch routes, normalizing article/social/media items, configuring manifest channels and features, adding pagination/search/detail/chapters/playback, handling user variables, debugging HTTP or HTML parsing, validating schema/ABI compliance, and producing extension.orbit packages.
 ---
 
 # Orbit Plugin Builder
 
-Complete workflow for developing Orbit feed plugins in Go + WASM with full schema compliance.
+Develop plugins in `plugins/<category>/<id>/` as independent Go modules. Treat the repository schemas and ABI as authoritative; this skill is an execution guide, not a replacement for them.
 
-## Core Concepts
+## Source Of Truth
 
-### Plugin ID & Discovery
-- Location: `plugins/<category>/<id>/` (e.g. `plugins/news/zaobao`)
-- Root Makefile auto-discovers `plugins/*/*/Makefile`
-- ID pattern: `^[a-z0-9][a-z0-9_-]{1,63}$`
+Read only the references needed for the task:
 
-### Architecture
-- **Runtime entry:** Go `main()` → `sdk.Run(&YourPlugin{})`
-- **Transport:** stdin/stdout JSON (ABI v1)
-- **Compilation:** `GOOS=wasip1 GOARCH=wasm go build` → `plugin.wasm`
-- **Packaging:** Brotli compress + ZIP → `extension.orbit`
+- Manifest and channel feature fields: [references/manifest-quick-ref.md](references/manifest-quick-ref.md), then `schemas/manifest.wasm.schema.json` and `schemas/features.schema.json` for exact constraints.
+- JSON stdin/stdout ABI, item fields, routes, pagination, and host behavior: [references/abi-quick-ref.md](references/abi-quick-ref.md), then `schemas/abi-v1.md`.
+- Playback and browser/hybrid details: the same references, then `schemas/playback.schema.json` or `schemas/browser-preview.md`.
+- Repository workflow: `docs/development.md`, `docs/testing.md`, `docs/packaging.md`, root `Makefile`, and `scripts/try.sh`.
 
-## Plugin Interface
+When a reference example conflicts with a schema, follow the schema. Avoid deprecated `channel.type`, `channel.dynamic`, and `config.secrets` in new manifests.
 
-### Implement Plugin
+## Plugin Shape
+
+Use this runtime entry point:
 
 ```go
 package main
-import sdk "github.com/orbit-tauri-tools/plugin-sdk"
 
-type YourPlugin struct{}
+import (
+	"fmt"
 
-func (p *YourPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
-  switch {
-  case req.Route == "/your/route/:param":
-    return handleRoute(req.Params["param"])
-  default:
-    return nil, fmt.Errorf("unknown route: %s", req.Route)
-  }
+	sdk "github.com/orbit-tauri-tools/plugin-sdk"
+)
+
+type Plugin struct{}
+
+func (p *Plugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
+	switch req.Route {
+	case "/my-plugin/feed":
+		return fetchFeed(req)
+	default:
+		return nil, fmt.Errorf("unknown route: %s", req.Route)
+	}
 }
 
-func main() {
-  sdk.Run(&YourPlugin{})
-}
+func main() { sdk.Run(&Plugin{}) }
 ```
 
-### FetchRequest Fields
+`FetchRequest` contains `ChannelID`, `Route`, string `Params`, string `Vars`, and deprecated compatibility `Secrets`. Use `req.Var("key")`; it checks `Vars` first and then `Secrets`. `FeedResult` contains `Title`, `Description`, `Items`, optional `Tree`, `HasMore`, and `Next`.
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `channelId` | string | Channel id from manifest |
-| `route` | string | Route pattern with params resolved |
-| `params` | object | Channel params + pagination params |
-| `vars` | object | User-provided variables (from `config.variables`) |
+For HTTP, use `github.com/orbit-tauri-tools/plugin-sdk/host`. `host.HTTPGet` is proxied by the Orbit host in WASM and uses native HTTP during local development. Check errors and non-2xx status codes, set only necessary headers, and normalize relative URLs before returning them.
 
-### FeedResult Fields
+## Scaffold Or Update
 
-| Field | Type | Required | Description |
-|-------|------|----------|-------------|
-| `title` | string | yes | Feed title |
-| `description` | string | no | Feed description |
-| `items` | FeedItem[] | yes | Feed items (empty OK) |
-| `hasMore` | bool | no | True if more pages exist |
-| `next` | map | no | Pagination params for next page |
-| `tree` | TreeNode[] | no | Hierarchical categories |
+1. Inspect a nearby reference plugin with a similar source: news/article, social, picture, audio/video, reading, or manga.
+2. Copy the complete plugin directory when scaffolding:
 
-### FeedItem Fields
+   ```bash
+   cp -R plugins/news/zaobao plugins/news/my-plugin
+   cd plugins/news/my-plugin
+   ```
 
-| Field | Type | Note |
-|-------|------|------|
-| `id` | string | Unique within channel; becomes `{pluginId}:{channelId}:{id}` in DB |
-| `title` | string | Required |
-| `url` | string | Required; clickable link |
-| `cover` / `image` | string | Thumbnail URL |
-| `published_at` | RFC3339 | Timestamp (e.g. `2025-01-08T12:00:00Z`) |
-| `summary` | string | Excerpt / preview |
-| `content` | string | Full text or ProseMirror JSON |
-| `author` | string | Author name |
-| `tags` | []string | Categories / topics |
-| `kind` | string | `"short"` or `"long"` for social; omit for articles |
-| `author_avatar` | string | Author profile image URL |
-| `author_handle` | string | Author username (e.g. `@handle`) |
-| `stats` | SocialStats | `{likes, replies, restacks}` for social |
-| `media` | []SocialMedia | Images, videos, links |
-| `quote` | SocialQuote | Embedded repost/quote |
+3. Update all identity-bearing files: directory, `manifest.json.id`, `Makefile` `PLUGIN_ID`, Go type names, `go.mod` module path if needed, routes, and `README.md`.
+4. Keep the SDK replacement relative to the plugin directory: `../../../sdk`.
+5. Ensure every enabled channel route has a matching `Fetch` branch, and every route parameter is read from `req.Params`.
+6. Keep IDs stable and unique within a channel. Return source URLs as absolute URLs and use RFC3339 timestamps for `published_at`, especially for persisted feeds and ordering.
 
-### Social Fields (mediaType: social)
+Do not hardcode API keys, cookies, or tokens. Declare user inputs in `config.variables` and read them with `req.Var`.
 
-**SocialStats:**
-```json
-{ "likes": 123, "replies": 45, "restacks": 12 }
-```
+## Manifest Workflow
 
-**SocialMedia:**
-```json
-[
-  { "type": "image", "url": "...", "thumbnail": "..." },
-  { "type": "video", "url": "...", "playback_id": "..." },
-  { "type": "link", "url": "...", "title": "..." }
-]
-```
+Start from the repository schema. The top-level required keys are `id`, `name`, `version`, `source`, `capabilities`, `config`, and `meta`; `mediaType` is optional in the schema. `source` must be `wasm`, and `capabilities` must contain `feed`; add `playback` only when the plugin uses the playback contract.
 
-**SocialQuote:**
-```json
-{
-  "id": "...",
-  "author": "...",
-  "author_avatar": "...",
-  "author_handle": "@...",
-  "body": "...",
-  "url": "..."
-}
-```
+`config` requires `channels` (at least one) and `wasm`. A channel requires `id`, `label`, and `route`. `params` values are strings. `features` may be omitted or `{}` for the default persisted/refreshed feed behavior.
 
-## Manifest Configuration
-
-### Minimum Structure
+Use this minimal shape, adding only fields required by the plugin:
 
 ```json
 {
-  "id": "plugin-id",
-  "name": "Display Name",
+  "id": "my-plugin",
+  "name": "My Plugin",
   "version": "1.0.0",
   "mediaType": "article",
   "source": "wasm",
   "capabilities": ["feed"],
   "config": {
     "refreshInterval": 1800,
-    "defaultChannel": "channel-id",
+    "defaultChannel": "home",
     "executionMode": "wasm",
     "channels": [
       {
-        "id": "channel-id",
-        "label": "频道名",
-        "route": "/plugin/route/:param",
-        "params": { "param": "value" },
+        "id": "home",
+        "label": "Home",
+        "route": "/my-plugin/feed",
         "status": "enabled",
         "features": {
           "feed": { "persist": true, "refresh": true, "limit": 100 }
@@ -146,461 +103,137 @@ func main() {
       "maxMemoryMB": 64
     }
   },
-  "meta": {
-    "description": "Source description",
-    "icon": "text",
-    "color": "bg-red-500",
-    "logoText": "早",
-    "marketCategory": "news",
-    "categoryTag": "NEWS",
-    "official": true
-  }
+  "meta": { "description": "Example plugin" }
 }
 ```
 
-### mediaType Options
-
-| Value | Use case |
-|-------|----------|
-| `article` | News, blogs, articles |
-| `social` | Twitter-like, Substack Notes |
-| `video` | YouTube, TikTok |
-| `audio` | Podcasts, music |
-| `manga` | Comics, manga |
-| `novel` | E-books, serialized text |
-| `rating` | Reviews, ratings |
-| `image` | Photo galleries |
-
-### capabilities
-
-Array; always includes `"feed"`. Optional: `"playback"` for video/audio.
-
-### config.variables & secrets
+Variable definitions require `label`; supported fields are `description`, `required`, `secret`, and string `default`. Do not add `type`; it is not accepted by the current `variableDef` schema:
 
 ```json
-{
-  "config": {
-    "variables": {
-      "api_key": {
-        "type": "string",
-        "label": "API Key",
-        "description": "Your provider API key",
-        "default": "",
-        "secret": true
-      }
-    }
+"variables": {
+  "apiKey": {
+    "label": "API key",
+    "description": "Provider key",
+    "required": true,
+    "secret": true
   }
 }
 ```
 
-At runtime, user-provided values arrive in `FetchRequest.Vars["api_key"]`.
-
-> **Deprecated:** `config.secrets` — use `variables` with `"secret": true` instead.
+Use `config.browser` and `executionMode` only as forward-compatible configuration. Browser/hybrid execution is Phase 3 preview and is not implemented in Phase 1; `parse` is a reserved ABI action.
 
 ## Channel Features
 
-### feed — list persistence & refresh
+Features are declared under `channels[].features`. `features.detail` and `features.chapters` are mutually exclusive.
 
-```json
-"features": {
-  "feed": {
-    "persist": true,
-    "refresh": true,
-    "limit": 100
-  }
-}
-```
+- `feed`: controls list persistence, scheduled refresh, and retained item limit. Search feeds normally use `persist: false` and `refresh: false`.
+- `pagination`: requires `style` (`offset`, `cursor`, or `lastId`). Optional `param`, `default`, `idFrom`, `sizeParam`, `defaultSize`, and `carryParams` must match the source and request params.
+- `search`: configures the query param, normally `{ "param": "query", "required": true }`.
+- `detail`: two-level item resolver with required `route`, optional `idParam`, `idFrom`, and `persist`.
+- `chapters`: three-level feed -> chapter list -> chapter detail. It requires `route`, can contain its own pagination, and its nested `detail` requires `route`; use `parentParam`/`parentFrom` when the source needs the parent ID.
+- `playback`: optional per-channel override of plugin-level playback policy.
 
-| Field | Default | Description |
-|-------|---------|-------------|
-| `persist` | true | Store results in DB |
-| `refresh` | true | Include in `refreshInterval` scheduling |
-| `limit` | 100 | Max items retained; prune oldest by `published_at` |
+For chapters, the runtime scopes stored IDs as `{pluginId}:{channelId}:{parentId}:{chapterId}`. Keep chapter IDs stable and return chapter content or media in the nested detail route.
 
-### pagination — load more
+## Implement Pagination
 
-```json
-"pagination": {
-  "style": "offset",
-  "param": "page",
-  "default": "1"
-}
-```
+Choose the style from the upstream API:
 
-**Styles:**
+| Style | Runtime value | Plugin behavior |
+|---|---|---|
+| `offset` | page/offset number | Parse the value and increment it. |
+| `cursor` | opaque token | Pass the returned source token unchanged in `Next`. |
+| `lastId` | last item ID | Use the configured `idFrom` field and request older/newer items from that boundary. |
 
-| style | Example | Use case |
-|-------|---------|----------|
-| `offset` | `{ "page": "1" }` → `{ "page": "2" }` | Page numbers (1, 2, 3...) |
-| `cursor` | `{ "pageToken": "abc123..." }` | Opaque pagination token (YouTube) |
-| `lastId` | `{ "lastId": "14590200" }` | Last seen item id |
-
-**Config fields:**
-
-| Field | Type | Description |
-|-------|------|-------------|
-| `style` | enum | Required: `offset` \| `cursor` \| `lastId` |
-| `param` | string | Param key (default: `page` for offset/cursor, `lastId` for lastId) |
-| `default` | string | Value on scheduled refresh (e.g. `"1"`) |
-| `idFrom` | string | For `lastId`: field to read id (default: `item.id`) |
-| `sizeParam` | string | Optional: page size param key |
-| `defaultSize` | integer | Optional: default page size |
-| `carryParams` | []string | Optional: extra params to merge on load-more (e.g. `["seenIds"]` for dedup) |
-
-**In code — return pagination:**
+Return the same key configured by `pagination.param`:
 
 ```go
-page := parsePage(params["page"])
-items, hasMore := fetchPagedList(section, page)
-
-result := &sdk.FeedResult{
-  Title: "...",
-  Items: items,
-}
-if hasMore {
-  result.HasMore = true
-  result.Next = map[string]string{"page": strconv.Itoa(page + 1)}
+result := &sdk.FeedResult{Title: "My Feed", Items: items}
+if sourceHasMore && len(items) > 0 {
+	result.HasMore = true
+	result.Next = map[string]string{"page": strconv.Itoa(page + 1)}
 }
 return result, nil
 ```
 
-**With carryParams:**
+Do not set `HasMore` without a usable `Next`. For recommendation feeds that repeat items, declare `carryParams` such as `seenIds`, initialize the key in channel `params`, and return the accumulated value in `Next`; see `docs/pagination-seenids.md`.
 
-```go
-result.Next = map[string]string{
-  "page": strconv.Itoa(page + 1),
-  "seenIds": strings.Join(seenIds, ","),
-}
-```
-
-### detail — item resolver (two-level nav)
-
-```json
-"detail": {
-  "route": "/plugin/detail/:id",
-  "idParam": "id",
-  "idFrom": "item.id",
-  "persist": true
-}
-```
-
-| Field | Default | Description |
-|-------|---------|-------------|
-| `route` | required | Route to fetch full item content |
-| `idParam` | `id` | Param key for item id |
-| `idFrom` | `item.id` | Source field on feed item |
-| `persist` | true | Write fetched content back to DB |
-
-### search — user query
-
-```json
-"search": {
-  "param": "query",
-  "required": true
-}
-```
-
-Typically paired with `feed: { "persist": false, "refresh": false }`.
-
-### chapters — sub-list (three-level nav)
-
-For manga episodes, TV episodes, novel chapters. When present, feed items open a sub-list instead of detail.
-
-```json
-"chapters": {
-  "route": "/comic/:id/chapters",
-  "idParam": "id",
-  "label": "话数",
-  "itemLabel": "话",
-  "persist": true,
-  "limit": 500,
-  "pagination": { "style": "offset", "param": "page" },
-  "detail": {
-    "route": "/comic/:id/chapter/:chapterId",
-    "idParam": "chapterId",
-    "parentParam": "id",
-    "persist": false
-  }
-}
-```
-
-## Build Workflow
-
-### 1. Scaffold
+Test the first and next request explicitly:
 
 ```bash
-cd /repo/root
-cp -r plugins/news/zaobao plugins/news/mynews
-cd plugins/news/mynews
+make try PLUGIN=my-plugin CHANNEL=home ROUTE=/my-plugin/feed PARAMS='{"page":"1"}'
+make try PLUGIN=my-plugin CHANNEL=home ROUTE=/my-plugin/feed PARAMS='{"page":"2"}'
 ```
 
-Edit:
-- `go.mod` — change `module mynews`
-- `manifest.json` — id, name, routes, channels
-- `main.go` — type name, routes, fetch logic
-- `README.md` — source docs
+## Normalize Items
 
-Verify `go.mod` replace:
-```
-replace github.com/orbit-tauri-tools/plugin-sdk => ../../../sdk
-```
+The SDK type has `ID`, `Title`, `URL`, `PublishedAt`, `Cover`, `Image`, `Summary`, `Content`, `Author`, `Tags`, and social fields. At minimum, return a stable `id`, non-empty `title`, and absolute `url`; return a valid RFC3339 `published_at` for ordinary feed items. Do not use placeholder timestamps when the source timestamp can be parsed.
 
-### 2. Build & Package
+For `mediaType: social`, use `kind` (`short` or `long`), `author_avatar`, `author_handle`, `stats`, `media`, and `quote` according to [references/abi-quick-ref.md](references/abi-quick-ref.md). For rich social text, `content` may contain a ProseMirror `body_json` JSON string; keep plain text in `summary` as a fallback.
+
+For `Tree`, return recursive nodes with `id`, `title`, optional `url`/`site`, and `children` when the source exposes hierarchical navigation.
+
+## Playback And Execution Modes
+
+For video, audio, article, novel, or manga consumption, configure `config.playback` and add the `playback` capability when appropriate. `history` and `progress` are independent of `feed.persist`. The default owner is `managedBy: runtime`; the client persists events and the plugin only implements `fetch`.
+
+Use `managedBy: plugin` only when the WASM entry explicitly dispatches `playback_list`, `playback_get`, `playback_put`, and `playback_delete` and persists through host storage as needed. The repository SDK `sdk.Run` currently handles `fetch` only, so playback-owned plugins need a custom ABI dispatcher or SDK support beyond the basic template.
+
+Use the mode-specific `progress` shape: time position for video/audio, character offset for article/novel, and 1-based page for manga. Avoid deprecated top-level `position` and `duration` fields in new records.
+
+## Build, Test, Package
+
+Run from the repository root:
 
 ```bash
-cd /repo/root
-make build PLUGIN=mynews        # → dist/mynews/plugin.wasm
-make package PLUGIN=mynews      # → copy manifest, README
-make orbit PLUGIN=mynews        # → dist/mynews/extension.orbit
+make list
+make build PLUGIN=my-plugin
+make test-native PLUGIN=my-plugin
+make try PLUGIN=my-plugin CHANNEL=home ROUTE=/my-plugin/feed PARAMS='{}'
+make package PLUGIN=my-plugin
+make orbit PLUGIN=my-plugin
 ```
 
-### 3. Verify
+Build output is `dist/<id>/plugin.wasm`; packaging copies the manifest, README, and assets; `make orbit` creates `dist/<id>/extension.orbit`. Use `make try-wasm PLUGIN=my-plugin` when `wasmtime` is installed. Use `make dev PLUGIN=my-plugin` only with the Orbit Runtime running at the configured local URL; the helper installs/resyncs and refreshes the plugin.
+
+For direct native testing inside a plugin directory:
 
 ```bash
-make list                        # mynews should appear
-make try PLUGIN=mynews           # native go run
-make try-wasm PLUGIN=mynews      # wasmtime on WASM
-make dev PLUGIN=mynews           # Orbit runtime (if running)
+echo '{"action":"fetch","data":{"channelId":"home","route":"/my-plugin/feed","params":{},"vars":{}}}' | go run .
 ```
 
-## Testing & Debugging
+The ABI is one JSON request line in and one response line out. A successful response is `{ "ok": true, "data": ... }`; failures are `{ "ok": false, "error": "..." }`.
 
-### make try (fastest)
+## Debugging
 
-```bash
-make try PLUGIN=mynews CHANNEL=channel-id ROUTE=/path PARAMS='{"key":"val"}'
-```
+When items are empty or a route fails:
 
-Returns JSON to stdout. Check:
-- No errors
-- `items` array populated
-- Each item has `id`, `title`, `url`, `published_at`
+1. Compare the actual HTTP response with the selector assumptions. Check status, redirects, content type, anti-bot pages, and whether the data is embedded JSON rather than server-rendered HTML.
+2. Add temporary `log.Printf` calls around status, response length, selector counts, and rejected-item reasons. Remove noisy diagnostics before packaging.
+3. Test selectors against a saved response or a small fixture with `goquery`; keep parsing and normalization separate so each can be inspected.
+4. Verify route strings exactly match `manifest.json`, required params exist, and pagination defaults are handled when `Params` omits them.
+5. Check that source IDs, URLs, and timestamps are not empty and that a full page is not being mistaken for an item list.
 
-### make try-wasm
+Common failures:
 
-```bash
-make try-wasm PLUGIN=mynews
-```
+| Symptom | Check |
+|---|---|
+| Missing from `make list` | `plugins/<category>/<id>/Makefile` and plugin ID spelling. |
+| WASM build failure | Go version, `go.mod`, and `replace ... => ../../../sdk`. |
+| Empty feed | Response status/body, selectors, API shape, and item validation. |
+| Load more loops | `HasMore`/`Next`, configured param name, and cursor/ID progression. |
+| Runtime failure | Runtime health, package installation/resync, and manifest route/feature config. |
 
-Requires `wasmtime`. Validates WASM build and binary execution.
+## Final Checklist
 
-### make dev (runtime)
-
-```bash
-make dev PLUGIN=mynews
-```
-
-Requires Orbit dev instance at `http://127.0.0.1:17890`. Tests full host integration.
-
-### Debug Selectors
-
-Compare browser HTML vs parsed output:
-
-```bash
-# 1. Open browser DevTools; inspect real page HTML
-# 2. Add temp logging to main.go:
-log.Printf("Found items: %d", len(items))
-# 3. Rebuild and test
-make try PLUGIN=mynews | jq '.data.items | length'
-```
-
-### Common Issues
-
-| Problem | Cause | Fix |
-|---------|-------|-----|
-| Plugin not in `make list` | Missing/wrong Makefile path | Check `plugins/<cat>/<id>/Makefile` exists |
-| Build WASM fails | go.mod replace broken | Verify `replace github.com/orbit-tauri-tools/plugin-sdk => ../../../sdk` |
-| Empty items | Selector error or API changed | Compare DevTools HTML; test `goquery.Find()` |
-| Pagination not working | Missing `HasMore`/`Next` or manifest config | Return `hasMore: true` + `next: {...}` in code; add `features.pagination` to manifest |
-| `make try` hangs | Infinite loop or network timeout | Add timeout; check HTTP requests |
-| `make dev` fails | Runtime not running | Start `make dev-go` in another terminal |
-
-## Verification Checklist
-
-Before packaging:
-
-- [ ] Plugin in `make list`
-- [ ] `make try` returns valid JSON with items array
-- [ ] Items have `id`, `title`, `url`, `published_at`
-- [ ] Pagination: `hasMore=true` → `next.page` increments
-- [ ] Cover/image URLs are reachable
-- [ ] Routes in code match manifest exactly
-- [ ] No secrets hardcoded (use `config.variables`)
-- [ ] `make test-native PLUGIN=id` passes
-- [ ] `make orbit` produces `dist/id/extension.orbit`
-- [ ] Manifest schema valid (validate against `schemas/manifest.wasm.schema.json`)
-
-## File Templates
-
-### main.go template
-
-```go
-package main
-
-import (
-	"fmt"
-	"strconv"
-	"strings"
-
-	"github.com/PuerkitoBio/goquery"
-	sdk "github.com/orbit-tauri-tools/plugin-sdk"
-	"github.com/orbit-tauri-tools/plugin-sdk/host"
-)
-
-func main() {
-	sdk.Run(&MyPlugin{})
-}
-
-type MyPlugin struct{}
-
-const baseURL = "https://example.com"
-
-var sectionMap = map[string]string{
-	"home": "/api/home",
-	"tech": "/api/tech",
-}
-
-func (p *MyPlugin) Fetch(req *sdk.FetchRequest) (*sdk.FeedResult, error) {
-	switch {
-	case req.Route == "/myplugin/list/:section":
-		section := req.Params["section"]
-		if section == "" {
-			section = "home"
-		}
-		page := req.Params["page"]
-		if page == "" {
-			page = "1"
-		}
-		return fetchList(section, page)
-	case req.Route == "/myplugin/detail/:id":
-		id := req.Params["id"]
-		return fetchDetail(id)
-	default:
-		return nil, fmt.Errorf("unknown route: %s", req.Route)
-	}
-}
-
-func fetchList(section, pageStr string) (*sdk.FeedResult, error) {
-	pageNum, _ := strconv.Atoi(pageStr)
-	if pageNum < 1 {
-		pageNum = 1
-	}
-
-	url := fmt.Sprintf("%s%s?page=%d", baseURL, sectionMap[section], pageNum)
-	body, status, err := host.HTTPGet(url, nil)
-	if err != nil || status != 200 {
-		return nil, fmt.Errorf("fetch failed: %v", err)
-	}
-
-	doc, err := goquery.NewDocumentFromReader(strings.NewReader(string(body)))
-	if err != nil {
-		return nil, err
-	}
-
-	var items []sdk.FeedItem
-	doc.Find("article").Each(func(_ int, el *goquery.Selection) {
-		id, _ := el.Attr("data-id")
-		title := el.Find("h2").Text()
-		url, _ := el.Find("a").Attr("href")
-		cover, _ := el.Find("img").Attr("src")
-
-		if id != "" && title != "" {
-			items = append(items, sdk.FeedItem{
-				ID:          id,
-				Title:       title,
-				URL:         url,
-				Cover:       cover,
-				PublishedAt: "2025-01-08T00:00:00Z", // parse real timestamp
-			})
-		}
-	})
-
-	result := &sdk.FeedResult{
-		Title:       fmt.Sprintf("My Plugin - %s", section),
-		Description: "Article feed",
-		Items:       items,
-	}
-
-	// Pagination
-	if len(items) >= 20 {
-		result.HasMore = true
-		result.Next = map[string]string{"page": strconv.Itoa(pageNum + 1)}
-	}
-
-	return result, nil
-}
-
-func fetchDetail(id string) (*sdk.FeedResult, error) {
-	url := fmt.Sprintf("%s/article/%s", baseURL, id)
-	body, status, err := host.HTTPGet(url, nil)
-	if err != nil || status != 200 {
-		return nil, fmt.Errorf("detail fetch failed: %v", err)
-	}
-
-	// Parse and return full article content
-	doc, _ := goquery.NewDocumentFromReader(strings.NewReader(string(body)))
-	content := doc.Find("article").Text()
-
-	return &sdk.FeedResult{
-		Title: "Article Detail",
-		Items: []sdk.FeedItem{
-			{
-				ID:      id,
-				Title:   "Article",
-				Content: content,
-			},
-		},
-	}, nil
-}
-```
-
-### Makefile template
-
-```makefile
-PLUGIN_ID = myplugin
-DIST_DIR  = ../../../dist/$(PLUGIN_ID)
-OUTPUT    = $(DIST_DIR)/plugin.wasm
-
-.PHONY: build package clean test-native
-
-build:
-	@mkdir -p $(DIST_DIR)
-	GOOS=wasip1 GOARCH=wasm go build -o $(OUTPUT) .
-	@echo "built $(OUTPUT)"
-
-package: build
-	cp manifest.json $(DIST_DIR)/
-	cp README.md $(DIST_DIR)/
-	@mkdir -p $(DIST_DIR)/assets
-
-clean:
-	rm -rf $(DIST_DIR)
-
-test-native:
-	echo '{"action":"fetch","data":{"channelId":"home","route":"/myplugin/list/:section","params":{"section":"home","page":"1"}}}' | go run .
-
-CHANNEL ?= home
-ROUTE ?= /myplugin/list/:section
-PARAMS ?= {"section":"home","page":"1"}
-```
-
-### go.mod template
-
-```
-module myplugin
-
-go 1.22
-
-require (
-	github.com/PuerkitoBio/goquery v1.8.1
-	github.com/orbit-tauri-tools/plugin-sdk v0.0.0
-)
-
-require (
-	github.com/andybalholm/cascadia v1.3.1 // indirect
-	golang.org/x/net v0.17.0 // indirect
-)
-
-replace github.com/orbit-tauri-tools/plugin-sdk => ../../../sdk
-```
-
+- [ ] Directory, manifest ID, Makefile ID, and routes agree.
+- [ ] Manifest has all schema-required top-level/config/channel fields; no unsupported variable `type` fields.
+- [ ] `source` is `wasm`; capabilities contains `feed`; deprecated fields are avoided.
+- [ ] Every enabled route is handled and errors are explicit.
+- [ ] Items have stable IDs, titles, absolute URLs, and valid timestamps where applicable.
+- [ ] Pagination config, request params, `HasMore`, and `Next` agree; `carryParams` is tested when used.
+- [ ] `detail` and `chapters` are not declared together.
+- [ ] Playback ownership and progress semantics match the implementation.
+- [ ] `make test-native`, `make try`, and, when available, `make try-wasm` pass.
+- [ ] `make package` and `make orbit` produce the expected `dist/<id>/` artifacts.
+- [ ] Validate JSON with `jq empty` and inspect against `schemas/manifest.wasm.schema.json`; run the repository's schema validator when one is available.
