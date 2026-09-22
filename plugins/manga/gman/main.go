@@ -617,9 +617,9 @@ func mangaAPIOK(resp mangaAPIResponse) bool {
 
 func chapterCDN(line int) string {
 	if line == 2 {
-		return "https://f40-1-4.g-mh.online"
+		return "https://t-nd2-1.6wm.top"
 	}
-	return "https://t40-1-4.g-mh.online"
+	return "https://t-nd3-1.6wm.top"
 }
 
 func cleanOGTitle(htmlText string) string {
