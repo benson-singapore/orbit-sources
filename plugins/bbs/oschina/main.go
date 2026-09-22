@@ -41,9 +41,9 @@ type listResponse struct {
 	Success bool   `json:"success"`
 	Code    int    `json:"code"`
 	Message string `json:"message"`
-	Result  struct {
-		Count int        `json:"count"`
-		List  []listItem `json:"list"`
+	Result struct {
+		Total   int        `json:"total"`
+		Records []listItem `json:"records"`
 	} `json:"result"`
 }
 
@@ -111,8 +111,8 @@ func fetchList(params map[string]string) (*sdk.FeedResult, error) {
 		return nil, fmt.Errorf("oschina api error: %s", msg)
 	}
 
-	items := make([]sdk.FeedItem, 0, len(resp.Result.List))
-	for _, it := range resp.Result.List {
+	items := make([]sdk.FeedItem, 0, len(resp.Result.Records))
+	for _, it := range resp.Result.Records {
 		idStr := strconv.FormatInt(it.ObjID, 10)
 		title := strings.TrimSpace(it.ObjTitle)
 		if idStr == "0" || title == "" {
@@ -152,7 +152,7 @@ func fetchList(params map[string]string) (*sdk.FeedResult, error) {
 		Items:       items,
 	}
 
-	total := resp.Result.Count
+	total := resp.Result.Total
 	if total <= 0 {
 		total = pageNum*pageSize + 1
 	}
