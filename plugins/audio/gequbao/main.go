@@ -394,7 +394,7 @@ func httpGet(rawURL string, a auth) ([]byte, int, error) {
 }
 
 func fetchPlayURL(playID, referer string, a auth) (string, error) {
-	postBody := "id=" + url.QueryEscape(playID)
+	postBody := "id=" + url.QueryEscape(playID) + "&purpose=play"
 	headers := map[string]string{
 		"Accept":           "application/json, text/javascript, */*; q=0.01",
 		"Content-Type":     "application/x-www-form-urlencoded; charset=UTF-8",
